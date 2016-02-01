@@ -18,7 +18,7 @@
     width: 80%;
 }
 
-table, td, th{
+table.tableBorder, td.tableBorder, th.tableBorder{
     border: 1px solid lightgrey;
     border-collapse: collapse;
 }
