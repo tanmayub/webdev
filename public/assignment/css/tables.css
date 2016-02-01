@@ -1,0 +1,28 @@
+.no-boundary{
+    border: hidden;
+}
+
+.labelWidth{
+    width: 15%;
+}
+
+.textWidth{
+    width: 50%;
+}
+
+.tableWidth{
+    width: 60%;
+}
+
+.adminTextWidth{
+    width: 80%;
+}
+
+table, td, th{
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+}
+
+.floatLeft{
+    float: left;
+}
