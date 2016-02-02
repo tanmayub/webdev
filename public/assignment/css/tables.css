@@ -38,3 +38,7 @@ table.tableBorder, td.tableBorder, th.tableBorder{
 .formsTableWidth{
     width: 45%;
 }
+
+.hideTags{
+    visibility: hidden;
+}
