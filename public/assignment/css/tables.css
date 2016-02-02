@@ -42,3 +42,9 @@ table.tableBorder, td.tableBorder, th.tableBorder{
 .hideTags{
     visibility: hidden;
 }
+
+.customLabel{
+    text-align: left;
+    padding-top: 7px;
+    margin-bottom: 0;
+}
