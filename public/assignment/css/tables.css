@@ -26,3 +26,15 @@ table.tableBorder, td.tableBorder, th.tableBorder{
 .floatLeft{
     float: left;
 }
+
+.floatRight{
+    float: right;
+}
+
+.limitTabsWidth{
+    width: 50%;
+}
+
+.formsTableWidth{
+    width: 45%;
+}
