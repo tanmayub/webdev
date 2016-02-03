@@ -7,6 +7,11 @@ var registerOnclick = function(){
     location.href = "../assignment/profile.html"
 }
 
+var tdOnclick = function(){
+    location.href = "../assignment/form-fields.html"
+}
+
 $('#register').click(registerOnclick);
 $('#login').click(registerOnclick);
 $('#update').click(registerOnclick);
+$('td[name=formRedirect]').click(tdOnclick);
