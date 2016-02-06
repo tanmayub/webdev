@@ -11,7 +11,13 @@ var tdOnclick = function() {
     location.href = "../assignment/form-fields.html";
 }
 
+var tdHover = function() {
+    //console.log("Hovered");
+    $(this).addClass('cursor');
+}
+
 $('#register').click(registerOnclick);
 $('#login').click(registerOnclick);
 $('#update').click(registerOnclick);
 $('td[name=formRedirect]').click(tdOnclick);
+$('td[name=formRedirect]').hover(tdHover);

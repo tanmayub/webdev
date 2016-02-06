@@ -70,3 +70,7 @@ hr{
 .noWrap{
     white-space: nowrap;
 }
+
+.cursor {
+    cursor: pointer;
+}
