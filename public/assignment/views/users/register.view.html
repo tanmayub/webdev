@@ -35,8 +35,9 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input class="btn btn-primary textWidth" type="button" value="Register" id="register"
-                       ng-click="register(username, pwd, vpwd, email)">
+                <button ng-click="createUser(username, pwd, vpwd, email)" class="btn btn-primary textWidth">
+                    Register
+                </button>
             </div>
         </div>
     </form>

@@ -12,13 +12,15 @@
                 templateUrl: "views/home/home.view.html"
             })
             .when("/profile", {
-                templateUrl: "views/users/profile.view.html"
+                templateUrl: "views/users/profile.view.html",
+                controller: "ProfileController"
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html"
             })
             .when("/register", {
-                templateUrl: "views/users/register.view.html"
+                templateUrl: "views/users/register.view.html",
+                controller: "RegController"
             })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html"
