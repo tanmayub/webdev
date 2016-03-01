@@ -28,6 +28,7 @@
     <script src="js/config.js"></script>
     <script src="views/main/main.controller.js"></script>
     <script src="views/header/header.controller.js"></script>
+    <script src="views/sidebar/sidebar.controller.js"></script>
     <script src="views/admin/admin.controller.js"></script>
     <script src="views/forms/forms.controller.js"></script>
     <script src="views/home/home.controller.js"></script>
@@ -37,12 +38,13 @@
     <script src="services/user.service.client.js"></script>
 
 </head>
-<body>
+<body ng-controller="MainController">
     <div ng-controller="HeaderController" ng-include="'views/header/header.view.html'"></div>
 
     <div ng-view></div>
+    <!--="'views/home/home.view.html'"-->
 
-    <div ng-controller="MainController" ng-include="'views/sidebar/sidebar.view.html'"></div>
+    <div ng-controller="SidebarController" ng-include="'views/sidebar/sidebar.view.html'"></div>
 
 </body>
 </html>

@@ -8,6 +8,11 @@
 
     function regController($scope, $routeParams, UserService, $rootScope, $location) {
         $scope.createUser = createUser;
+
+        /*if($rootScope.loggedUser == ""){
+            $location.url("home");
+        }*/
+
         if($scope.username == "") {
             createUser($scope.username, $scope.pwd, $scope.vpwd, $scope.email);
         }
