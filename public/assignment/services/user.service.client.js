@@ -51,7 +51,18 @@
             callback(user);
         }
         function deleteUserById(userId, callback) {
+            var indexToRemove = -1;
+            for(var i = 0 ; i < users.length; i++) {
+                if(users[i]._id == userId) {
+                    indexToRemove = i;
+                }
+            }
 
+            if(indexToRemove > -1) {
+                users.splice(indexToRemove, 1);
+            }
+
+            callback(users);
         }
         function updateUser(userId, user, callback) {
             for(var i = 0; i < users.length; i++) {
