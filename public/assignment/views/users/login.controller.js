@@ -7,11 +7,11 @@
         .controller("LoginController", loginController);
 
     function loginController ($scope, $routeParams, UserService, $rootScope, $location){
-        $scope.findUserByUsernameAndPassword = findUserByUsernameAndPassword;
+        $scope.findUserByCredentials = findUserByCredentials;
 
-        function findUserByUsernameAndPassword(username, pwd) {
+        function findUserByCredentials(username, pwd) {
             console.log(username, pwd);
-            UserService.findUserByUsernameAndPassword(username, pwd, function(response){
+            UserService.findUserByCredentials(username, pwd, function(response){
                 console.log(response);
                 $rootScope.loggedUser = response;
                 $location.url("profile");

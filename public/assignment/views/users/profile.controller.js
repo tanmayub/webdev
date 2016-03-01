@@ -7,15 +7,15 @@
         .controller("ProfileController", profileController);
 
     function profileController($scope, $routeParams, UserService, $rootScope) {
-        $scope.findUserByUsernameAndPassword = findUserByUsernameAndPassword;
+        $scope.findUserByCredentials = findUserByCredentials;
         $scope.updateUser = updateUser;
 
         if($rootScope.loggedUser.username != "") {
-            findUserByUsernameAndPassword($scope.username, $scope.pwd, $scope.vpwd, $scope.email);
+            findUserByCredentials($scope.username, $scope.pwd, $scope.vpwd, $scope.email);
         }
 
-        function findUserByUsernameAndPassword() {
-            UserService.findUserByUsernameAndPassword($rootScope.loggedUser.username,
+        function findUserByCredentials() {
+            UserService.findUserByCredentials($rootScope.loggedUser.username,
                 $rootScope.loggedUser.password, function(response) {
                     console.log(response);
                     $scope.username = response.username;
