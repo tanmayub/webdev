@@ -12,6 +12,9 @@
         $scope.addForm = addForm;
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
+        $scope.editFormTitle = editFormTitle;
+
+        var selectFormIndex = -1;
 
         findAllFormsForUser();
 
@@ -28,24 +31,38 @@
             var form = {"title": title};
             FormService.createFormForUser($rootScope.loggedUser._id, form, function(response) {
                 console.log(response);
+                findAllFormsForUser();
+                $scope.title = "";
             });
         }
 
-        function updateForm(formId, title) {
-            var form = {"title": title};
-            FormService.updateFormById(formId, form, function(response) {
-                console.log(response);
-            });
+        function editFormTitle() {
+            var title = $scope.forms[selectFormIndex].title;
+            $scope.title = title;
         }
 
-        function deleteForm(formId) {
+        function updateForm(title) {
+            if(selectFormIndex > -1) {
+                var formId = $scope.forms[selectFormIndex]._id;
+                var form = {"title": title, "userId": $rootScope.loggedUser._id};
+                FormService.updateFormById(formId, form, function (response) {
+                    console.log(response);
+                    $scope.title = "";
+                });
+            }
+        }
+
+        function deleteForm() {
+            var formId = $scope.forms[selectFormIndex]._id;
             FormService.deleteFormById(formId, function(response) {
                 console.log(response);
+                findAllFormsForUser();
             });
         }
 
-        function selectForm() {
-
+        function selectForm(form) {
+            console.log(form);
+            selectFormIndex = $scope.forms.indexOf(form);
         }
     }
 })();
