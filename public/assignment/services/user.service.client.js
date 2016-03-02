@@ -4,9 +4,9 @@
 (function() {
     angular
         .module("FormBuilderApp")
-        .factory("UserService", userService);
+        .factory("UserService", UserService);
 
-    function userService() {
+    function UserService() {
         var users = [
             {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
                 "username":"alice",  "password":"alice",   "roles": ["student"],
