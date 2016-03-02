@@ -20,10 +20,10 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name"></td>
+                            <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="title"></td>
                             <td class="tableBorder">
                                 <div class="floatRight">
-                                    &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;
+                                    &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addForm()"></span>&nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </div>
                             </td>
@@ -59,8 +59,9 @@
                             <td class="tableBorder">{{form.title}}</td>
                             <td class="tableBorder">
                                 <div class="floatRight">
-                                    &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-plus cursor" aria-hidden="true" ng-click="addForm(title)"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-pencil cursor" aria-hidden="true" ng-click="updateForm()"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-remove cursor" aria-hidden="true" ng-click="deleteForm()"></span>
                                 </div>
                             </td>
                         </tr>
