@@ -2,8 +2,8 @@
     <h2 class="sub-header" id="formsHeader">Forms</h2>
     <div class="container">
         <ul class="nav nav-tabs limitTabsWidth">
-            <li class="active"><a href="#forms">Forms</a></li>
-            <li><a href="form-fields.html">Fields</a></li>
+            <li class="active"><a href="#/forms">Forms</a></li>
+            <li><a href="#/form-fields">Fields</a></li>
         </ul>
 
         <div class="tab-content">
@@ -56,8 +56,10 @@
                                 </div>
                             </td>
                         </tr>-->
-                        <tr ng-repeat="form in forms">
-                            <td class="tableBorder" ng-click="selectForm(form)">{{form.title}}</td>
+                       <tr ng-repeat="form in forms" ng-class="{'selectTableRow': selectedForm == form._id}"  ng-click="selectForm(form)">
+                            <td class="tableBorder cursor">
+                                <a href="#/form-fields" class="linkColor">{{form.title}}</a>
+                            </td>
                             <td class="tableBorder">
                                 <div class="floatRight">
                                     <span class="glyphicon glyphicon-pencil cursor"

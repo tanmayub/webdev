@@ -74,3 +74,11 @@ hr{
 .cursor {
     cursor: pointer;
 }
+
+.selectTableRow {
+    background-color: steelblue !important;
+}
+
+.linkColor {
+    color: black;
+}

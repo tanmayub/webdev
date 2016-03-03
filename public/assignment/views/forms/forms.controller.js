@@ -31,7 +31,7 @@
             var form = {"title": title};
             FormService.createFormForUser($rootScope.loggedUser._id, form, function(response) {
                 console.log(response);
-                findAllFormsForUser();
+                $scope.forms.push(response);
                 $scope.title = "";
             });
         }
@@ -63,6 +63,7 @@
         function selectForm(form) {
             console.log(form);
             selectFormIndex = $scope.forms.indexOf(form);
+            $scope.selectedForm = form._id;
         }
     }
 })();
