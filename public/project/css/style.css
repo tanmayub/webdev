@@ -1,0 +1,84 @@
+.no-boundary{
+    border: hidden;
+}
+
+.labelWidth{
+    width: 15%;
+}
+
+.textWidth{
+    width: 50%;
+}
+
+.tableWidth{
+    width: 70%;
+}
+
+.adminTextWidth{
+    width: 80%;
+}
+
+table.tableBorder, td.tableBorder, th.tableBorder{
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+}
+
+.floatLeft{
+    float: left;
+}
+
+.floatRight{
+    float: right;
+}
+
+.limitTabsWidth{
+    width: 50%;
+}
+
+.formsTableWidth{
+    width: 45%;
+}
+
+.hideTags{
+    visibility: hidden;
+}
+
+.customLabel{
+    text-align: left;
+    padding-top: 7px;
+    margin-bottom: 0;
+}
+
+.widthFormTextDate{
+    width: 30%;
+}
+
+hr{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.tHeaderWidth{
+    width: 20%;
+    white-space: nowrap;
+}
+
+.noWrap{
+    white-space: nowrap;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.selectTableRow {
+    background-color: steelblue !important;
+}
+
+.linkColor {
+    color: black;
+}
