@@ -6,7 +6,9 @@
         .module("FormBuilderApp")
         .controller("FieldsController", fieldsController);
 
-    function fieldsController() {
-
+    function fieldsController($location, $rootScope) {
+        if(!$rootScope.loggedUser) {
+            $location.url("home");
+        }
     }
 })();
