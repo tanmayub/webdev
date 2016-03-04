@@ -5,11 +5,15 @@
             <table class="table table-striped table-bordered sortable">
                 <thead>
                 <tr>
-                    <th class="tableBorder" ng-repeat="prop in attributes">
-                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>{{prop}}
+                    <th class="tableBorder">
+                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Property Name
+                    </th>
+                    <th class="tableBorder">
+                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Property Value
                     </th>
                     <th class="tableBorder tHeaderWidth">
-                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Action</th>
+                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Action
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,8 +32,8 @@
                         </div>
                     </td>
                 </tr>
-                <tr ng-class="{'selectTableRow': selectedProperty == property}"
-                    ng-click="selectProperty(property)"
+                <tr ng-class="{'selectTableRow': selectedProperty == prop}"
+                    ng-click="selectProperty(prop)"
                     ng-repeat="prop in attributes">
 
                     <td>{{prop}}</td>
@@ -37,9 +41,9 @@
                     <td class="tableBorder">
                         <div class="floatRight">
                             <span class="glyphicon glyphicon-pencil cursor"
-                                  aria-hidden="true" ng-click="editProperty($index)"></span>&nbsp;&nbsp;
+                                  aria-hidden="true" ng-click="editProperty(prop)"></span>&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-remove cursor"
-                                  aria-hidden="true" ng-click="deleteProperty($index)"></span>
+                                  aria-hidden="true" ng-click="deleteProperty(prop)"></span>
                         </div>
                     </td>
                 </tr>
