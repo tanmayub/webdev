@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collections</title>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="sub-header" id="formsHeader">Collections</h2>
+        <div class="container">
+            <ul class="nav nav-tabs limitTabsWidth">
+                <li class="active"><a href="#/documents">Collections</a></li>
+                <li><a href="#/documents">Documents</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="collections" class="tab-pane fade in active">
+                    <h3></h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped tableBorder sortable formsTableWidth">
+                            <thead>
+                            <tr>
+                                <th class="tableBorder">
+                                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Name
+                                </th>
+                                <th class="tableBorder tHeaderWidth">
+                                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="collection.name"></td>
+                                <td class="tableBorder">
+                                    <div class="floatRight">
+                                        &nbsp;<span class="glyphicon glyphicon-plus cursor"
+                                                    aria-hidden="true" ng-click="addCollection(collection)"></span>&nbsp;&nbsp;
+                                        <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateCollection(collection)"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="coll in collections" ng-class="{'selectTableRow': selectedCollection == coll._id}"  ng-click="selectCollection(coll)">
+                                <td class="tableBorder cursor">
+                                    <a href="#/documents/{{coll._id}}" class="linkColor">{{coll.name}}</a>
+                                </td>
+                                <td class="tableBorder">
+                                    <div class="floatRight">
+                                    <span class="glyphicon glyphicon-pencil cursor"
+                                          aria-hidden="true" ng-click="editCollection()"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-remove cursor"
+                                          aria-hidden="true" ng-click="deleteCollection()"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></title>
+</head>
+<body>
+
+</body>
+</html>

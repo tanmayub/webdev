@@ -12,10 +12,6 @@
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController"
             })
-            .when("/profile", {
-                templateUrl: "views/users/profile.view.html",
-                controller: "ProfileController"
-            })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
                 controller: "LoginController"
@@ -24,17 +20,21 @@
                 templateUrl: "views/users/register.view.html",
                 controller: "RegController"
             })
-            .when("/admin", {
-                templateUrl: "views/admin/admin.view.html",
-                controller: "AdminController"
-            })
-            .when("/forms", {
-                templateUrl: "views/forms/connections.view.html",
+            .when("/connections", {
+                templateUrl: "views/connections/connections.view.html",
                 controller: "ConnectionsController"
             })
-            .when("/form-fields", {
-                templateUrl: "views/forms/fields.view.html",
-                controller: "FieldsController"
+            .when("/collections/:id", {
+                templateUrl: "views/collections/collections.view.html",
+                controller: "CollectionsController"
+            })
+            .when("/documents/:id", {
+                templateUrl: "views/documents/documents.view.html",
+                controller: "DocumentsController"
+            })
+            .when("/data/:id", {
+                templateUrl: "views/data/data.view.html",
+                controller: "DataController"
             })
             .otherwise({
                 redirectTo: "/home",

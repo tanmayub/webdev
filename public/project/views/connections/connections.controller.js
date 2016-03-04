@@ -6,7 +6,7 @@
         .module("FormBuilderApp")
         .controller("ConnectionsController", connectionsController);
 
-    function connectionsController($scope, $routeParams, ConnectionsService, $rootScope, $location) {
+    function connectionsController($scope, ConnectionsService, $rootScope, $location) {
         $scope.findAllConnectionsForUser = findAllConnectionsForUser;
         $scope.updateConnection = updateConnection;
         $scope.addConnection = addConnection;
