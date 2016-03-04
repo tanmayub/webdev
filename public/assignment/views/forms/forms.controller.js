@@ -28,27 +28,27 @@
                 });
             }
 
-            function addForm(title) {
-                var form = {"title": title};
+            function addForm(form) {
+                var form = {"title": form.title};
                 FormService.createFormForUser($rootScope.loggedUser._id, form, function (response) {
                     console.log(response);
                     $scope.forms.push(response);
-                    $scope.title = "";
+                    $scope.form= {};
                 });
             }
 
             function editFormTitle() {
                 var title = $scope.forms[selectFormIndex].title;
-                $scope.title = title;
+                $scope.form = {title: title};
             }
 
-            function updateForm(title) {
+            function updateForm(form) {
                 if (selectFormIndex > -1) {
                     var formId = $scope.forms[selectFormIndex]._id;
-                    var form = {"title": title, "userId": $rootScope.loggedUser._id};
-                    FormService.updateFormById(formId, form, function (response) {
+                    var frm = {"title": form.title, "userId": $rootScope.loggedUser._id};
+                    FormService.updateFormById(formId, frm, function (response) {
                         console.log(response);
-                        $scope.title = "";
+                        $scope.form = {};
                     });
                 }
             }

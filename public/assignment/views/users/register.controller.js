@@ -13,12 +13,12 @@
             createUser($scope.username, $scope.pwd, $scope.vpwd, $scope.email);
         }
 
-        function createUser(username, pwd, vpwd, email) {
-            console.log(username, pwd, vpwd, email);
-            if(pwd == vpwd) {
-                var user = {"username": username, "password": pwd, "roles": ["student"],
-                            "email": email};
-                UserService.createUser(user, function(response){
+        function createUser(user) {
+            console.log(user);
+            if(user.pwd == user.vpwd) {
+                var usr = {"username": user.username, "password": user.pwd, "roles": ["student"],
+                            "email": user.email};
+                UserService.createUser(usr, function(response){
                     console.log(response);
                     $rootScope.loggedUser = response;
                     $location.url("profile");

@@ -20,12 +20,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="title"></td>
+                            <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="form.title"></td>
                             <td class="tableBorder">
                                 <div class="floatRight">
                                     &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                                aria-hidden="true" ng-click="addForm(title)"></span>&nbsp;&nbsp;
-                                    <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateForm(title)"></span>
+                                                aria-hidden="true" ng-click="addForm(form)"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateForm(form)"></span>
                                 </div>
                             </td>
                         </tr>
@@ -56,9 +56,9 @@
                                 </div>
                             </td>
                         </tr>-->
-                       <tr ng-repeat="form in forms" ng-class="{'selectTableRow': selectedForm == form._id}"  ng-click="selectForm(form)">
+                       <tr ng-repeat="frm in forms" ng-class="{'selectTableRow': selectedForm == frm._id}"  ng-click="selectForm(frm)">
                             <td class="tableBorder cursor">
-                                <a href="#/form-fields" class="linkColor">{{form.title}}</a>
+                                <a href="#/form-fields" class="linkColor">{{frm.title}}</a>
                             </td>
                             <td class="tableBorder">
                                 <div class="floatRight">

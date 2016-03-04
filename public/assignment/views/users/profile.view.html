@@ -5,35 +5,35 @@
             <label for="inputUser" class="col-sm-2 customLabel">Username:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control textWidth" id="inputUser" placeholder="Username"
-                       ng-model="username">
+                       ng-model="user.username">
             </div>
         </div>
         <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 customLabel">Password:</label>
             <div class="col-sm-10">
                 <input type="password" class="form-control textWidth" id="inputPassword3" placeholder="Password"
-                       ng-model="pwd">
+                       ng-model="user.password">
             </div>
         </div>
         <div class="form-group">
             <label for="inputFirstName" class="col-sm-2  customLabel">First Name:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control textWidth" id="inputFirstName" placeholder="First Name"
-                       ng-model="fName">
+                       ng-model="user.firstName">
             </div>
         </div>
         <div class="form-group">
             <label for="inputLastName" class="col-sm-2  customLabel">Last Name:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control textWidth" id="inputLastName" placeholder="Last Name"
-                       ng-model="lName">
+                       ng-model="user.lastName">
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail" class="col-sm-2  customLabel">Email:</label>
             <div class="col-sm-10">
                 <input type="email" class="form-control textWidth" id="inputEmail" placeholder="Email"
-                       ng-model="email">
+                       ng-model="user.email">
             </div>
         </div>
         <div class="form-group">
@@ -43,7 +43,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input class="btn btn-primary textWidth" type="button" value="Update" id="update"
-                       ng-click="updateUser(username, pwd, fName, lName, email)">
+                       ng-click="updateUser(user)">
             </div>
         </div>
     </form>

@@ -19,25 +19,17 @@
                 UserService.findUserByCredentials($rootScope.loggedUser.username,
                     $rootScope.loggedUser.password, function (response) {
                         console.log(response);
-                        $scope.username = response.username;
-                        $scope.pwd = response.password;
-                        $scope.email = response.email;
-                        if (response.firstName != "") {
-                            $scope.fName = response.firstName;
-                        }
-                        if (response.lastName != "") {
-                            $scope.lName = response.lastName;
-                        }
+                        $scope.user = response;
                     });
             }
 
-            function updateUser(username, pwd, fName, lName, email) {
-                console.log(username, pwd, fName, lName, email);
-                var user = {
-                    "username": username, "password": pwd, "email": email,
-                    "firstName": fName, "lastName": lName
+            function updateUser(user) {
+                console.log(user);
+                var usr = {
+                    "username": user.username, "password": user.password, "email": user.email,
+                    "firstName": user.firstName, "lastName": user.lastName
                 };
-                UserService.updateUser($rootScope.loggedUser._id, user, function (response) {
+                UserService.updateUser($rootScope.loggedUser._id, usr, function (response) {
                     console.log(response);
                 });
             }

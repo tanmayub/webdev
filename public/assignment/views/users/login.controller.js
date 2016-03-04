@@ -6,12 +6,12 @@
         .module("FormBuilderApp")
         .controller("LoginController", loginController);
 
-    function loginController ($scope, $routeParams, UserService, $rootScope, $location){
+    function loginController ($scope, UserService, $rootScope, $location){
         $scope.findUserByCredentials = findUserByCredentials;
 
-        function findUserByCredentials(username, pwd) {
-            console.log(username, pwd);
-            UserService.findUserByCredentials(username, pwd, function(response){
+        function findUserByCredentials(user) {
+            console.log(user);
+            UserService.findUserByCredentials(user.username, user.pwd, function(response){
                 console.log(response);
                 $rootScope.loggedUser = response;
                 $location.url("profile");
