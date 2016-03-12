@@ -37,6 +37,7 @@
                         </div>
                     </td>
                 </tr>
+
                <tr ng-repeat="conn in connections" ng-class="{'selectTableRow': selectedConnection == conn._id}" >
                     <td class="tableBorder cursor">
                         <a href="#/collections/{{conn._id}}" class="linkColor">{{conn.name}}</a>
