@@ -105,7 +105,7 @@
             }
 
             for(var p in doc) {
-                if(p != "_id" && p != "name" && p != "collectionId") {
+                if(p != "_id" && p != "name" && p != "collectionId" && p!= "$$hashKey") {
                     prop.push(p);
                 }
             }
@@ -144,11 +144,15 @@
         }
 
         function updateProperty(docId, prop, callback) {
+            var docToBeReturned = null;
             for(var i = 0; i < documents.length; i++) {
                 if (documents[i]._id == docId) {
                     documents[i][prop.name] = prop.value;
+                    docToBeReturned = documents[i];
+                    break;
                 }
             }
+            callback(docToBeReturned);
         }
 
     }

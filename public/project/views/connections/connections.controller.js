@@ -28,14 +28,15 @@
                 });
             }
 
-            function editConnection() {
-                var name = $scope.connections[selectConnectionIndex].name;
-                var db = $scope.connections[selectConnectionIndex].db;
-                var host = $scope.connections[selectConnectionIndex].host;
-                var port = $scope.connections[selectConnectionIndex].port;
-                var username = $scope.connections[selectConnectionIndex].username;
-                var password = $scope.connections[selectConnectionIndex].password;
-                $scope.connection = {name: name, db: db, host: host, port: port, username: username, password: password};
+            function editConnection($index) {
+                var name = $scope.connections[$index].name;
+                var db = $scope.connections[$index].db;
+                var host = $scope.connections[$index].host;
+                var port = $scope.connections[$index].port;
+                var username = $scope.connections[$index].username;
+                var password = $scope.connections[$index].password;
+                var _id = $scope.connections[$index]._id;
+                $scope.connection = {_id: _id, name: name, db: db, host: host, port: port, username: username, password: password};
             }
 
             function addConnection(connection) {
@@ -49,19 +50,16 @@
             }
 
             function updateConnection(connection) {
-                if (selectConnectionIndex > -1) {
-                    var connectionId = $scope.connections[selectConnectionIndex]._id;
-                    var conn = {name: connection.name, userId: $rootScope.loggedUser._id, host: connection.host,
-                                port: connection.port, username: connection.username, password: connection.password, db: connection.db};
-                    ConnectionsService.updateConnectionById(connectionId, conn, function (response) {
-                        console.log(response);
-                        $scope.connection = {};
-                    });
-                }
+                var conn = {name: connection.name, userId: $rootScope.loggedUser._id, host: connection.host,
+                            port: connection.port, username: connection.username, password: connection.password, db: connection.db};
+                ConnectionsService.updateConnectionById(connection._id, conn, function (response) {
+                    console.log(response);
+                    $scope.connection = {};
+                });
             }
 
-            function deleteConnection() {
-                var connectionId = $scope.connections[selectConnectionIndex]._id;
+            function deleteConnection($index) {
+                var connectionId = $scope.connections[$index]._id;
                 ConnectionsService.deleteConnectionById(connectionId, function (response) {
                     console.log(response);
                     findAllConnectionsForUser();

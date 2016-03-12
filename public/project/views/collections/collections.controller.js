@@ -25,9 +25,10 @@
                 });
             }
 
-            function editCollection() {
-                var name = $scope.collections[selectCollectionIndex].name;
-                $scope.collection = {name: name};
+            function editCollection($index) {
+                var name = $scope.collections[$index].name;
+                var _id = $scope.collections[$index]._id;
+                $scope.collection = {_id: _id, name: name};
             }
 
             function addCollection(collection) {
@@ -41,19 +42,16 @@
             }
 
             function updateCollection(collection) {
-                if (selectCollectionIndex > -1) {
-                    var collectionId = $scope.collections[selectCollectionIndex]._id;
-                    var conn = {name: collection.name, userId: $routeParams.id, host: collection.host,
-                        port: collection.port, username: collection.username, password: collection.password, db: collection.db};
-                    CollectionsService.updateCollectionById(collectionId, conn, function (response) {
-                        console.log(response);
-                        $scope.collection = {};
-                    });
-                }
+                var conn = {name: collection.name, userId: $routeParams.id, host: collection.host,
+                    port: collection.port, username: collection.username, password: collection.password, db: collection.db};
+                CollectionsService.updateCollectionById(collection._id, conn, function (response) {
+                    console.log(response);
+                    $scope.collection = {};
+                });
             }
 
-            function deleteCollection() {
-                var collectionId = $scope.collections[selectCollectionIndex]._id;
+            function deleteCollection($index) {
+                var collectionId = $scope.collections[$index]._id;
                 CollectionsService.deleteCollectionById(collectionId, function (response) {
                     console.log(response);
                     findAllCollectionsForConnection();

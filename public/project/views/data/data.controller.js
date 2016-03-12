@@ -32,6 +32,7 @@
             DocumentsService.createDocumentProp(docId, prop, function(response) {
                 $scope.document = response;
                 $scope.attributes.push(prop.name);
+                $scope.property = {};
             });
         }
 
@@ -51,8 +52,17 @@
         }
 
         function updateProperty(prop) {
-            deleteProperty(oldProp);
-            addProperty(prop);
+            if (prop.name === oldProp) {
+                DocumentsService.updateProperty(docId, prop, function(response) {
+                    DocumentsService.getProperties(docId, function(attributes) {
+                        $scope.attributes = attributes;
+                    });
+                });
+            }
+            else {
+                deleteProperty(oldProp);
+                addProperty(prop);
+            }
             $scope.property = {};
         }
     }

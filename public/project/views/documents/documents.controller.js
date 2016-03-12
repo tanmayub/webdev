@@ -26,9 +26,10 @@
                 });
             }
 
-            function editDocument() {
-                var name = $scope.documents[selectDocumentIndex].name;
-                $scope.document = {name: name};
+            function editDocument($index) {
+                var name = $scope.documents[$index].name;
+                var _id = $scope.documents[$index]._id;
+                $scope.document = {_id: _id, name: name};
             }
 
             function addDocument(document) {
@@ -41,18 +42,16 @@
             }
 
             function updateDocument(document) {
-                if (selectDocumentIndex > -1) {
-                    var documentId = $scope.documents[selectDocumentIndex]._id;
-                    var doc = {name: document.name, collectionId: $routeParams.id};
-                    DocumentsService.updateDocumentById(documentId, doc, function (response) {
-                        $scope.document = {};
-                        findAllDocumentsForCollection();
-                    });
-                }
+                var doc = {name: document.name, collectionId: $routeParams.id};
+                DocumentsService.updateDocumentById(document._id, doc, function (response) {
+                    console.log(response);
+                    $scope.document = {};
+                    findAllDocumentsForCollection();
+                });
             }
 
-            function deleteDocument() {
-                var documentId = $scope.documents[selectDocumentIndex]._id;
+            function deleteDocument($index) {
+                var documentId = $scope.documents[$index]._id;
                 DocumentsService.deleteDocumentById(documentId, function (response) {
                     console.log(response);
                     findAllDocumentsForCollection();

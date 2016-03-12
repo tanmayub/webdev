@@ -37,7 +37,7 @@
                         </div>
                     </td>
                 </tr>
-               <tr ng-repeat="conn in connections" ng-class="{'selectTableRow': selectedConnection == conn._id}"  ng-click="selectConnection(conn)">
+               <tr ng-repeat="conn in connections" ng-class="{'selectTableRow': selectedConnection == conn._id}" >
                     <td class="tableBorder cursor">
                         <a href="#/collections/{{conn._id}}" class="linkColor">{{conn.name}}</a>
                     </td>
@@ -49,9 +49,9 @@
                     <td class="tableBorder">
                         <div class="floatRight">
                             <span class="glyphicon glyphicon-pencil cursor"
-                                  aria-hidden="true" ng-click="editConnection()"></span>&nbsp;&nbsp;
+                                  aria-hidden="true" ng-click="editConnection($index)"></span>&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-remove cursor"
-                                  aria-hidden="true" ng-click="deleteConnection()"></span>
+                                  aria-hidden="true" ng-click="deleteConnection($index)"></span>
                         </div>
                     </td>
                 </tr>

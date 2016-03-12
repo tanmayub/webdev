@@ -6,10 +6,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h2 class="sub-header" id="formsHeader">Collections</h2>
         <div class="container">
-            <ul class="nav nav-tabs limitTabsWidth">
+            <!--<ul class="nav nav-pills">
                 <li class="active"><a href="#/documents">Collections</a></li>
                 <li><a href="#/documents">Documents</a></li>
-            </ul>
+            </ul>-->
 
             <div class="tab-content">
                 <div id="collections" class="tab-pane fade in active">
@@ -37,16 +37,16 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr ng-repeat="coll in collections" ng-class="{'selectTableRow': selectedCollection == coll._id}"  ng-click="selectCollection(coll)">
+                            <tr ng-repeat="coll in collections" ng-class="{'selectTableRow': selectedCollection == coll._id}" >
                                 <td class="tableBorder cursor">
                                     <a href="#/documents/{{coll._id}}" class="linkColor">{{coll.name}}</a>
                                 </td>
                                 <td class="tableBorder">
                                     <div class="floatRight">
                                     <span class="glyphicon glyphicon-pencil cursor"
-                                          aria-hidden="true" ng-click="editCollection()"></span>&nbsp;&nbsp;
+                                          aria-hidden="true" ng-click="editCollection($index)"></span>&nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-remove cursor"
-                                          aria-hidden="true" ng-click="deleteCollection()"></span>
+                                          aria-hidden="true" ng-click="deleteCollection($index)"></span>
                                     </div>
                                 </td>
                             </tr>

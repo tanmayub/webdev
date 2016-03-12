@@ -1,10 +1,11 @@
  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="sub-header" id="formsHeader">Documents</h2>
      <div class="container">
-         <ul class="nav nav-tabs limitTabsWidth">
+         <!--<ul class="nav nav-pills">
              <li class="active"><a href="#/documents">Documents</a></li>
              <li><a href="#/documents">Documents</a></li>
-         </ul>
+         </ul>-->
+
          <div class="tab-content">
              <div id="documents" class="tab-pane fade in active">
 
@@ -31,16 +32,16 @@
                                  </div>
                              </td>
                          </tr>
-                         <tr ng-repeat="doc in documents"  ng-click="selectDocument(doc)">
+                         <tr ng-repeat="doc in documents" >
                              <td class="tableBorder cursor">
                                  <a href="#/data/{{doc._id}}" class="linkColor">{{doc.name}}</a>
                              </td>
                              <td class="tableBorder">
                                  <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil cursor"
-                                          aria-hidden="true" ng-click="editDocument()"></span>&nbsp;&nbsp;
-                                    <span class="glyphicon glyphicon-remove cursor"
-                                          aria-hidden="true" ng-click="deleteDocument()"></span>
+                                <span class="glyphicon glyphicon-pencil cursor"
+                                      aria-hidden="true" ng-click="editDocument($index)"></span>&nbsp;&nbsp;
+                                <span class="glyphicon glyphicon-remove cursor"
+                                      aria-hidden="true" ng-click="deleteDocument($index)"></span>
                                  </div>
                              </td>
                          </tr>
