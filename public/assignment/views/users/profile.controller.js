@@ -22,20 +22,20 @@
                         $scope.user = response;
                     });
             }
-
-            function updateUser(user) {
-                console.log(user);
-                var usr = {
-                    "username": user.username, "password": user.password, "email": user.email,
-                    "firstName": user.firstName, "lastName": user.lastName
-                };
-                UserService.updateUser($rootScope.loggedUser._id, usr, function (response) {
-                    console.log(response);
-                });
-            }
         }
         else {
             $location.url("home");
+        }
+
+        function updateUser(user) {
+            console.log(user);
+            var usr = {
+                "username": user.username, "password": user.password, "email": user.email,
+                "firstName": user.firstName, "lastName": user.lastName
+            };
+            UserService.updateUser($rootScope.loggedUser._id, usr, function (response) {
+                console.log(response);
+            });
         }
     }
 })();

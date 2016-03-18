@@ -27,48 +27,48 @@
                     $scope.forms = response;
                 });
             }
-
-            function addForm(form) {
-                var form = {"title": form.title};
-                FormService.createFormForUser($rootScope.loggedUser._id, form, function (response) {
-                    console.log(response);
-                    $scope.forms.push(response);
-                    $scope.form= {};
-                });
-            }
-
-            function editFormTitle() {
-                var title = $scope.forms[selectFormIndex].title;
-                $scope.form = {title: title};
-            }
-
-            function updateForm(form) {
-                if (selectFormIndex > -1) {
-                    var formId = $scope.forms[selectFormIndex]._id;
-                    var frm = {"title": form.title, "userId": $rootScope.loggedUser._id};
-                    FormService.updateFormById(formId, frm, function (response) {
-                        console.log(response);
-                        $scope.form = {};
-                    });
-                }
-            }
-
-            function deleteForm() {
-                var formId = $scope.forms[selectFormIndex]._id;
-                FormService.deleteFormById(formId, function (response) {
-                    console.log(response);
-                    findAllFormsForUser();
-                });
-            }
-
-            function selectForm(form) {
-                console.log(form);
-                selectFormIndex = $scope.forms.indexOf(form);
-                $scope.selectedForm = form._id;
-            }
         }
         else {
             $location.url("home");
+        }
+
+        function addForm(form) {
+            var form = {"title": form.title};
+            FormService.createFormForUser($rootScope.loggedUser._id, form, function (response) {
+                console.log(response);
+                $scope.forms.push(response);
+                $scope.form= {};
+            });
+        }
+
+        function editFormTitle() {
+            var title = $scope.forms[selectFormIndex].title;
+            $scope.form = {title: title};
+        }
+
+        function updateForm(form) {
+            if (selectFormIndex > -1) {
+                var formId = $scope.forms[selectFormIndex]._id;
+                var frm = {"title": form.title, "userId": $rootScope.loggedUser._id};
+                FormService.updateFormById(formId, frm, function (response) {
+                    console.log(response);
+                    $scope.form = {};
+                });
+            }
+        }
+
+        function deleteForm() {
+            var formId = $scope.forms[selectFormIndex]._id;
+            FormService.deleteFormById(formId, function (response) {
+                console.log(response);
+                findAllFormsForUser();
+            });
+        }
+
+        function selectForm(form) {
+            console.log(form);
+            selectFormIndex = $scope.forms.indexOf(form);
+            $scope.selectedForm = form._id;
         }
     }
 })();
