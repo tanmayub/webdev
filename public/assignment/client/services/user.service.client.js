@@ -6,8 +6,8 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService() {
-        var users = [
+    function UserService($http, $rootScope) {
+        /*var users = [
             {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
                 "username":"alice",  "password":"alice",   "roles": ["student"],
                 "email": "alice@abc.com"},
@@ -23,7 +23,7 @@
             {	"_id":567, "firstName":"Edward",           "lastName":"Norton",
                 "username":"ed",     "password":"ed",      "roles": ["student"],
                 "email": "ed@abc.com"}
-        ]
+        ]*/
 
         var api = {
             findUserByCredentials: findUserByCredentials,
@@ -35,15 +35,18 @@
         return api;
 
         function findUserByCredentials(username, password, callback) {
-            for(var i = 0; i < users.length; i++) {
+            /*for(var i = 0; i < users.length; i++) {
                 if(users[i].username == username && users[i].password == password) {
                     callback(users[i]);
                 }
-            }
+            }*/
+            var url = "/api/assignment/username=:username&password=:password";
+            url = url.replace(":password", password);
+            url = url.replace(":username", username);
+            $http.get(url);
         }
         function findAllUsers(callback) {
             callback(users);
-
         }
         function createUser(user, callback) {
             user._id = Math.floor(Math.random() * 900) + 100;
