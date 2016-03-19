@@ -6,16 +6,26 @@
         .module("FormBuilderApp")
         .controller("LoginController", loginController);
 
-    function loginController ($scope, UserService, $rootScope, $location){
-        $scope.findUserByCredentials = findUserByCredentials;
+    function loginController(UserService, $location, $rootScope){
+        var vm = this;
+        vm.findUserByCredentials = findUserByCredentials;
+        vm.message = null;
 
         function findUserByCredentials(user) {
-            console.log(user);
-            UserService.findUserByCredentials(user.username, user.pwd, function(response){
-                console.log(response);
-                $rootScope.loggedUser = response;
-                $location.url("profile");
-            });
+            if(!user) {
+                return;
+            }
+            UserService.findUserByCredentials(user.username, user.pwd)
+                .then(function(response){
+                    console.log(response);
+                    if(response) {
+                        $rootScope.currentUser = response;
+                        $location.url("/profile");
+                    }
+                    else{
+                        vm.message="Username and password doesnot match";
+                    }
+                });
         }
     }
 })();

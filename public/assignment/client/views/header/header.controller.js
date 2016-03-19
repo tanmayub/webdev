@@ -11,8 +11,8 @@
         $scope.logoutUser = logoutUser;
 
         function logoutUser() {
-            if ($rootScope.loggedUser) {
-                delete $rootScope.loggedUser;
+            if ($rootScope.currentUser) {
+                delete $rootScope.currentUser;
             }
             $location.url("home");
         }

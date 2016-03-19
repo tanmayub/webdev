@@ -6,24 +6,20 @@
         .module("FormBuilderApp")
         .controller("RegController", regController);
 
-    function regController($scope, $routeParams, UserService, $rootScope, $location) {
-        $scope.createUser = createUser;
-
-        if($scope.username == "") {
-            createUser($scope.username, $scope.pwd, $scope.vpwd, $scope.email);
-        }
+    function regController(UserService, $rootScope, $location) {
+        var vm = this;
+        vm.createUser = createUser;
 
         function createUser(user) {
-            console.log(user);
-            if(user.pwd == user.vpwd) {
-                var usr = {"username": user.username, "password": user.pwd, "roles": ["student"],
-                            "email": user.email};
-                UserService.createUser(usr, function(response){
-                    console.log(response);
-                    $rootScope.loggedUser = response;
-                    $location.url("profile");
+            var userSave = {username: user.username, password: user.password, lastName: "",
+                firstName: "", email: user.email }
+            UserService.createUser(userSave).then(function(users) {
+
+                UserService.findUserByUsername(userSave.username).then(function (newUser) {
+                    $rootScope.currentUser = newUser;
+                    $location.url("/profile");
                 });
-            }
+            });
         }
     }
 })();

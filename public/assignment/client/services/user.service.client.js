@@ -1,84 +1,103 @@
-/**
- * Created by TanmayPC on 2/20/2016.
- */
-(function() {
+"use strict";
+
+(function () {
     angular
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService($http, $rootScope) {
-        /*var users = [
-            {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                "username":"alice",  "password":"alice",   "roles": ["student"],
-                "email": "alice@abc.com"},
-            {	"_id":234, "firstName":"Bob",              "lastName":"Hope",
-                "username":"bob",    "password":"bob",     "roles": ["admin"],
-                "email": "bob@abc.com"},
-            {	"_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                "username":"charlie","password":"charlie", "roles": ["faculty"],
-                "email": "charlie@abc.com"},
-            {	"_id":456, "firstName":"Dan",              "lastName":"Craig",
-                "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"],
-                "email": "dan@abc.com"},
-            {	"_id":567, "firstName":"Edward",           "lastName":"Norton",
-                "username":"ed",     "password":"ed",      "roles": ["student"],
-                "email": "ed@abc.com"}
-        ]*/
+    function UserService($http, $q, $rootScope) {
 
         var api = {
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            findUserByUsername: findUserByUsername,
+            findUserById: findUserById,
+            getLoggedUser: getLoggedUser,
+            setLoggedUser: setLoggedUser,
+            logout: logout
         };
         return api;
 
-        function findUserByCredentials(username, password, callback) {
-            /*for(var i = 0; i < users.length; i++) {
-                if(users[i].username == username && users[i].password == password) {
-                    callback(users[i]);
-                }
-            }*/
-            var url = "/api/assignment/username=:username&password=:password";
-            url = url.replace(":password", password);
+        function findUserByCredentials(username, password) {
+            var deferred = $q.defer();
+
+            $http.get("/api/assignment/user?username=" + username + "&password=" + password).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
+        function findUserByUsername(username) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/user?username=:username";
             url = url.replace(":username", username);
-            $http.get(url);
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
+
         function findAllUsers(callback) {
-            callback(users);
+            var deferred = $q.defer();
+            var url = "/api/assignment/user";
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
-        function createUser(user, callback) {
-            user._id = Math.floor(Math.random() * 900) + 100;
-            users.push(user);
-            callback(user);
+
+        function createUser(user) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/user";
+            $http.post(url, user).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
-        function deleteUserById(userId, callback) {
-            var indexToRemove = -1;
-            for(var i = 0 ; i < users.length; i++) {
-                if(users[i]._id == userId) {
-                    indexToRemove = i;
-                }
-            }
 
-            if(indexToRemove > -1) {
-                users.splice(indexToRemove, 1);
-            }
-
-            callback(users);
+        function deleteUserById(userID) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/user/:id";
+            url = url.replace(":id", userID);
+            $http.delete(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
-        function updateUser(userId, user, callback) {
-            for(var i = 0; i < users.length; i++) {
-                if(users[i]._id == userId) {
-                    users[i].username = user.username;
-                    users[i].password = user.password;
-                    users[i].firstName = user.firstName;
-                    users[i].lastName = user.lastName;
-                    users[i].email = user.email;
 
-                    callback(users[i]);
-                }
-            }
+        function updateUser(userID, user) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/user/:id";
+            url = url.replace(":id", userID);
+            $http.put(url, user).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
+        function findUserById(userID) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/user/:id";
+            url = url.replace(":id", userID);
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
+        function getLoggedUser() {
+            return $http.get("/api/assignment/user/loggedinUser");
+        }
+
+        function setLoggedUser(user) {
+            $rootScope.currentUser = user;
+        }
+
+        function logout() {
+            return $http.post("/api/assignment/user/logout")
         }
     }
 })();

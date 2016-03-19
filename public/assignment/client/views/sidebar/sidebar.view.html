@@ -3,14 +3,14 @@
         <li ng-class="{'active': $location.url() == '/home'}">
             <a href="#/home">Home</a>
         </li>
-        <li ng-class="{'active': $location.url() == '/profile'}" ng-hide="!loggedUser">
+        <li ng-class="{'active': $location.url() == '/profile'}" ng-hide="!currentUser">
             <a href="#/profile">Profile</a>
         </li>
-        <li ng-class="{'active': $location.url() == '/admin'}"
-            ng-hide="navAdmin()">
+        <li ng-class="{'active': $location.url() == '/admin'}">
+            <!--ng-hide="navAdmin()">-->
             <a href="#/admin">Admin</a>
         </li>
-        <li ng-class="{'active': $location.url() == '/forms'}" ng-hide="!loggedUser">
+        <li ng-class="{'active': $location.url() == '/forms'}" ng-hide="!currentUser">
             <a href="#/forms">Forms</a>
         </li>
     </ul>

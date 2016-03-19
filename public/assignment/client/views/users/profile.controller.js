@@ -6,36 +6,32 @@
         .module("FormBuilderApp")
         .controller("ProfileController", profileController);
 
-    function profileController($scope, $location, UserService, $rootScope) {
-        $scope.findUserByCredentials = findUserByCredentials;
-        $scope.updateUser = updateUser;
+    function profileController(UserService, $rootScope) {
+        var vm = this;
+        vm.updateUser = updateUser;
 
-        if($rootScope.loggedUser) {
-            if ($rootScope.loggedUser.username != "") {
-                findUserByCredentials($scope.username, $scope.pwd, $scope.vpwd, $scope.email);
-            }
-
-            function findUserByCredentials() {
-                UserService.findUserByCredentials($rootScope.loggedUser.username,
-                    $rootScope.loggedUser.password, function (response) {
-                        console.log(response);
-                        $scope.user = response;
-                    });
-            }
+        function init() {
+            vm.user= {};
+            console.log($rootScope.currentUser);
+            vm.user = $rootScope.currentUser;
         }
-        else {
-            $location.url("home");
-        }
+        init();
 
         function updateUser(user) {
-            console.log(user);
-            var usr = {
-                "username": user.username, "password": user.password, "email": user.email,
-                "firstName": user.firstName, "lastName": user.lastName
-            };
-            UserService.updateUser($rootScope.loggedUser._id, usr, function (response) {
+            UserService.updateUser($rootScope.currentUser._id, user).then(updateProfilePage);
+        }
+
+        function updateProfilePage(response) {
+            if (response) {
                 console.log(response);
-            });
+                UserService.findUserById($rootScope.currentUser._id).then (function (updatedUser) {
+                    vm.user.username = updatedUser.username;
+                    vm.user.firstName = updatedUser.firstName;
+                    vm.user.lastName = updatedUser.lastName;
+                    vm.user.email = updatedUser.email;
+                    $rootScope.currentUser = updatedUser;
+                });
+            }
         }
     }
 })();
