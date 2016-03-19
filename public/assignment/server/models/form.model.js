@@ -16,13 +16,6 @@ module.exports = function() {
         deleteFormById: deleteFormById,
         findFormByTitle: findFormByTitle,
         findAllFormsByUserId: findAllFormsByUserId,
-
-        //Field
-        createFieldForForm: createFieldForForm,
-        findAllFieldsForForm: findAllFieldsForForm,
-        findFieldByFieldIdAndFormId: findFieldByFieldIdAndFormId,
-        updateFieldByFieldIdAndFormId: updateFieldByFieldIdAndFormId,
-        deleteFieldByFieldIdAndFormId: deleteFieldByFieldIdAndFormId
     };
     return api;
 
@@ -32,10 +25,13 @@ module.exports = function() {
 
     function findFormById(formId) {
         for (var i in mock) {
-            if(mock[i]._id === formId) {
+            //console.log(mock[i]._id === parseInt(formId));
+            if(mock[i]._id === parseInt(formId)) {
+                //console.log(mock[i]);
                 return mock[i];
             }
         }
+        //console.log("not found");
         return null;
     }
 
@@ -80,63 +76,5 @@ module.exports = function() {
             }
         }
         return forms;
-    }
-
-    function createFieldForForm(formId, field) {
-        for (var i in mock) {
-            if (mock[i]._id === formId) {
-                if(!mock[i].fields) {
-                    mock[i].fields = [];
-                }
-                mock[i].fields.push(field);
-                break;
-            }
-        }
-    }
-
-    function findAllFieldsForForm (formId) {
-        for (var i in mock) {
-            if (mock[i]._id === formId) {
-                return mock[i].fields;
-            }
-        }
-        return null;
-    }
-
-    function findFieldByFieldIdAndFormId(formId, fieldId) {
-        for (var i in mock) {
-            if (mock[i]._id === formId) {
-                for (var j in mock[i].fields) {
-                    if (mock[i].fields[j]._id === fieldId) {
-                        return mock[i].fields[j];
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    function updateFieldByFieldIdAndFormId(formId, fieldId, field) {
-        field._id = fieldId;
-        for (var i in mock) {
-            if (mock[i]._id === formId) {
-                for (var j in mock[i].fields) {
-                    if (mock[i].fields[j]._id === fieldId) {
-                        mock[i].fields[j] = field;
-                    }
-                }
-            }
-        }
-    }
-    function deleteFieldByFieldIdAndFormId(formId, fieldId) {
-        for (var i in mock) {
-            if (mock[i]._id === formId) {
-                for (var j in mock[i].fields) {
-                    if (mock[i].fields[j]._id === fieldId) {
-                        mock[i].fields.splice(j,1);
-                    }
-                }
-            }
-        }
     }
 }

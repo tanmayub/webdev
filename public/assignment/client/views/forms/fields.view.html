@@ -1,247 +1,180 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="sub-header" id="formsHeader">Fields</h2>
-    <div class="container adminTextWidth floatLeft">
-        <ul class="nav nav-tabs tableWidth">
-            <li><a href="#/forms">Forms</a></li>
-            <li class="active"><a href="#/form-fields">Fields</a></li>
-        </ul>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FieldsController">
+    <h1 class="page-header">{{model.form.title}}</h1>
 
-        <div class="tab-content">
-            <div id="forms" class="tab-pane fade in active">
+    <ul class="nav nav-tabs limitTabsWidth">
+        <li role="presentation"><a href="#/forms">Forms</a></li>
+        <li role="presentation" class="active"><a href="#/fields">Fields</a></li>
+    </ul>
+    <br>
+    <table class="table table-responsive tableWidth">
+        <tbody ng-model="model.fields"  ui-sortable="model.fields">
+        <tr  ng-switch="field.type" ng-repeat="field in model.fields">
+            <td ng-switch-when="TEXT">
+                <label>{{field.label}}</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="{{field.placeholder}}">
+                    <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                </div>
+            </td>
+            <td ng-switch-when="OPTIONS">
+                <label>{{field.label}}</label>
+                <div class="input-group">
+                    <select class="form-control">
+                        <option ng-repeat="op in field.options">{{op.label}}</option>
+                    </select>
+                    <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                </div>
+            </td>
+            <td ng-switch-when="TEXTAREA">
+                <label>{{field.label}}</label>
+                <div class="input-group">
+                    <textarea class="form-control" placeholder="{{field.placeholder}}"></textarea>
+                    <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                </div>
+            </td>
+            <td ng-switch-when="CHECKBOXES">
+                <label>{{field.label}}</label>
+                <div class="input-group">
+                    <div class="checkbox">
+                        <div ng-repeat="op in field.options">
+                            <label>
+                                <input type="checkbox" value="{{op.value}}">{{op.label}}
+                            </label>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                </div>
+            </td>
+            <td ng-switch-when="RADIOS">
+                <label>{{field.label}}</label>
+                <div class="input-group">
+                    <div ng-repeat="op in field.options" class="radio">
+                        <label>
+                            <input type="radio" name="{{op.label}}" value="{{op.value}}" checked>
+                            {{op.label}}
+                        </label>
+                    </div>
+                    <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                </div>
+            </td>
+            <td ng-switch-default>
+                <label>{{field.label}}</label>
+                <div class="input-group">
+                    <input type="date" placeholder="{{field.placeholder}}" class="form-control">
+                    <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                </div>
+            </td>
+            <br>
+        </tr>
+        </tbody>
+    </table>
 
-                <!--<div class="table-responsive">
-                    <table class="table table-striped tableWidth tableBorder sortable formsTableWidth">
-                        <tr>
-                            <td>
-                                First Name:<br>
-                                <input class="adminTextWidth" type="text" placeholder="First Name">
-                            </td>
-                            <td>
-                                <br>
-                                <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Last Name:<br>
-                                <input class="adminTextWidth" type="text" placeholder="Last Name">
-                            </td>
-                            <td>
-                                <br>
-                                <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Date of Birth:<br>
-                                <input type="date" placeholder="Select Date">
-                            </td>
-                            <td>
-                                <br>
-                                <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Gender:<br>
-                                <select name="gender">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </td>
-                            <td>
-                                <br>
-                                <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Roles:<br>
-                                <label><input type="checkbox"> Admin</label><br>
-                                <label><input type="checkbox"> Student</label><br>
-                                <label><input type="checkbox"> User</label>
-                            </td>
-                            <td>
-                                <br>
-                                <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                License Agreement:<br>
-                                <label><input type="radio"> Yes</label><br>
-                                <label><input type="radio"> No</label>
-                            </td>
-                            <td>
-                                <br>
-                                <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Add New Field:<br>
-                                <select name="newField">
-                                    <option value="single">Single Line Text</option>
-                                    <option value="multi">Multi Line Text</option>
-                                </select>
-                            </td>
-                            <td>
-                                <br>
-                                <div class="floatRight">
-                                    <span class="glyphicon glyphicon-pencil hideTags" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-remove hideTags" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-align-justify hideTags" aria-hidden="true"></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>-->
-                <div class="tableWidth">
-                    <div class="col-xs-12">
-                        <label for="inputFirstName" class="customLabel">First Name:</label>
+    <hr>
+    <label for="input5">Add New Field:</label>
+    <div class="input-group tableWidth">
+        <select ng-model="fieldType" class="form-control" id="input5">
+            <option>Single Line Text Field</option>
+            <option>Date Field</option>
+            <option>Dropdown Field</option>
+            <option>Checkboxes Field</option>
+            <option>Radio Buttons Field</option>
+            <option>Multi Line Text Field</option>
+        </select>
+        <div class="input-group-btn">
+            <button ng-click="model.addField(fieldType)" type="button" class="btn">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+
+
+    <div id="editField" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{model.cField.label}}</h4>
+                </div>
+                <div class="modal-body" ng-switch on="model.eField.type">
+                    <div ng-switch-when="TEXT">
+                        <h3>Single Line Field</h3>
+                        <form>
+                            <label>Label</label>
+                            <input ng-model="model.eField.label" class="form-control" type="text"
+                                   placeholder="Edit Label">
+                            <br>
+                            <label>Placeholder</label>
+                            <input ng-model="model.eField.placeholder" class="form-control" type="text"
+                                   placeholder="Edit Placeholder">
+                        </form>
                     </div>
-                    <div class="col-xs-6">
-                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                    <div ng-switch-when="TEXTAREA">
+                        <h3>Multi Line Field</h3>
+                        <form>
+                            <label>Label</label>
+                            <input ng-model="model.eField.label" class="form-control" type="text"
+                                   placeholder="Edit Label">
+                            <br>
+                            <label>Placeholder</label>
+                            <textarea ng-model="model.eField.placeholder" class="form-control"
+                                      placeholder="Edit Placeholder"></textarea>
+                        </form>
                     </div>
-                    <div class="col-xs-6">
-                        <div class="col-sm-20 floatRight">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        </div>
+                    <div ng-switch-when="OPTIONS">
+                        <h3>Dropdown Field</h3>
+                        <form>
+                            <label>Label</label>
+                            <input ng-model="model.eField.label" class="form-control" type="text"
+                                   placeholder="Edit Dropdown Label">
+                            <br>
+                            <label>Options</label>
+                            <textarea ng-model="model.optionText" class="form-control"
+                                      placeholder="Edit Dropdown Options" ng-list="&#10;" ng-trim="false"></textarea>
+                        </form>
                     </div>
-                    <div class="col-xs-12">
-                        <label for="inputLastName" class="customLabel">Last Name:</label>
+                    <div ng-switch-when="DATE">
+                        <h3>Date Field</h3>
+                        <form>
+                            <label>Label</label>
+                            <input ng-model="model.eField.label" class="form-control" type="text">
+                            <br>
+                        </form>
                     </div>
-                    <div class="col-xs-6">
-                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                    <div ng-switch-when="RADIOS">
+                        <h3>Radio Buttons Field</h3>
+                        <form>
+                            <label>Label</label>
+                            <input ng-model="model.eField.label" class="form-control" type="text"
+                                   placeholder="Edit Radio Label">
+                            <br>
+                            <label>Options</label>
+                            <textarea ng-model="model.optionText" class="form-control" placeholder="Edit Radio Options"
+                                      ng-list="&#10;" ng-trim="false"></textarea>
+                        </form>
                     </div>
-                    <div class="col-xs-6">
-                        <div class="col-sm-20 floatRight">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        </div>
+                    <div ng-switch-default>
+                        <h3>Checkbox Field</h3>
+                        <form>
+                            <label>Label</label>
+                            <input ng-model="model.eField.label" class="form-control" type="text"
+                                   placeholder="Edit Checkbox label">
+                            <br>
+                            <label>Options</label>
+                            <textarea ng-model="model.optionText" class="form-control"
+                                      placeholder="Edit Checkbox options" ng-list="&#10;" ng-trim="false"></textarea>
+                        </form>
                     </div>
-                    <div class="col-xs-12">
-                        <label for="inputDOB" class="customLabel">Date of Birth:</label>
-                    </div>
-                    <div class="col-xs-6">
-                        <input type="date" class="form-control" id="inputDOB" placeholder="Select Date">
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="col-sm-20 floatRight">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <label for="inputGender" class="customLabel">Gender:</label>
-                    </div>
-                    <div class="col-xs-6">
-                        <select name="gender" id="inputGender" class="form-control">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="col-sm-20 floatRight">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <label class="customLabel">Roles:</label>
-                    </div>
-                    <div class="col-xs-6">
-                        <label><input type="checkbox" checked> Admin</label><br>
-                        <label><input type="checkbox"> Student</label><br>
-                        <label><input type="checkbox" checked> User</label>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="col-sm-20 floatRight">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <label class="customLabel">License Agreement:</label>
-                    </div>
-                    <div class="col-xs-6">
-                        <label><input type="radio" checked> Yes</label><br>
-                        <label><input type="radio"> No</label>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="col-sm-20 floatRight">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <hr class="col-xs-12">
-                    <div class="col-xs-12">
-                        <label class="customLabel">Add New Field:</label>
-                    </div>
-                    <div class="col-xs-6">
-                        <select name="gender" class="form-control">
-                            <option value="SLT">Single Line Text</option>
-                            <option value="date">Date</option>
-                            <option value="dropdown">Dropdown</option>
-                            <option value="checkboxes">Checkboxes</option>
-                            <option value="radioButtons">Radio buttons</option>
-                            <option value="para">Paragraph Text Field</option>
-                        </select>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="col-sm-20 floatRight">
-                            <span class="glyphicon glyphicon-pencil hideTags" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-remove hideTags" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-align-justify hideTags" aria-hidden="true"></span>
-                        </div>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="model.commitEdit(model.eField)" type="button" class="btn btn-default"
+                            data-dismiss="modal">Confirm
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

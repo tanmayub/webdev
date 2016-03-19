@@ -58,7 +58,7 @@
                         </tr>-->
                         <tr ng-repeat="frm in model.forms" ng-class="{'selectTableRow': model.selectedForm == frm._id}"  ng-click="model.selectForm(frm)">
                             <td class="tableBorder cursor">
-                                <a href="#/form-fields" class="linkColor">{{frm.title}}</a>
+                                <a href="#/form-fields/{{frm._id}}" class="linkColor">{{frm.title}}</a>
                             </td>
                             <td class="tableBorder">
                                 <div class="floatRight">
