@@ -20,12 +20,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="form.title"></td>
+                            <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.form.title"></td>
                             <td class="tableBorder">
                                 <div class="floatRight">
                                     &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                                aria-hidden="true" ng-click="addForm(form)"></span>&nbsp;&nbsp;
-                                    <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateForm(form)"></span>
+                                                aria-hidden="true" ng-click="model.addForm(model.form)"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="model.updateForm(model.form)"></span>
                                 </div>
                             </td>
                         </tr>
@@ -56,16 +56,16 @@
                                 </div>
                             </td>
                         </tr>-->
-                        <tr ng-repeat="frm in forms" ng-class="{'selectTableRow': selectedForm == frm._id}"  ng-click="selectForm(frm)">
+                        <tr ng-repeat="frm in model.forms" ng-class="{'selectTableRow': model.selectedForm == frm._id}"  ng-click="model.selectForm(frm)">
                             <td class="tableBorder cursor">
                                 <a href="#/form-fields" class="linkColor">{{frm.title}}</a>
                             </td>
                             <td class="tableBorder">
                                 <div class="floatRight">
                                     <span class="glyphicon glyphicon-pencil cursor"
-                                          aria-hidden="true" ng-click="editFormTitle()"></span>&nbsp;&nbsp;
+                                          aria-hidden="true" ng-click="model.editFormTitle()"></span>&nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-remove cursor"
-                                          aria-hidden="true" ng-click="deleteForm()"></span>
+                                          aria-hidden="true" ng-click="model.deleteForm()"></span>
                                 </div>
                             </td>
                         </tr>
