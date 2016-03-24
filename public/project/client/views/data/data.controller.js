@@ -9,12 +9,13 @@
         .controller("DataController", dataController);
 
     function dataController($scope, $rootScope, $routeParams, $location, DocumentsService) {
+
         $scope.addProperty = addProperty;
         $scope.editProperty = editProperty;
         $scope.deleteProperty = deleteProperty;
         $scope.updateProperty = updateProperty;
 
-        var docId = $routeParams.id;
+        var docId = parseInt($routeParams.id);
         var oldProp = "";
 
         DocumentsService.getDocumentById(docId, function(doc) {
@@ -24,9 +25,6 @@
         DocumentsService.getProperties(docId, function(attributes) {
             $scope.attributes = attributes;
         });
-
-        console.log($scope.attributes);
-        console.log($scope.document);
 
         function addProperty(prop) {
             DocumentsService.createDocumentProp(docId, prop, function(response) {

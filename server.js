@@ -11,7 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
 // require is not working
-require("./public/assignment/server/app.js")(app);
+var assignment = require("./public/assignment/server/app.js")(app);
+var proj = require("./public/project/server/app.js")(app);
 //-------------------------------------
 
 

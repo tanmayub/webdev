@@ -36,19 +36,26 @@
         return api;
 
         function createCollectionForUser(connId, collection, callback) {
+
             collection._id = Math.floor(Math.random() * 900) + 100;
             collection.connId = connId;
             collections.push(collection);
             callback(collection);
+
         }
 
         function findAllCollectionsForConnection(connId, callback) {
+
             var collectionsForConnection = [];
+
             for(var i = 0; i < collections.length; i++) {
+
                 if(collections[i].connId == connId){
+
                     collectionsForConnection.push(collections[i]);
                 }
             }
+
             callback(collectionsForConnection)
         }
 

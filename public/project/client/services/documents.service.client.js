@@ -17,6 +17,7 @@
             director: "James Cameron",
             year: 2000
         },
+
         {
             _id: 213,
             name: "MyDoc2",
@@ -34,7 +35,7 @@
             findAllDocumentsForCollection: findAllDocumentsForCollection,
             deleteDocumentById: deleteDocumentById,
             updateDocumentById: updateDocumentById,
-            getAllData: getAllData,
+
             getProperties: getAllProperties,
             getDocumentById: getDocumentById,
             createDocumentProp: createDocumentProp,
@@ -47,13 +48,14 @@
             document._id = Math.floor(Math.random() * 900) + 100;
             document.collectionId = collectionId;
             documents.push(document);
+            console.log(documents);
             callback(document);
         }
 
         function findAllDocumentsForCollection(collectionId, callback) {
             var documentsForCollection = [];
             for(var i = 0; i < documents.length; i++) {
-                if(documents[i].collectionId == collectionId){
+                if(documents[i].collectionId === collectionId){
                     documentsForCollection.push(documents[i]);
                 }
             }
@@ -63,7 +65,7 @@
         function deleteDocumentById(documentId, callback) {
             var indexToRemove = -1;
             for(var i = 0 ; i < documents.length; i++) {
-                if(documents[i]._id == documentId) {
+                if(documents[i]._id === documentId) {
                     indexToRemove = i;
                 }
             }
@@ -77,28 +79,18 @@
 
         function updateDocumentById(documentId, newDocument, callback) {
             for(var i = 0; i < documents.length; i++) {
-                if(documents[i]._id == documentId) {
-                    documents[i] = newDocument;
+                if(documents[i]._id ===  documentId) {
+                    documents[i].name = newDocument.name;
                     callback(newDocument);
                 }
             }
-        }
-
-        function getAllData(documentId, callback) {
-            var data = {};
-            var currentDoc = documents[documentId];
-
-            for (var prop in currentDoc) {
-                data[prop] = currentDoc[prop];
-            }
-            callback(data);
         }
 
         function getAllProperties(documentId, callback) {
             var prop = [];
             var doc = null;
             for (var i = 0; i < documents.length;i++) {
-                if (documents[i]._id = documentId) {
+                if (documents[i]._id === documentId) {
                     doc = documents[i];
                     break;
                 }
@@ -116,7 +108,7 @@
 
         function getDocumentById(docId, callback) {
             for (var i = 0; i < documents.length;i++) {
-                if (documents[i]._id = docId) {
+                if (documents[i]._id === docId) {
                     callback(documents[i]);
                     break;
                 }
@@ -125,7 +117,7 @@
 
         function createDocumentProp(docId, prop, callback) {
             for(var i = 0; i < documents.length; i++) {
-                if(documents[i]._id == docId) {
+                if(documents[i]._id === docId) {
                     documents[i][prop.name] = prop.value;
                     callback(documents[i]);
                     break;
@@ -135,7 +127,7 @@
 
         function deleteProperty(docId, propName, callback) {
             for(var i = 0; i < documents.length; i++) {
-                if(documents[i]._id == docId) {
+                if(documents[i]._id === docId) {
                     delete documents[i][propName];
                     callback(documents[i]);
                     break;
@@ -146,7 +138,7 @@
         function updateProperty(docId, prop, callback) {
             var docToBeReturned = null;
             for(var i = 0; i < documents.length; i++) {
-                if (documents[i]._id == docId) {
+                if (documents[i]._id === docId) {
                     documents[i][prop.name] = prop.value;
                     docToBeReturned = documents[i];
                     break;

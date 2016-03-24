@@ -10,9 +10,7 @@
         $scope.navAdmin = navAdmin;
 
         function navAdmin() {
-            //console.log(!$rootScope.loggedUser);
             if($rootScope.loggedUser) {
-                //console.log(($rootScope.loggedUser.roles.indexOf('admin') > -1));
                 if($rootScope.loggedUser.roles.indexOf('admin') > -1) {
                     return false;
                 }

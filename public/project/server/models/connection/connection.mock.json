@@ -1,0 +1,40 @@
+[
+  {
+    "_id":      1212,
+    "db":       "admin",
+    "host":     "localhost",
+    "password": "admin",
+    "port":     27017,
+    "ssl":      false,
+    "url":      "mongodb://localhost:27017/admin",
+    "username": "admin",
+    "name":     "admin",
+    "userId":   123
+  },
+
+  {
+    "_id":      1213,
+    "db":       "test",
+    "host":     "localhost",
+    "password": "test",
+    "port":     27017,
+    "ssl":      false,
+    "url":      "mongodb://localhost:27017/test",
+    "username": "test",
+    "name":     "test",
+    "userId":   123
+  },
+
+  {
+    "_id":      1214,
+    "db":       "db",
+    "host":     "localhost",
+    "password": "db",
+    "port":     27017,
+    "ssl":      false,
+    "url":      "mongodb://localhost:27017/db",
+    "username": "db",
+    "name":     "db",
+    "userId":   234
+  }
+]
