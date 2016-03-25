@@ -8,31 +8,12 @@
         .module("FormBuilderApp")
         .factory("DocumentsService", documentsService);
 
-    var documents = [
-        {
-            _id: 212,
-            name: "Mydoc",
-            collectionId: 12143,
-            movieName: "Avatar",
-            director: "James Cameron",
-            year: 2000
-        },
-
-        {
-            _id: 213,
-            name: "MyDoc2",
-            collectionId: 12144,
-            movieName: "Deadpool",
-            director: "Ryan Reynolds",
-            year: 2016
-        }
-    ];
-
-    function documentsService() {
+    function documentsService($q, $http) {
 
         var api = {
             createDocumentForCollection: createDocumentForCollection,
             findAllDocumentsForCollection: findAllDocumentsForCollection,
+            findDocumentById: findDocumentById,
             deleteDocumentById: deleteDocumentById,
             updateDocumentById: updateDocumentById,
 
@@ -44,46 +25,49 @@
         };
         return api;
 
-        function createDocumentForCollection(collectionId, document, callback) {
-            document._id = Math.floor(Math.random() * 900) + 100;
-            document.collectionId = collectionId;
-            documents.push(document);
-            console.log(documents);
-            callback(document);
+        function createDocumentForCollection(collectionId, document) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/" + collectionId + "/document";
+            $http.post(url, document).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
 
-        function findAllDocumentsForCollection(collectionId, callback) {
-            var documentsForCollection = [];
-            for(var i = 0; i < documents.length; i++) {
-                if(documents[i].collectionId === collectionId){
-                    documentsForCollection.push(documents[i]);
-                }
-            }
-            callback(documentsForCollection)
+        function findAllDocumentsForCollection(collectionId) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/" + collectionId + "/document";
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
 
-        function deleteDocumentById(documentId, callback) {
-            var indexToRemove = -1;
-            for(var i = 0 ; i < documents.length; i++) {
-                if(documents[i]._id === documentId) {
-                    indexToRemove = i;
-                }
-            }
-
-            if(indexToRemove > -1) {
-                documents.splice(indexToRemove, 1);
-            }
-
-            callback(documents);
+        function findDocumentById(documentId) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/document/" + documentId;
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
 
-        function updateDocumentById(documentId, newDocument, callback) {
-            for(var i = 0; i < documents.length; i++) {
-                if(documents[i]._id ===  documentId) {
-                    documents[i].name = newDocument.name;
-                    callback(newDocument);
-                }
-            }
+        function deleteDocumentById(documentId) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/document/" + documentId;
+            $http.delete(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
+        function updateDocumentById(documentId, newDocument) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/document/" + documentId;
+            $http.put(url, newDocument).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
 
         function getAllProperties(documentId, callback) {

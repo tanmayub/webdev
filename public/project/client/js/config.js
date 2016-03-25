@@ -32,7 +32,8 @@
             })
             .when("/documents/:id", {
                 templateUrl: "client/views/documents/documents.view.html",
-                controller: "DocumentsController"
+                controller: "DocumentsController",
+                controllerAs: "model"
             })
             .when("/data/:id", {
                 templateUrl: "client/views/data/data.view.html",

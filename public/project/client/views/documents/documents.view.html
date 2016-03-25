@@ -23,25 +23,26 @@
                          </thead>
                          <tbody>
                          <tr>
-                             <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="document.name"></td>
+                             <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name"
+                                                            ng-model="model.document.name"></td>
                              <td class="tableBorder">
                                  <div class="floatRight">
                                      &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                                 aria-hidden="true" ng-click="addDocument(document)"></span>&nbsp;&nbsp;
-                                     <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateDocument(document)"></span>
+                                                 aria-hidden="true" ng-click="model.addDocument(model.document)"></span>&nbsp;&nbsp;
+                                     <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="model.updateDocument(model.document)"></span>
                                  </div>
                              </td>
                          </tr>
-                         <tr ng-repeat="doc in documents" >
+                         <tr ng-repeat="doc in model.documents" >
                              <td class="tableBorder cursor">
                                  <a href="#/data/{{doc._id}}" class="linkColor">{{doc.name}}</a>
                              </td>
                              <td class="tableBorder">
                                  <div class="floatRight">
                                 <span class="glyphicon glyphicon-pencil cursor"
-                                      aria-hidden="true" ng-click="editDocument($index)"></span>&nbsp;&nbsp;
+                                      aria-hidden="true" ng-click="model.editDocument($index)"></span>&nbsp;&nbsp;
                                 <span class="glyphicon glyphicon-remove cursor"
-                                      aria-hidden="true" ng-click="deleteDocument($index)"></span>
+                                      aria-hidden="true" ng-click="model.deleteDocument($index)"></span>
                                  </div>
                              </td>
                          </tr>
