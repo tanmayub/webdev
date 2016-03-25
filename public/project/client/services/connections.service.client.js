@@ -6,100 +6,97 @@
         .module("FormBuilderApp")
         .factory("ConnectionsService", ConnectionsService);
 
-    function ConnectionsService() {
-        var connections = [
-                {
-                    _id:      1212,
-                    db:       'admin',
-                    host:     'localhost',
-                    password: 'admin',
-                    port:     27017,
-                    ssl:      false,
-                    url:      'mongodb://localhost:27017/admin',
-                    username: 'admin',
-                    name:     'admin',
-                    userId:   123
-                },
-                {
-                    _id:      1213,
-                    db:       'test',
-                    host:     'localhost',
-                    password: 'test',
-                    port:     27017,
-                    ssl:      false,
-                    url:      'mongodb://localhost:27017/test',
-                    username: 'test',
-                    name:     'test',
-                    userId:   123
-                },
-                {
-                    _id:      1214,
-                    db:       'db',
-                    host:     'localhost',
-                    password: 'db',
-                    port:     27017,
-                    ssl:      false,
-                    url:      'mongodb://localhost:27017/db',
-                    username: 'db',
-                    name:     'db',
-                    userId:   234
-                },
-            ]
+    function ConnectionsService($q, $http) {
 
         var api = {
+
             createConnectionForUser: createConnectionForUser,
+
             findAllConnectionsForUser: findAllConnectionsForUser,
+
             deleteConnectionById: deleteConnectionById,
-            updateConnectionById: updateConnectionById
+
+            updateConnectionById: updateConnectionById,
+
+            findConnectionById: findConnectionById
         };
         return api;
 
-        function createConnectionForUser(userId, connection, callback) {
-            connection._id = Math.floor(Math.random() * 900) + 100;
-            connection.userId = userId;
-            connections.push(connection);
-            callback(connection);
+        function createConnectionForUser(userID, connection) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/user/:userId/connection";
+            url = url.replace(":userId", userID);
+
+            $http.post(url, connection).success(function (response) {
+
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
         }
 
-        function findAllConnectionsForUser(userId, callback) {
-            var connectionsForUser = [];
-            for(var i = 0; i < connections.length; i++) {
-                if(connections[i].userId == userId){
-                    connectionsForUser.push(connections[i]);
-                }
-            }
-            callback(connectionsForUser)
+        function findAllConnectionsForUser(userID) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/user/:userId/connection";
+            url = url.replace(":userId", userID);
+
+            $http.get(url).success(function (response) {
+
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
         }
 
-        function deleteConnectionById(connectionId, callback) {
-            var indexToRemove = -1;
-            for(var i = 0 ; i < connections.length; i++) {
-                if(connections[i]._id == connectionId) {
-                    indexToRemove = i;
-                }
-            }
+        function deleteConnectionById(connectionID) {
 
-            if(indexToRemove > -1) {
-                connections.splice(indexToRemove, 1);
-            }
+            var deferred = $q.defer();
 
-            callback(connections);
+            var url = "/api/project/connection/:connectionId";
+            url = url.replace(":connectionId", connectionID);
+
+            $http.delete(url).success(function(response) {
+
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+
         }
 
-        function updateConnectionById(connectionId, newConnection, callback) {
-            for(var i = 0; i < connections.length; i++) {
-                if(connections[i]._id == connectionId) {
-                    connections[i].name = newConnection.name;
-                    connections[i].db = newConnection.db;
-                    connections[i].password = newConnection.password;
-                    connections[i].username = newConnection.username;
-                    connections[i].host = newConnection.host;
-                    connections[i].port = newConnection.port;
-                    connections[i].userId = newConnection.userId;
+        function updateConnectionById(connectionID, newConnection) {
 
-                    callback(connections[i]);
-                }
-            }
+            var deferred = $q.defer();
+
+            var url = "/api/project/connection/:connectionId";
+            url = url.replace(":connectionId", connectionID);
+
+            $http.put(url, newConnection).success(function(response) {
+
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
         }
+        function findConnectionById(connectionID) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/connection/:connectionId";
+            url = url.replace(":connectionId", connectionID);
+
+            $http.get(url).success(function(response) {
+
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+
+        }
+
     }
 })();

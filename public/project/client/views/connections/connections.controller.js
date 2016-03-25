@@ -6,68 +6,119 @@
         .module("FormBuilderApp")
         .controller("ConnectionsController", connectionsController);
 
-    function connectionsController($scope, ConnectionsService, $rootScope, $location) {
-        $scope.findAllConnectionsForUser = findAllConnectionsForUser;
-        $scope.updateConnection = updateConnection;
-        $scope.addConnection = addConnection;
-        $scope.deleteConnection = deleteConnection;
-        $scope.selectConnection = selectConnection;
-        $scope.editConnection = editConnection;
+    function connectionsController(ConnectionsService, $rootScope, $location) {
 
-        function findAllConnectionsForUser() {
+        var vm = this;
 
-            ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id, function (response) {
-                $scope.connections = response;
+        var toBeUpdatedIndex;
+
+        function init() {
+
+            ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id).then(function(response) {
+
+                vm.connections = response;
+
+                vm.$location = $location;
+
             });
+
+            toBeUpdatedIndex = -1;
+
         }
+        init();
+
+        vm.updateConnection = updateConnection;
+
+        vm.addConnection = addConnection;
+
+        vm.deleteConnection = deleteConnection;
+
+        vm.selectConnection = selectConnection;
+
+        vm.editConnection = editConnection;
+
 
         function editConnection($index) {
-            var name = $scope.connections[$index].name;
-            var db = $scope.connections[$index].db;
-            var host = $scope.connections[$index].host;
-            var port = $scope.connections[$index].port;
-            var username = $scope.connections[$index].username;
-            var password = $scope.connections[$index].password;
-            var _id = $scope.connections[$index]._id;
-            $scope.connection = {_id: _id, name: name, db: db, host: host, port: port, username: username, password: password};
+
+            vm.connection = {
+
+                _id: vm.connections[$index]._id,
+
+                name: vm.connections[$index].name,
+
+                db: vm.connections[$index].db,
+
+                host: vm.connections[$index].host,
+
+                port: vm.connections[$index].port,
+
+                username: vm.connections[$index].username,
+
+                userId : vm.connections[$index].userId,
+
+                password: vm.connections[$index].password
+            };
+
+            toBeUpdatedIndex = $index;
         }
 
         function addConnection(connection) {
-            var conn = {name: connection.name, userId: $rootScope.loggedUser._id, host: connection.host,
-                port: connection.port, username: connection.username, password: connection.password, db: connection.db};
-            ConnectionsService.createConnectionForUser($rootScope.loggedUser._id, conn, function (response) {
-                $scope.connections.push(response);
-                $scope.connection = {};
-            });
+
+            ConnectionsService.createConnectionForUser($rootScope.loggedUser._id, connection)
+
+                .then(function (response) {
+
+                    vm.connections = response;
+
+                    vm.connection = {};
+                });
         }
 
         function updateConnection(connection) {
-            var conn = {name: connection.name, userId: $rootScope.loggedUser._id, host: connection.host,
-                port: connection.port, username: connection.username, password: connection.password, db: connection.db};
-            ConnectionsService.updateConnectionById(connection._id, conn, function (response) {
-                $scope.connection = {};
-            });
+
+            ConnectionsService.updateConnectionById(connection._id, connection)
+
+                .then(function (response) {
+
+                    if (response === "OK") {
+
+                        return ConnectionsService.findConnectionById(connection._id);
+                    }
+                })
+
+                .then(function (response) {
+
+                    vm.connections[toBeUpdatedIndex] = response;
+                    vm.connection = {};
+
+                });
         }
 
         function deleteConnection($index) {
-            var connectionId = $scope.connections[$index]._id;
-            ConnectionsService.deleteConnectionById(connectionId, function (response) {
-                findAllConnectionsForUser();
-            });
+            var connectionId = vm.connections[$index]._id;
+
+            ConnectionsService.deleteConnectionById(connectionId)
+
+                .then(function (response) {
+
+                    if(response === "OK")
+
+                        return ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id);
+                })
+
+                .then(function (response) {
+
+                    vm.connections = response;
+
+                });
         }
 
         function selectConnection(connection) {
-            selectConnectionIndex = $scope.connections.indexOf(connection);
-            $scope.selectedConnection = connection._id;
+
+            vm.selectConnectionIndex = vm.connections.indexOf(connection);
+
+            vm.selectedConnection = connection._id;
         }
 
-        if($rootScope.loggedUser) {
-            var selectConnectionIndex = -1;
-
-            findAllConnectionsForUser();
-        }
-        else {
-            $location.url("home");
-        }
     }
 })();

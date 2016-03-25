@@ -5,6 +5,7 @@ var app = express();
 //------------------------------------
 var bodyParser = require('body-parser');
 var multer =require('multer');
+var uuid = require('node-uuid');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,7 +13,7 @@ app.use(multer());
 
 // require is not working
 var assignment = require("./public/assignment/server/app.js")(app);
-var proj = require("./public/project/server/app.js")(app);
+var proj = require("./public/project/server/app.js")(app, uuid);
 //-------------------------------------
 
 

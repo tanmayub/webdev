@@ -21,12 +21,14 @@
                 controller: "RegController"
             })
             .when("/connection", {
-                templateUrl: "client/views/connection/connection.view.html",
-                controller: "ConnectionsController"
+                templateUrl: "client/views/connections/connections.view.html",
+                controller: "ConnectionsController",
+                controllerAs: "model"
             })
             .when("/collections/:id", {
                 templateUrl: "client/views/collections/collections.view.html",
-                controller: "CollectionsController"
+                controller: "CollectionsController",
+                controllerAs: "model"
             })
             .when("/documents/:id", {
                 templateUrl: "client/views/documents/documents.view.html",

@@ -14,7 +14,7 @@
             UserService.findUserByCredentials(username, pwd, function(response){
                 console.log(response);
                 $rootScope.loggedUser = response;
-                $location.url("profile");
+                $location.url("/connection");
             });
         }
     }

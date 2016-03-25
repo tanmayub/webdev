@@ -28,25 +28,26 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="collection.name"></td>
+                                <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.collection.name"></td>
                                 <td class="tableBorder">
                                     <div class="floatRight">
                                         &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                                    aria-hidden="true" ng-click="addCollection(collection)"></span>&nbsp;&nbsp;
-                                        <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateCollection(collection)"></span>
+                                                    aria-hidden="true" ng-click="model.addCollection(model.collection)"></span>&nbsp;&nbsp;
+                                        <span class="glyphicon glyphicon-ok cursor" aria-hidden="true"
+                                              ng-click="model.updateCollection(model.collection)"></span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr ng-repeat="coll in collections" ng-class="{'selectTableRow': selectedCollection == coll._id}" >
+                            <tr ng-repeat="coll in model.collections" ng-class="{'selectTableRow': model.selectedCollection == coll._id}" >
                                 <td class="tableBorder cursor">
                                     <a href="#/documents/{{coll._id}}" class="linkColor">{{coll.name}}</a>
                                 </td>
                                 <td class="tableBorder">
                                     <div class="floatRight">
                                     <span class="glyphicon glyphicon-pencil cursor"
-                                          aria-hidden="true" ng-click="editCollection($index)"></span>&nbsp;&nbsp;
+                                          aria-hidden="true" ng-click="model.editCollection($index)"></span>&nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-remove cursor"
-                                          aria-hidden="true" ng-click="deleteCollection($index)"></span>
+                                          aria-hidden="true" ng-click="model.deleteCollection($index)"></span>
                                     </div>
                                 </td>
                             </tr>

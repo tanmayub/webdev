@@ -23,35 +23,35 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="connection.name"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="connection.db"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="connection.host"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="connection.port"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="connection.username"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="password" placeholder="name" ng-model="connection.password"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.name"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.db"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.host"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.port"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.username"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="password" placeholder="name" ng-model="model.connection.password"></td>
                     <td class="tableBorder">
                         <div class="floatRight">
                             &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                        aria-hidden="true" ng-click="addConnection(connection)"></span>&nbsp;&nbsp;
-                            <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateConnection(connection)"></span>
+                                        aria-hidden="true" ng-click="model.addConnection(model.connection)"></span>&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="model.updateConnection(model.connection)"></span>
                         </div>
                     </td>
                 </tr>
-               <tr ng-repeat="conn in connections" ng-class="{'selectTableRow': selectedConnection == conn._id}" >
+                <tr ng-repeat="conn in model.connections" ng-class="{'selectTableRow': model.selectedConnection == conn._id}" >
                     <td class="tableBorder cursor">
                         <a href="#/collections/{{conn._id}}" class="linkColor">{{conn.name}}</a>
                     </td>
-                   <td class="tableBorder cursor">{{conn.db}} </td>
-                   <td class="tableBorder cursor">{{conn.host}} </td>
-                   <td class="tableBorder cursor">{{conn.port}} </td>
-                   <td class="tableBorder cursor">{{conn.username}} </td>
-                   <td class="tableBorder cursor">{{conn.password}} </td>
+                    <td class="tableBorder cursor">{{conn.db}} </td>
+                    <td class="tableBorder cursor">{{conn.host}} </td>
+                    <td class="tableBorder cursor">{{conn.port}} </td>
+                    <td class="tableBorder cursor">{{conn.username}} </td>
+                    <td class="tableBorder cursor">{{conn.password}} </td>
                     <td class="tableBorder">
                         <div class="floatRight">
                             <span class="glyphicon glyphicon-pencil cursor"
-                                  aria-hidden="true" ng-click="editConnection($index)"></span>&nbsp;&nbsp;
+                                  aria-hidden="true" ng-click="model.editConnection($index)"></span>&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-remove cursor"
-                                  aria-hidden="true" ng-click="deleteConnection($index)"></span>
+                                  aria-hidden="true" ng-click="model.deleteConnection($index)"></span>
                         </div>
                     </td>
                 </tr>

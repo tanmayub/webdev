@@ -8,81 +8,63 @@
         .module("FormBuilderApp")
         .factory("CollectionsService", CollectionsService);
 
-    function CollectionsService() {
-        var collections = [
-            {
-                _id:      12143,
-                name:     'test',
-                connId:   1212
-            },
-            {
-                _id:      12144,
-                name:     'admin',
-                connId:   1213
-            },
-            {
-                _id:      12145,
-                name:     'first',
-                connId:   1214
-            },
-        ]
+    function CollectionsService($q, $http) {
 
         var api = {
             createCollectionForUser: createCollectionForUser,
             findAllCollectionsForConnection: findAllCollectionsForConnection,
             deleteCollectionById: deleteCollectionById,
-            updateCollectionById: updateCollectionById
+            updateCollectionById: updateCollectionById,
+            findCollectionById: findCollectionById
         };
         return api;
 
-        function createCollectionForUser(connId, collection, callback) {
+        function createCollectionForUser(connId, collection) {
 
-            collection._id = Math.floor(Math.random() * 900) + 100;
-            collection.connId = connId;
-            collections.push(collection);
-            callback(collection);
+            var deferred = $q.defer();
+            var url = "/api/project/connection/" + connId + "/collection";
+            $http.post(url, collection).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
 
         }
 
-        function findAllCollectionsForConnection(connId, callback) {
+        function findAllCollectionsForConnection(connId) {
 
-            var collectionsForConnection = [];
-
-            for(var i = 0; i < collections.length; i++) {
-
-                if(collections[i].connId == connId){
-
-                    collectionsForConnection.push(collections[i]);
-                }
-            }
-
-            callback(collectionsForConnection)
+            var deferred = $q.defer();
+            var url = "/api/project/connection/" + connId + "/collection";
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
 
-        function deleteCollectionById(collectionId, callback) {
-            var indexToRemove = -1;
-            for(var i = 0 ; i < collections.length; i++) {
-                if(collections[i]._id == collectionId) {
-                    indexToRemove = i;
-                }
-            }
-
-            if(indexToRemove > -1) {
-                collections.splice(indexToRemove, 1);
-            }
-
-            callback(collections);
+        function deleteCollectionById(collectionId) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/" + collectionId;
+            $http.delete(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
 
-        function updateCollectionById(collectionId, newCollection, callback) {
-            for(var i = 0; i < collections.length; i++) {
-                if(collections[i]._id == collectionId) {
-                    collections[i].name = newCollection.name;
-                    collections[i].connId = newCollection.connId;
+        function updateCollectionById(collectionId, newCollection) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/" + collectionId;
+            $http.put(url, newCollection).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
 
-                    callback(collections[i]);
-                }
-            }
+        function findCollectionById (colId) {
+            var deferred = $q.defer();
+            var url = "/api/project/collection/" + colId;
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
         }
     }
 })();

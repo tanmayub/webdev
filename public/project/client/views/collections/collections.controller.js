@@ -3,65 +3,76 @@
         .module("FormBuilderApp")
         .controller("CollectionsController", collectionsController);
 
-    function collectionsController($scope, $rootScope, CollectionsService, $location, $routeParams) {
-        $scope.findAllCollectionsForConnection = findAllCollectionsForConnection;
-        $scope.updateCollection = updateCollection;
-        $scope.addCollection = addCollection;
-        $scope.deleteCollection = deleteCollection;
-        $scope.selectCollection = selectCollection;
-        $scope.editCollection = editCollection;
+    function collectionsController($rootScope, CollectionsService, $routeParams) {
+        var vm = this;
+
+        vm.findAllCollectionsForConnection = findAllCollectionsForConnection;
+        vm.updateCollection = updateCollection;
+        vm.addCollection = addCollection;
+        vm.deleteCollection = deleteCollection;
+        vm.selectCollection = selectCollection;
+        vm.editCollection = editCollection;
+
+        var connectionId = parseInt($routeParams.id);
+        var toBeUpdatedIndex;
+        init();
+
+        function init() {
+            findAllCollectionsForConnection();
+            toBeUpdatedIndex = -1;
+        }
 
         function findAllCollectionsForConnection() {
 
-            CollectionsService.findAllCollectionsForConnection($routeParams.id, function (response) {
-                $scope.collections = response;
+            CollectionsService.findAllCollectionsForConnection(connectionId).then(function(response) {
+                vm.collections = response;
             });
         }
 
         function editCollection($index) {
-            var name = $scope.collections[$index].name;
-            var _id = $scope.collections[$index]._id;
-            $scope.collection = {_id: _id, name: name};
+            var name = vm.collections[$index].name;
+            var _id = vm.collections[$index]._id;
+            vm.collection = {_id: _id, name: name};
+
+            toBeUpdatedIndex = $index;
         }
 
         function addCollection(collection) {
-            var conn = {name: collection.name, userId: $routeParams.id, host: collection.host,
-                port: collection.port, username: collection.username, password: collection.password, db: collection.db};
-            CollectionsService.createCollectionForUser($routeParams.id, conn, function (response) {
-                $scope.collections.push(response);
-                $scope.collection = {};
+            var col = {name: collection.name};
+            CollectionsService.createCollectionForUser(connectionId, col).then(function (response) {
+                vm.collections.push(response);
+                vm.collection = {};
             });
         }
 
         function updateCollection(collection) {
-            var conn = {name: collection.name, userId: $routeParams.id, host: collection.host,
-                port: collection.port, username: collection.username, password: collection.password, db: collection.db};
-            CollectionsService.updateCollectionById(collection._id, conn, function (response) {
-                $scope.collection = {};
-            });
+            var col = {name: collection.name, connId: connectionId};
+            CollectionsService.updateCollectionById(collection._id, col).then(function (response) {
+                    if (response === "OK") {
+                        return CollectionsService.findCollectionById(collection._id);
+                    }
+                })
+                .then(function (response) {
+                    //console.log(response);
+                    vm.collections[toBeUpdatedIndex] = response;
+                    vm.collection = {};
+                });
         }
 
         function deleteCollection($index) {
-            var collectionId = $scope.collections[$index]._id;
-            CollectionsService.deleteCollectionById(collectionId, function (response) {
-                findAllCollectionsForConnection();
-            });
+            var collectionId = vm.collections[$index]._id;
+            CollectionsService.deleteCollectionById(collectionId).then(function (response) {
+                    if(response === "OK")
+                        return CollectionsService.findAllCollectionsForConnection(connectionId);
+                })
+                .then(function (response) {
+                    vm.collections = response;
+                });
         }
 
         function selectCollection(collection) {
-            selectCollectionIndex = $scope.collections.indexOf(collection);
-            $scope.selectedCollection = collection._id;
-        }
-
-        if($rootScope.loggedUser) {
-            var selectCollectionIndex = -1;
-
-            findAllCollectionsForConnection();
-
-
-        }
-        else {
-            $location.url("home");
+            selectCollectionIndex = vm.collections.indexOf(collection);
+            vm.selectedCollection = collection._id;
         }
     }
 })();
