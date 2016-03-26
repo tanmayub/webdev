@@ -27,6 +27,7 @@
             var deferred = $q.defer();
 
             var url = "/api/project/user/:userId/connection";
+            
             url = url.replace(":userId", userID);
 
             $http.post(url, connection).success(function (response) {

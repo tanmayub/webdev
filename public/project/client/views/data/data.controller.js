@@ -10,58 +10,106 @@
 
     function dataController($scope, $rootScope, $routeParams, $location, DocumentsService) {
 
-        $scope.addProperty = addProperty;
-        $scope.editProperty = editProperty;
-        $scope.deleteProperty = deleteProperty;
-        $scope.updateProperty = updateProperty;
+        var vm = this;
+
+        vm.addProperty = addProperty;
+        vm.editProperty = editProperty;
+        vm.deleteProperty = deleteProperty;
+        vm.updateProperty = updateProperty;
 
         var docId = parseInt($routeParams.id);
         var oldProp = "";
 
-        DocumentsService.getDocumentById(docId, function(doc) {
-            $scope.document = doc;
-        });
+        function init() {
 
-        DocumentsService.getProperties(docId, function(attributes) {
-            $scope.attributes = attributes;
-        });
+            DocumentsService.findDocumentById(docId)
+
+                .then(function(doc) {
+
+                    vm.document = doc;
+                    return  DocumentsService.getProperties(docId);
+
+                })
+
+                .then(function(attributes) {
+
+                    vm.attributes = attributes;
+                });
+        }init();
 
         function addProperty(prop) {
-            DocumentsService.createDocumentProp(docId, prop, function(response) {
-                $scope.document = response;
-                $scope.attributes.push(prop.name);
-                $scope.property = {};
-            });
+
+            DocumentsService.createDocumentProp(docId, prop)
+
+                .then(function(response) {
+
+                    vm.document = response;
+
+                    vm.attributes.push(prop.name);
+
+                    vm.property = {};
+                });
         }
 
         function editProperty(prop) {
-            var p = {name: prop, value: $scope.document[prop]};
-            console.log(p);
-            $scope.property = p;
+
+            var p = {name: prop, value: vm.document[prop]};
+
+            vm.property = p;
+
             oldProp = prop;
         }
 
         function deleteProperty(propName) {
-            DocumentsService.deleteProperty(docId, propName, function(response) {
-                $scope.document = response;
-                var ind = $scope.attributes.indexOf(propName);
-                $scope.attributes.splice(ind, 1);
-            });
+
+            DocumentsService.deleteProperty(docId, propName)
+
+                .then(function(response) {
+
+                    if (response === "OK") {
+
+                        return DocumentsService.findDocumentById(docId);
+                    }
+                })
+
+                .then( function (response) {
+
+                    vm.document = response;
+
+                    var ind = vm.attributes.indexOf(propName);
+
+                    vm.attributes.splice(ind, 1);
+
+                })
         }
 
         function updateProperty(prop) {
+
             if (prop.name === oldProp) {
-                DocumentsService.updateProperty(docId, prop, function(response) {
-                    DocumentsService.getProperties(docId, function(attributes) {
-                        $scope.attributes = attributes;
+
+                DocumentsService.updateProperty(docId, prop)
+
+                    .then(function(response) {
+
+                        if(response === "OK") {
+                            return DocumentsService.findDocumentById(docId);
+                        }
+                    })
+
+                    .then(function (response) {
+
+                        vm.document = response;
+
                     });
-                });
             }
+
             else {
+
                 deleteProperty(oldProp);
                 addProperty(prop);
             }
-            $scope.property = {};
+
+            vm.property = {};
         }
     }
 

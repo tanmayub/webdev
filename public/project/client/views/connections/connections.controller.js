@@ -68,9 +68,9 @@
 
                 .then(function (response) {
 
-                    vm.connections = response;
+                        vm.connections = response;
 
-                    vm.connection = {};
+                        vm.connection = {};
                 });
         }
 
@@ -96,7 +96,7 @@
 
         function deleteConnection($index) {
             var connectionId = vm.connections[$index]._id;
-
+            
             ConnectionsService.deleteConnectionById(connectionId)
 
                 .then(function (response) {
@@ -105,11 +105,11 @@
 
                         return ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id);
                 })
-
+            
                 .then(function (response) {
 
                     vm.connections = response;
-
+                    
                 });
         }
 

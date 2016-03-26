@@ -10,6 +10,7 @@
     function documentsController($scope, $routeParams, DocumentsService, $location, $rootScope) {
 
         var vm = this;
+
         vm.findAllDocumentsForCollection = findAllDocumentsForCollection;
         vm.updateDocument = updateDocument;
         vm.addDocument = addDocument;
@@ -19,7 +20,6 @@
 
         var collectionId = parseInt($routeParams.id);
         var toBeUpdatedIndex;
-        init();
 
         function init() {
             if($rootScope.loggedUser) {
@@ -30,6 +30,7 @@
             }
             toBeUpdatedIndex = -1;
         }
+        init();
 
         function findAllDocumentsForCollection() {
             

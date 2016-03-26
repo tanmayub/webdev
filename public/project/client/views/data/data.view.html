@@ -19,31 +19,31 @@
                 <tbody>
                 <tr>
                     <td class="tableBorder">
-                        <input class="adminTextWidth" type="text" placeholder="Property Name" ng-model="property.name">
+                        <input class="adminTextWidth" type="text" placeholder="Property Name" ng-model="model.property.name">
                     </td>
                     <td class="tableBorder">
-                        <input class="adminTextWidth" type="text" placeholder="Value" ng-model="property.value">
+                        <input class="adminTextWidth" type="text" placeholder="Value" ng-model="model.property.value">
                     </td>
                     <td class="tableBorder">
                         <div class="floatRight">
                             &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                        aria-hidden="true" ng-click="addProperty(property)"></span>&nbsp;&nbsp;
-                            <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="updateProperty(property)"></span>
+                                        aria-hidden="true" ng-click="model.addProperty(model.property)"></span>&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="model.updateProperty(model.property)"></span>
                         </div>
                     </td>
                 </tr>
-                <tr ng-class="{'selectTableRow': selectedProperty == prop}"
-                    ng-click="selectProperty(prop)"
-                    ng-repeat="prop in attributes">
+                <tr ng-class="{'selectTableRow': model.selectedProperty == prop}"
+                    ng-click="model.selectProperty(prop)"
+                    ng-repeat="prop in model.attributes">
 
                     <td>{{prop}}</td>
-                    <td>{{document[prop]}}</td>
+                    <td>{{model.document[prop]}}</td>
                     <td class="tableBorder">
                         <div class="floatRight">
                             <span class="glyphicon glyphicon-pencil cursor"
-                                  aria-hidden="true" ng-click="editProperty(prop)"></span>&nbsp;&nbsp;
+                                  aria-hidden="true" ng-click="model.editProperty(prop)"></span>&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-remove cursor"
-                                  aria-hidden="true" ng-click="deleteProperty(prop)"></span>
+                                  aria-hidden="true" ng-click="model.deleteProperty(prop)"></span>
                         </div>
                     </td>
                 </tr>

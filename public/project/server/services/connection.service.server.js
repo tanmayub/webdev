@@ -75,5 +75,5 @@ module.exports = function(app, connectionModel, uuid) {
 
         res.send(200);
     }
-
+    
 }

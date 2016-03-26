@@ -72,6 +72,7 @@ module.exports = function() {
             if(mock[i]._id == connectionId) {
 
                 mock[i] = {
+                    
                     _id: newConnection._id,
                     name : newConnection.name,
                     db : newConnection.db,
