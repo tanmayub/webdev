@@ -2,7 +2,7 @@
  * Created by TanmayPC on 3/19/2016.
  */
 
-module.exports = function (formModel) {
+module.exports = function (formModel, db, mongoose) {
     var api = {
         createField: createField,
         deleteField: deleteField,
