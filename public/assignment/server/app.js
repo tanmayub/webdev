@@ -1,7 +1,7 @@
 /**
  * Created by TanmayPC on 3/17/2016.
  */
-module.exports = function(app, db, mongoose) {
+module.exports = function(app, db, mongoose, passport, LocalStrategy) {
     //console.log(mongoose);
     var userModel = require("./models/user.model.js")(db, mongoose);
     var userService = require("./services/user.service.server.js")(app, userModel);

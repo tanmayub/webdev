@@ -3,10 +3,14 @@
  */
 var users = require("./user.mock.json");
 
+var q = require("q");
+
 module.exports = function(db, mongoose) {
 
     //console.log(mongoose);
     var UserSchema = require("./user.schema.server.js")(mongoose);
+
+    var UserModel = mongoose.model('user', UserSchema);
 
     var api = {
         createUser: createUser,
@@ -20,8 +24,20 @@ module.exports = function(db, mongoose) {
     return api;
 
     function createUser(user) {
-        users.push(user);
-        return users;
+        /*users.push(user);
+        return users;*/
+        var deferred = q.defer();
+        UserModel.create(user, function (err, doc) {
+            //console.log("create: " + doc);
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findUserById(userId) {

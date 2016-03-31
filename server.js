@@ -13,6 +13,10 @@ var mongoose = require('mongoose');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: process.env.PASSPORT_SECRET }));
 
 //-------------------------------------
 

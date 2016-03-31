@@ -13,8 +13,24 @@ module.exports = function(app, userModel) {
 
     function createUser (req, res) {
         var user = req.body;
-        user._id = parseInt(Math.floor(Math.random()*900) + 100);
-        res.send(userModel.createUser(user));
+        //user._id = parseInt(Math.floor(Math.random()*900) + 100);
+        //res.send(userModel.createUser(user));
+        userModel.createUser(user)
+            // handle model promise
+            .then(
+                // login user if promise resolved
+                function ( doc ) {
+                    //console.log(doc);
+                    req.session.currentUser = doc;
+                    //console.log("session: " + req.session.currentUser);
+                    //console.log("user: " + user);
+                    res.json(user);
+                },
+                // send error if promise rejected
+                function ( err ) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findAllusers (req, res) {
