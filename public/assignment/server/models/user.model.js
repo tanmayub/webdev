@@ -27,31 +27,57 @@ module.exports = function(db, mongoose) {
         /*users.push(user);
         return users;*/
         var deferred = q.defer();
-        UserModel.create(user, function (err, doc) {
-            //console.log("create: " + doc);
-            if (err) {
-                // reject promise if error
+        var existingUser = findUserByUsername(user.username);
+        if(existingUser) {
+            UserModel.create(user, function (err, doc) {
+                //console.log("create: " + doc);
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            });
+        }
+        else {
+            deferred.resolve(existingUser);
+        }
+        return deferred.promise;
+    }
+
+    function findUserById(userId) {
+        /*for (var u in users) {
+            if(users[u]._id === userId) {
+                console.log(users[u]);
+                return users[u];
+            }
+        }
+        return null;*/
+
+        var deferred = q.defer();
+        UserModel.findUserById(userId, function(err, doc) {
+            if(err) {
                 deferred.reject(err);
-            } else {
-                // resolve promise
+            }
+            else {
                 deferred.resolve(doc);
             }
         });
         return deferred.promise;
     }
 
-    function findUserById(userId) {
-        for (var u in users) {
-            if(users[u]._id === userId) {
-                console.log(users[u]);
-                return users[u];
-            }
-        }
-        return null;
-    }
-
     function findAllUsers() {
-        return users;
+        var deferred = q.defer();
+        return UserModel.find(function(err, doc) {
+            if(err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function updateUserById(userId, user) {
@@ -76,18 +102,29 @@ module.exports = function(db, mongoose) {
     }
 
     function findUserByUsername(userName) {
-        for (var u in users) {
+        /*for (var u in users) {
             if (users[u].username === userName) {
                 return users[u];
             }
         }
 
-        return null;
+        return null;*/
+
+        var deferred = q.defer();
+        UserModel.findOne({username: userName}, function(err, doc) {
+            if(err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findUserByCredentials(credentials) {
         var usr = null;
-        for (var u in users) {
+        /*for (var u in users) {
             if (users[u].username === credentials.username
                 && users[u].password === credentials.password) {
                 console.log("found");
@@ -95,7 +132,17 @@ module.exports = function(db, mongoose) {
                 break;
             }
         }
-        return usr;
+        return usr;*/
+        var deferred = q.defer();
+        UserModel.findOne({username: credentials.username, password: credentials.password},
+            function(err, doc) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+        });
+        return deferred.promise;
     }
-
 }

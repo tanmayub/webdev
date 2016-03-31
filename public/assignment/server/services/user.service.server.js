@@ -20,17 +20,13 @@ module.exports = function(app, userModel) {
             .then(
                 // login user if promise resolved
                 function ( doc ) {
-                    //console.log(doc);
                     req.session.currentUser = doc;
-                    //console.log("session: " + req.session.currentUser);
-                    //console.log("user: " + user);
-                    res.json(user);
+                    res.json(doc);
                 },
                 // send error if promise rejected
                 function ( err ) {
                     res.status(400).send(err);
-                }
-            );
+                });
     }
 
     function findAllusers (req, res) {
@@ -47,12 +43,27 @@ module.exports = function(app, userModel) {
 
     function findUserById(req, res) {
         var userId = parseInt(req.params.id);
-        res.json(userModel.findUserById(userId));
+        //res.json(userModel.findUserById(userId));
+
+        userModel.findUserById(userId)
+            .then(function(doc) {
+                res.json(doc);
+            },
+            function(err) {
+                res.status(400).send(err);
+            });
     }
 
     function findUserByUsername(req, res) {
         var username = req.query.username;
-        res.json(userModel.findUserByUsername(username));
+        //res.json(userModel.findUserByUsername(username));
+        userModel.findUserByUsername(username)
+            .then(function(doc) {
+                    res.json(doc);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
     }
 
     function findUserByCredentials(req, res) {
@@ -60,8 +71,15 @@ module.exports = function(app, userModel) {
         var password = req.query.password;
         var credentials = {username: username, password: password};
         //console.log(credentials);
-        var loggedUser = userModel.findUserByCredentials(credentials);
-        res.json(loggedUser);
+        /*var loggedUser = userModel.findUserByCredentials(credentials);
+        res.json(loggedUser);*/
+        userModel.findUserByCredentials(credentials)
+            .then(function(doc) {
+                    res.json(doc);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                })
     }
 
     function updateUserById(req, res) {
