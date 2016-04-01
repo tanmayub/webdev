@@ -56,12 +56,12 @@ module.exports = function(db, mongoose) {
         return null;*/
 
         var deferred = q.defer();
-        UserModel.findUserById(userId, function(err, doc) {
+        UserModel.find(userId, function(err, doc) {
             if(err) {
                 deferred.reject(err);
             }
             else {
-                deferred.resolve(doc);
+                deferred.resolve(doc[0]);
             }
         });
         return deferred.promise;
@@ -81,24 +81,51 @@ module.exports = function(db, mongoose) {
     }
 
     function updateUserById(userId, user) {
-        user._id = userId;
+        /*user._id = userId;
         for (var u in users) {
             if(users[u]._id === userId) {
                 users[u] = user;
                 return users[u];
             }
         }
-        return users;
+        return users;*/
+        var deferred = q.defer();
+        //console.log(userId);
+        UserModel.update({_id: userId}, user, function(err, doc) {
+            if(err) {
+                //console.log(err);
+                deferred.reject(err);
+            }
+            else {
+                //console.log(doc);
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function deleteUserId(userId) {
-        for (var u in users) {
+        /*for (var u in users) {
             if (users[u]._id === userId) {
                 users.splice(u,1);
                 break;
             }
         }
-        return users;
+        return users;*/
+
+        var deferred = q.defer();
+        //console.log(userId);
+        UserModel.remove({_id: userId}, function(err, doc) {
+            if(err) {
+                //console.log(err);
+                deferred.reject(err);
+            }
+            else {
+                //console.log(doc);
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findUserByUsername(userName) {

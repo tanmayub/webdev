@@ -42,11 +42,12 @@ module.exports = function(app, userModel) {
     }
 
     function findUserById(req, res) {
-        var userId = parseInt(req.params.id);
+        var userId = req.params.id;
         //res.json(userModel.findUserById(userId));
 
         userModel.findUserById(userId)
             .then(function(doc) {
+                //console.log(doc);
                 res.json(doc);
             },
             function(err) {
@@ -79,20 +80,34 @@ module.exports = function(app, userModel) {
                 },
                 function(err) {
                     res.status(400).send(err);
-                })
+                });
     }
 
     function updateUserById(req, res) {
-        var userId = parseInt(req.params.id);
+        var userId = req.params.id;
         var user = req.body;
-        var newUser = userModel.updateUserById(userId, user);
+        /*var newUser = userModel.updateUserById(userId, user);
         console.log(newUser);
-        res.json(newUser);
+        res.json(newUser);*/
+        userModel.updateUserById(userId, user)
+            .then(function(doc) {
+                    res.json(doc);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
     }
 
     function deleteUserById(req, res) {
-        var userId = parseInt(req.params.id);
-        userModel.deleteUserById(userId);
-        res.send(200);
+        var userId = req.params.id;
+        /*userModel.deleteUserById(userId);
+        res.send(200);*/
+        userModel.deleteUserId(userId)
+            .then(function(doc) {
+                    res.json(doc);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
     }
 }
