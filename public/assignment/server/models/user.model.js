@@ -1,7 +1,7 @@
 /**
  * Created by TanmayPC on 3/18/2016.
  */
-var users = require("./user.mock.json");
+//var users = require("./user.mock.json");
 
 var q = require("q");
 
@@ -56,7 +56,7 @@ module.exports = function(db, mongoose) {
         return null;*/
 
         var deferred = q.defer();
-        UserModel.find(userId, function(err, doc) {
+        UserModel.find({_id: userId}, function(err, doc) {
             if(err) {
                 deferred.reject(err);
             }

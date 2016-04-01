@@ -24,6 +24,7 @@
                     vm.forms = response;
                     vm.$location = $location;
                 });
+                selectFormIndex = -1;
             }
         }
         else {
@@ -33,7 +34,7 @@
         function addForm(form) {
             var form = {"title": form.title};
             FormService.createFormForUser($rootScope.currentUser._id, form).then(function(response) {
-                vm.forms = response;
+                vm.forms.push(response);
             });
             vm.form = {};
         }
@@ -50,8 +51,10 @@
                 FormService.updateFormById(formId, frm)
                     .then(function (response) {
                         if (response) {
-                            console.log(response);
-                            vm.forms[selectFormIndex] = response;
+                            //console.log(response);
+                            //vm.forms[selectFormIndex] = response;
+                            init();
+                            vm.selectedForm = {};
                         }
                     });
                 vm.form={};
@@ -61,7 +64,7 @@
         function deleteForm() {
             var formId = vm.forms[selectFormIndex]._id;
             FormService.deleteFormById(formId).then(function(response) {
-                if(response === "OK") {
+                if(response.ok === 1) {
                     init();
                 }
             });
