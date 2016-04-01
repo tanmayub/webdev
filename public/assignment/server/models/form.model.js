@@ -29,6 +29,8 @@ module.exports = function(db, mongoose) {
     function createForm(form) {
         //mock.push(form);
         var deferred = q.defer();
+        form.created = (new Date).getTime();
+        form.updated = (new Date).getTime();
         var existingForm = findFormByTitle(form.title);
         if(existingForm) {
             FormModel.create(form, function (err, doc) {
@@ -96,6 +98,7 @@ module.exports = function(db, mongoose) {
         }
         return mock;*/
         var deferred = q.defer();
+        form.updated = (new Date).getTime();
         FormModel.update({_id: formId}, form, function(err, doc) {
             if(err) {
                 //console.log(err);
