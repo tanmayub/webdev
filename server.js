@@ -21,7 +21,6 @@ app.use(session({
 //-------------------------------------
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev';
-var db = mongoose.connect(connectionString);
 
 //console.log(mongoose);
 //console.log(db);
@@ -33,6 +32,8 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
         process.env.OPENSHIFT_APP_NAME;
 }
+
+var db = mongoose.connect(connectionString);
 
 // require is not working
 var assignment = require("./public/assignment/server/app.js")(app, db, mongoose);
