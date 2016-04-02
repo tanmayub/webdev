@@ -53,7 +53,7 @@
                 .then(function (response)
                 {
                     //console.log(response);
-                    vm.form = response.data;
+                    vm.form = response;//.data;
                 });
         }
         init();
