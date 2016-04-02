@@ -9,8 +9,8 @@ module.exports = function(mongoose) {
         userId: String,
         title: String,
         created: Date,
-        updated: Date
-        //fields: [FieldSchema]
+        updated: Date,
+        fields: [FieldSchema]
     }, {collection: 'form'});
 
     return FormSchema;

@@ -2,7 +2,14 @@
  * Created by TanmayPC on 3/19/2016.
  */
 
+var q = require("q");
+
 module.exports = function (formModel, db, mongoose) {
+
+    var FieldSchema = require("./field.schema.server.js")(mongoose);
+
+    //var FieldModel = mongoose.model('form', FieldSchema);
+
     var api = {
         createField: createField,
         deleteField: deleteField,
@@ -15,53 +22,91 @@ module.exports = function (formModel, db, mongoose) {
 
     function createField(formId, field) {
         var form;
-        field._id = parseInt(Math.floor(Math.random()*900) + 100);
-        form = formModel.findFormById(formId);
-        form.fields.push(field);
+        var deferred = q.defer();
+        //field._id = parseInt(Math.floor(Math.random()*900) + 100);
+        formModel.findFormById(formId)
+            .then(function(doc) {
+                var fields = doc[0].fields;
+                fields.push(field);
+                doc[0].fields = fields;
+                formModel.updateFormById(formId, doc[0])
+                    .then(function(doc) {
+                        return doc;
+                    })
+        });
+        //form.fields.push(field);
     }
 
     function deleteField(formId, fieldId) {
-        var form;
+        /*var form;
         var fields;
-        form = formModel.findFormById(formId);
-        fields = form.fields;
-        for (f in fields) {
-            if (fields[f]._id == fieldId) {
-                fields.splice(f, 1);
-            }
-        }
+        fields = form.fields;*/
+        formModel.findFormById(formId)
+            .then(function(doc) {
+                var fields = doc[0].fields;
+                //console.log(fields);
+                for (var f in fields) {
+                    //console.log(fields[f]._id == fieldId);
+                    if (fields[f]._id == fieldId) {
+                        fields.splice(f, 1);
+                    }
+                }
+                doc[0].fields = fields;
+                //console.log(doc);
+                formModel.updateFormById(formId, doc[0])
+                    .then(function(doc) {
+                        return doc;
+                    })
+            });
     }
 
     function findField(formId, fieldId) {
-        var form;
+        /*var form;
         var fields;
-        form = formModel.findFormById(formId);
-        fields = form.fields;
-        for (f in fields) {
-            if (fields[f]._id == fieldId) {
-                return fields[f];
-            }
-        }
+        form = formModel.findFormById(formId);*/
+        formModel.findFormById(formId)
+            .then(function(doc) {
+                var fields = doc[0].fields;
+                for (var f in fields) {
+                    if (fields[f]._id == fieldId) {
+                        return fields[f];
+                    }
+                }
+            });
     }
 
     function findFieldsByFormId(formId) {
-        var form;
-        //console.log(formId);
-        form = formModel.findFormById(formId);
-        console.log(form);
-        return form.fields;
+        /*var form;
+        console.log(formId);
+        form = formModel.findFormById(formId);*/
+        formModel.findFormById(formId)
+            .then(function(doc) {
+                return doc[0].fields;
+            });
+        /*console.log(form);
+        return form.fields;*/
     }
 
     function updateField(formId, fieldId, field) {
-        var form;
+        /*var form;
         var fields;
         form = formModel.findFormById(formId);
-        fields = form.fields;
-        for (f in fields) {
-            if (fields[f]._id == fieldId) {
-                fields[f] = field;
-            }
-        }
+        fields = form.fields;*/
+
+        formModel.findFormById(formId)
+            .then(function(doc) {
+                var fields = doc[0].fields;
+                for (var f in fields) {
+                    if (fields[f]._id == fieldId) {
+                        fields[f] = field;
+                    }
+                }
+                doc[0].fields = fields;
+                formModel.updateFormById(formId, doc[0])
+                    .then(function(doc) {
+                        return doc;
+                    })
+            });
     }
 
 };

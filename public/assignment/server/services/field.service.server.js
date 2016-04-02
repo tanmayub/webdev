@@ -42,6 +42,7 @@ module.exports = function(app, formModel, fieldModel) {
         var formId;
         field = req.body;
         formId = req.params.formId;
+        //console.log(field);
         field = fieldModel.createField(formId, field);
         res.json(field);
     }
