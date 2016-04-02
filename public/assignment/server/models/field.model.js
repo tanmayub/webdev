@@ -79,10 +79,14 @@ module.exports = function (formModel, db, mongoose) {
         /*var form;
         console.log(formId);
         form = formModel.findFormById(formId);*/
+        var deferred = q.defer();
         formModel.findFormById(formId)
             .then(function(doc) {
-                return doc[0].fields;
+                //console.log(doc[0]);
+                deferred.resolve(doc[0].fields);
             });
+
+        return deferred.promise;
         /*console.log(form);
         return form.fields;*/
     }

@@ -12,10 +12,13 @@ module.exports = function(app, formModel, fieldModel) {
 
     function fieldsForFormId(req, res) {
         var formId;
-        var fields;
         formId = req.params.formId;
-        fields = fieldModel.findFieldsByFormId(formId);
-        res.json(fields);
+        fieldModel.findFieldsByFormId(formId)
+            .then(function(doc) {
+                res.json(doc);
+            });
+        //console.log(fields);
+        //res.json(fields);
     }
 
     function getFieldById(req, res) {
