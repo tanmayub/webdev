@@ -52,10 +52,11 @@ module.exports = function (formModel, db, mongoose) {
                 }
                 doc[0].fields = fields;
                 //console.log(doc);
-                formModel.updateFormById(formId, doc[0])
+                /*formModel.updateFormById(formId, doc[0])
                     .then(function(doc) {
                         return doc;
-                    })
+                    })*/
+                doc[0].save();
             });
     }
 
@@ -106,11 +107,12 @@ module.exports = function (formModel, db, mongoose) {
                     }
                 }
                 doc[0].fields = fields;
-                formModel.updateFormById(formId, doc[0])
+                /*formModel.updateFormById(formId, doc[0])
                     .then(function(doc) {
                         //deferred.resolve(doc);
                         return doc;
-                    })
+                    })*/
+                doc[0].save();
             });
         //return deferred.promise;
     }
