@@ -21,18 +21,17 @@ module.exports = function (formModel, db, mongoose) {
     return api;
 
     function createField(formId, field) {
-        var form;
-        var deferred = q.defer();
         //field._id = parseInt(Math.floor(Math.random()*900) + 100);
         formModel.findFormById(formId)
             .then(function(doc) {
                 var fields = doc[0].fields;
                 fields.push(field);
                 doc[0].fields = fields;
-                formModel.updateFormById(formId, doc[0])
+                /*formModel.updateFormById(formId, doc[0])
                     .then(function(doc) {
                         return doc;
-                    })
+                    })*/
+                doc[0].save();
         });
         //form.fields.push(field);
     }
@@ -96,6 +95,7 @@ module.exports = function (formModel, db, mongoose) {
         var fields;
         form = formModel.findFormById(formId);
         fields = form.fields;*/
+        var deferred = q.defer();
 
         formModel.findFormById(formId)
             .then(function(doc) {
@@ -108,9 +108,11 @@ module.exports = function (formModel, db, mongoose) {
                 doc[0].fields = fields;
                 formModel.updateFormById(formId, doc[0])
                     .then(function(doc) {
+                        //deferred.resolve(doc);
                         return doc;
                     })
             });
+        //return deferred.promise;
     }
 
 };
