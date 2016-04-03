@@ -91,6 +91,7 @@ module.exports = function(db, mongoose) {
         return users;*/
         var deferred = q.defer();
         //console.log(userId);
+        delete user._id;
         if(!Array.isArray(user.email)) {
             user.email = user.email.split(",");
         }
