@@ -91,6 +91,12 @@ module.exports = function(db, mongoose) {
         return users;*/
         var deferred = q.defer();
         //console.log(userId);
+        if(!Array.isArray(user.email)) {
+            user.email = user.email.split(",");
+        }
+        if(!Array.isArray(user.phone)) {
+            user.phone = user.phone.split(",");
+        }
         UserModel.update({_id: userId}, user, function(err, doc) {
             if(err) {
                 //console.log(err);

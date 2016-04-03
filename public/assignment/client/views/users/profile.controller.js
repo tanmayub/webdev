@@ -29,6 +29,7 @@
                     vm.user.firstName = updatedUser.firstName;
                     vm.user.lastName = updatedUser.lastName;
                     vm.user.email = updatedUser.email;
+                    vm.user.phone = updatedUser.phone;
                     $rootScope.currentUser = updatedUser;
                 });
             }
