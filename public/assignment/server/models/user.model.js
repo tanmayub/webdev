@@ -27,22 +27,18 @@ module.exports = function(db, mongoose) {
         /*users.push(user);
         return users;*/
         var deferred = q.defer();
-        var existingUser = findUserByUsername(user.username);
-        if(existingUser) {
-            UserModel.create(user, function (err, doc) {
-                //console.log("create: " + doc);
-                if (err) {
-                    // reject promise if error
-                    deferred.reject(err);
-                } else {
-                    // resolve promise
-                    deferred.resolve(doc);
-                }
-            });
-        }
-        else {
-            deferred.resolve(existingUser);
-        }
+
+        UserModel.create(user, function (err, doc) {
+            //console.log("create: " + doc);
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
+            }
+        });
+
         return deferred.promise;
     }
 

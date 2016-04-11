@@ -12,8 +12,17 @@
 
         function init() {
             vm.user= {};
-            console.log($rootScope.currentUser);
-            vm.user = $rootScope.currentUser;
+            if($rootScope.currentUser.data) {
+                console.log($rootScope.currentUser.data);
+                vm.user = $rootScope.currentUser.data;
+            }
+            else {
+                if ($rootScope.currentUser) {
+                    console.log($rootScope.currentUser);
+                    vm.user = $rootScope.currentUser;
+                }
+            }
+
         }
         init();
 

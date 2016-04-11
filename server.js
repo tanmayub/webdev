@@ -7,9 +7,11 @@ var bodyParser = require('body-parser');
 var multer =require('multer');
 var uuid = require('node-uuid');
 var mongoose = require('mongoose');
+var passport = require('passport');
 
 //console.log(mongoose);
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());

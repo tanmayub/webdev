@@ -8,7 +8,8 @@
     function UserService($http, $q, $rootScope) {
 
         var api = {
-            findUserByCredentials: findUserByCredentials,
+            //findUserByCredentials: findUserByCredentials,
+            login: login,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
@@ -21,13 +22,24 @@
         };
         return api;
 
-        function findUserByCredentials(username, password) {
-            var deferred = $q.defer();
+        function login(user) {
+            /*var deferred = $q.defer();
 
             $http.get("/api/assignment/user?username=" + username + "&password=" + password).success (function (response) {
                 deferred.resolve(response);
             });
-            return deferred.promise;
+            return deferred.promise;*/
+
+            /*var deferred = $q.defer();
+
+            $http.post("/api/assignment/login", user).success(function(response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;*/
+
+            //console.log(user);
+            return $http.post("/api/assignment/login", user);
         }
 
         function findUserByUsername(username) {

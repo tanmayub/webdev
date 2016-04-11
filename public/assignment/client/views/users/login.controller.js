@@ -15,7 +15,7 @@
             if(!user) {
                 return;
             }
-            UserService.findUserByCredentials(user.username, user.pwd)
+            /*UserService.findUserByCredentials(user.username, user.pwd)
                 .then(function(response){
                     console.log(response);
                     if(response) {
@@ -25,7 +25,20 @@
                     else{
                         vm.message="Username and password doesnot match";
                     }
-                });
+                });*/
+            //console.log(user);
+            UserService.login(user).then(function(response) {
+                //console.log(response);
+                if(response) {
+                    if(response.data) {
+                        $rootScope.currentUser = response.data;
+                        $location.url("/profile");
+                    }
+                }
+                else{
+                    vm.message="Username and password doesn't match";
+                }
+            });
         }
     }
 })();
