@@ -52,9 +52,11 @@
             return deferred.promise;
         }
 
-        function findAllUsers(callback) {
+        function findAllUsers(user, callback) {
             var deferred = $q.defer();
-            var url = "/api/assignment/user";
+            var url = "/api/assignment/user/:userId";
+            url = url.replace(":userId", user._id);
+            //console.log(user);
             $http.get(url).success (function (response) {
                 deferred.resolve(response);
             });

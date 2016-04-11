@@ -6,8 +6,8 @@
         <li ng-class="{'active': $location.url() == '/profile'}" ng-hide="!currentUser">
             <a href="#/profile">Profile</a>
         </li>
-        <li ng-class="{'active': $location.url() == '/admin'}">
-            <!--ng-hide="navAdmin()">-->
+        <li ng-class="{'active': $location.url() == '/admin'}"
+            ng-hide="navAdmin()">
             <a href="#/admin">Admin</a>
         </li>
         <li ng-class="{'active': $location.url() == '/forms'}" ng-hide="!currentUser">

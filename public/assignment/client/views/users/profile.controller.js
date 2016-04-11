@@ -13,12 +13,12 @@
         function init() {
             vm.user= {};
             if($rootScope.currentUser.data) {
-                console.log($rootScope.currentUser.data);
+                //console.log($rootScope.currentUser.data);
                 vm.user = $rootScope.currentUser.data;
             }
             else {
                 if ($rootScope.currentUser) {
-                    console.log($rootScope.currentUser);
+                    //console.log($rootScope.currentUser);
                     vm.user = $rootScope.currentUser;
                 }
             }
@@ -32,7 +32,7 @@
 
         function updateProfilePage(response) {
             if (response) {
-                console.log(response);
+                //console.log(response);
                 UserService.findUserById($rootScope.currentUser._id).then (function (updatedUser) {
                     vm.user.username = updatedUser.username;
                     vm.user.firstName = updatedUser.firstName;

@@ -12,7 +12,7 @@ module.exports = function(app, userModel) {
 
     //app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);
     app.post("/api/assignment/user", createUser);
-    app.get("/api/assignment/user", findAllusers);
+    app.get("/api/assignment/user/:userId", findAllusers);
     app.get("/api/assignment/user/:id", findUserById);
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUserById);
@@ -75,14 +75,29 @@ module.exports = function(app, userModel) {
     }
 
     function findAllusers (req, res) {
-        if(req.query.username && req.query.password) {
-            findUserByCredentials(req, res);
+        var id = req.params.userId;
+        if(id) {
+            userModel.findUserById(id)
+                .then(function(response) {
+                    if(isAdmin(response)) {
+                        userModel.findAllUsers()
+                            .then(function(doc) {
+                                    res.json(doc);
+                                },
+                                function(err) {
+                                    res.status(400).send(err);
+                                });
+                    }
+                });
         }
-        else if (req.query.username) {
-            findUserByUsername(req, res);
+    }
+
+    function isAdmin(user) {
+        if(user.roles.indexOf("admin") > -1) {
+            return true;
         }
         else {
-            res.json(userModel.findAllUsers());
+            return false;
         }
     }
 

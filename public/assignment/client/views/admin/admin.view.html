@@ -41,18 +41,34 @@
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></td>
                 </tr>-->
                 <tr>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="username"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="password"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="role1, role2"></td>
-                    <td class="tableBorder"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="username"
+                                                   ng-model="model.user.username"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="password"
+                                                   ng-model="model.user.password"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="role1, role2"
+                                                   ng-model="model.user.roles"></td>
+                    <td class="tableBorder">
+                        <div class="floatRight">
+                            &nbsp;<span class="glyphicon glyphicon-plus cursor"
+                                        aria-hidden="true" ng-click="model.addUser(model.user)"></span>&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-ok cursor" aria-hidden="true"
+                                  ng-click="model.updateUser(model.user)"></span>
+                        </div>
+                    </td>
                 </tr>
-                <tr ng-repeat="user in users">
-                    <td class="tableBorder">{{user.username}}</td>
-                    <td class="tableBorder"></td>
-                    <td class="tableBorder">{{user.roles.join(',')}}</td>
-                    <td class="tableBorder"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></td>
+                <tr ng-repeat="user in model.users" ng-class="{'selectTableRow': model.selectedUser == user._id}"
+                    ng-click="model.selectUser(user)">
+                    <td class="tableBorder cursor">{{user.username}}</td>
+                    <td class="tableBorder cursor"></td>
+                    <td class="tableBorder cursor">{{user.roles.join(',')}}</td>
+                    <td class="tableBorder">
+                        <div class="floatRight">
+                                    <span class="glyphicon glyphicon-pencil cursor"
+                                          aria-hidden="true" ng-click="model.editUser()"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-remove cursor"
+                                          aria-hidden="true" ng-click="model.deleteUser()"></span>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
