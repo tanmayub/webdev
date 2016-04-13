@@ -20,7 +20,7 @@
             init();
 
             function init() {
-                UserService.findAllUsers($rootScope.currentUser).then(function (response) {
+                UserService.findAllUsersForAdmin($rootScope.currentUser).then(function (response) {
                     console.log(response);
                     vm.users = response;
                 });
@@ -33,7 +33,7 @@
 
         function addUser(user) {
             var user = {_id: user._id, username: user.username, password: user.password, roles: user.roles};
-            UserService.createUser(user)
+            UserService.createUserForAdmin(user)
                 .then(function(response) {
                     vm.users.push(response);
             });
@@ -50,7 +50,7 @@
                 var userId = vm.users[selectUserIndex]._id;
                 var usr = vm.users[selectUserIndex];
                 usr.roles = user.roles.split(',');
-                UserService.updateUser(userId, usr)
+                UserService.updateUserForAdmin(userId, usr)
                     .then(function (response) {
                         if (response) {
                             //console.log(response);
@@ -60,6 +60,7 @@
                         }
                     });
                 vm.user={};
+                vm.selectedUser = -1;
             }
         }
 

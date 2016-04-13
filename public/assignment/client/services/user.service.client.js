@@ -11,9 +11,12 @@
             //findUserByCredentials: findUserByCredentials,
             login: login,
             findAllUsers: findAllUsers,
+            findAllUsersForAdmin: findAllUsersForAdmin,
             createUser: createUser,
+            createUserForAdmin: createUserForAdmin,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
+            updateUserForAdmin: updateUserForAdmin,
             findUserByUsername: findUserByUsername,
             findUserById: findUserById,
             getLoggedUser: getLoggedUser,
@@ -63,6 +66,17 @@
             return deferred.promise;
         }
 
+        function findAllUsersForAdmin(user, callback) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/admin/user/:userId";
+            url = url.replace(":userId", user._id);
+            //console.log(user);
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
         function createUser(user) {
             var deferred = $q.defer();
             var url = "/api/assignment/user";
@@ -72,9 +86,18 @@
             return deferred.promise;
         }
 
+        function createUserForAdmin(user) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/admin/user";
+            $http.post(url, user).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
         function deleteUserById(userID) {
             var deferred = $q.defer();
-            var url = "/api/assignment/user/:id";
+            var url = "/api/assignment/admin/user/:id";
             url = url.replace(":id", userID);
             $http.delete(url).success (function (response) {
                 deferred.resolve(response);
@@ -85,6 +108,16 @@
         function updateUser(userID, user) {
             var deferred = $q.defer();
             var url = "/api/assignment/user/:id";
+            url = url.replace(":id", userID);
+            $http.put(url, user).success (function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
+        function updateUserForAdmin(userID, user) {
+            var deferred = $q.defer();
+            var url = "/api/assignment/admin/user/:id";
             url = url.replace(":id", userID);
             $http.put(url, user).success (function (response) {
                 deferred.resolve(response);
