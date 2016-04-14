@@ -6,6 +6,8 @@
             <thead>
             <tr>
                 <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Username</th>
+                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> First Name</th>
+                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Last Name</th>
                 <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Password</th>
                 <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Role</th>
                 <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action</th>
@@ -43,6 +45,10 @@
                 <tr>
                     <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="username"
                                                    ng-model="model.user.username" ng-disabled="model.toggleDisabled"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="First Name"
+                                                   ng-model="model.user.firstName"></td>
+                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="Last Name"
+                                                   ng-model="model.user.lastName"></td>
                     <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="password"
                                                    ng-model="model.user.password" ng-disabled="model.toggleDisabled"></td>
                     <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="role1, role2"
@@ -59,6 +65,8 @@
                 <tr ng-repeat="user in model.users" ng-class="{'selectTableRow': model.selectedUser == user._id}"
                     ng-click="model.selectUser(user)">
                     <td class="tableBorder cursor">{{user.username}}</td>
+                    <td class="tableBorder cursor">{{user.firstName}}</td>
+                    <td class="tableBorder cursor">{{user.lastName}}</td>
                     <td class="tableBorder cursor"></td>
                     <td class="tableBorder cursor">{{user.roles.join(',')}}</td>
                     <td class="tableBorder">

@@ -35,7 +35,8 @@
         }
 
         function addUser(user) {
-            var user = {_id: user._id, username: user.username, password: user.password, roles: user.roles};
+            var user = {_id: user._id, username: user.username, password: user.password, roles: user.roles,
+                        firstName: user.firstName, lastName: user.lastName};
             UserService.createUserForAdmin(user)
                 .then(function(response) {
                     vm.users.push(response);
@@ -45,7 +46,8 @@
 
         function editUser() {
             var userToEdit = vm.users[selectUserIndex];
-            vm.user = {username: userToEdit.username, password: "", roles: userToEdit.roles.join(',')};
+            vm.user = {username: userToEdit.username, password: "", roles: userToEdit.roles.join(','),
+                firstName: userToEdit.firstName, lastName: userToEdit.lastName};
             vm.toggleDisabled = true;
             selectUserIndex = -1;
             vm.selectedUser = -1;
@@ -56,6 +58,8 @@
                 var userId = vm.users[selectUserIndex]._id;
                 var usr = vm.users[selectUserIndex];
                 usr.roles = user.roles.split(',');
+                usr.firstName = user.firstName;
+                usr.lastName = user.lastName;
                 UserService.updateUserForAdmin(userId, usr)
                     .then(function (response) {
                         if (response) {
