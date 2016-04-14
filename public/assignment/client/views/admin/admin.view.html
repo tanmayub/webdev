@@ -5,12 +5,24 @@
         <table class="table table-striped tableWidth tableBorder sortable">
             <thead>
             <tr>
-                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Username</th>
-                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> First Name</th>
-                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Last Name</th>
-                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Password</th>
-                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Role</th>
-                <th class="tableBorder noWrap"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action</th>
+                <th class="tableBorder noWrap">
+                    <span class="glyphicon glyphicon-triangle-bottom"
+                          aria-hidden="true"
+                          ng-click="orderByField='username'; reverseSort = !reverseSort"></span> Username</th>
+                <th class="tableBorder noWrap">
+                    <span class="glyphicon glyphicon-triangle-bottom"
+                          aria-hidden="true"
+                          ng-click="orderByField='firstName'; reverseSort = !reverseSort"></span> First Name</th>
+                <th class="tableBorder noWrap">
+                    <span class="glyphicon glyphicon-triangle-bottom"
+                          aria-hidden="true"
+                          ng-click="orderByField='lastName'; reverseSort = !reverseSort"></span> Last Name</th>
+                <th class="tableBorder noWrap">
+                    <span aria-hidden="true"></span> Password</th>
+                <th class="tableBorder noWrap">
+                    <span aria-hidden="true"></span> Role</th>
+                <th class="tableBorder noWrap">
+                    <span aria-hidden="true"></span> Action</th>
             </tr>
             </thead>
             <tbody>
@@ -62,7 +74,8 @@
                         </div>
                     </td>
                 </tr>
-                <tr ng-repeat="user in model.users" ng-class="{'selectTableRow': model.selectedUser == user._id}"
+                <tr ng-repeat="user in model.users | filter: searchKeyword | orderBy:orderByField:reverseSort"
+                    ng-class="{'selectTableRow': model.selectedUser == user._id}"
                     ng-click="model.selectUser(user)">
                     <td class="tableBorder cursor">{{user.username}}</td>
                     <td class="tableBorder cursor">{{user.firstName}}</td>
