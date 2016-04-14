@@ -19,7 +19,6 @@
             updateUserForAdmin: updateUserForAdmin,
             findUserByUsername: findUserByUsername,
             findUserById: findUserById,
-            getLoggedUser: getLoggedUser,
             setLoggedUser: setLoggedUser,
             logout: logout
         };
@@ -68,8 +67,7 @@
 
         function findAllUsersForAdmin(user, callback) {
             var deferred = $q.defer();
-            var url = "/api/assignment/admin/user/:userId";
-            url = url.replace(":userId", user._id);
+            var url = "/api/assignment/admin/user";
             //console.log(user);
             $http.get(url).success (function (response) {
                 deferred.resolve(response);
@@ -79,7 +77,7 @@
 
         function createUser(user) {
             var deferred = $q.defer();
-            var url = "/api/assignment/user";
+            var url = "/api/assignment/register";
             $http.post(url, user).success (function (response) {
                 deferred.resolve(response);
             });
@@ -135,16 +133,12 @@
             return deferred.promise;
         }
 
-        function getLoggedUser() {
-            return $http.get("/api/assignment/user/loggedinUser");
-        }
-
         function setLoggedUser(user) {
             $rootScope.currentUser = user;
         }
 
         function logout() {
-            return $http.post("/api/assignment/user/logout")
+            return $http.post("/api/assignment/logout")
         }
     }
 })();

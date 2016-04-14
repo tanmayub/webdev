@@ -13,6 +13,7 @@
         vm.deleteUser = deleteUser;
         vm.selectUser = selectUser;
         vm.editUser = editUser;
+        vm.toggleDisabled = false;
 
         if($rootScope.currentUser) {
             //findAllUsers();
@@ -25,6 +26,8 @@
                     vm.users = response;
                 });
                 selectUserIndex = -1;
+                vm.selectedUser = -1;
+                vm.toggleDisabled = false;
             }
         }
         else {
@@ -43,6 +46,9 @@
         function editUser() {
             var userToEdit = vm.users[selectUserIndex];
             vm.user = {username: userToEdit.username, password: "", roles: userToEdit.roles.join(',')};
+            vm.toggleDisabled = true;
+            selectUserIndex = -1;
+            vm.selectedUser = -1;
         }
 
         function updateUser(user) {
@@ -75,8 +81,8 @@
 
         function selectUser(user) {
             //console.log(users);
-            selectUserIndex = vm.users.indexOf(user);
-            vm.selectedUser = user._id;
+            selectUserIndex = selectUserIndex === vm.users.indexOf(user) ? -1 : vm.users.indexOf(user);
+            vm.selectedUser = vm.selectedUser === user._id ? -1 : user._id;
         }
     }
 })();

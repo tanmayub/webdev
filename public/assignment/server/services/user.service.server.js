@@ -10,18 +10,24 @@ var bcrypt = require('bcrypt-nodejs');
 module.exports = function(app, userModel) {
     var auth = authorized;
 
-    //app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);
-    app.post("/api/assignment/user", createUser);
+    app.post("/api/assignment/register", createUser);
     app.post("/api/assignment/admin/user", createUser);
+
     app.get("/api/assignment/user/:userId", findAllusers);
-    app.get("/api/assignment/admin/user/:userId", findAllusers);
+    app.get("/api/assignment/admin/user", auth, findAllusers);
+
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/admin/user/:id", findUserById);
+
     app.put("/api/assignment/user/:id", updateUserById);
-    app.put("/api/assignment/admin/user/:id", updateUserById)
+    app.put("/api/assignment/admin/user/:id", auth, updateUserById);
+
     app.delete("/api/assignment/user/:id", deleteUserById);
-    app.delete("/api/assignment/admin/user/:id",deleteUserById);
+    app.delete("/api/assignment/admin/user/:id", auth, deleteUserById);
+
     app.post('/api/assignment/login', passport.authenticate('local'), login);
+    app.get("/api/assignment/loggedin", loggedIn);
+    app.post('/api/assignment/logout',logout);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -80,20 +86,14 @@ module.exports = function(app, userModel) {
     }
 
     function findAllusers (req, res) {
-        var id = req.params.userId;
-        if(id) {
-            userModel.findUserById(id)
-                .then(function(response) {
-                    if(isAdmin(response)) {
-                        userModel.findAllUsers()
-                            .then(function(doc) {
-                                    res.json(doc);
-                                },
-                                function(err) {
-                                    res.status(400).send(err);
-                                });
-                    }
-                });
+        if(isAdmin(req.user)) {
+            userModel.findAllUsers()
+                .then(function(doc) {
+                        res.json(doc);
+                    },
+                    function(err) {
+                        res.status(400).send(err);
+                    });
         }
     }
 
@@ -232,6 +232,15 @@ module.exports = function(app, userModel) {
                     done(err, null);
                 }
             );
+    }
+
+    function logout(req,res){
+        req.logOut();
+        res.send(200);
+    }
+
+    function loggedIn(req,res){
+        res.send(req.isAuthenticated() ? req.user : null);
     }
 
     function authorized (req, res, next) {

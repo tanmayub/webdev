@@ -10,8 +10,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 //console.log(mongoose);
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
@@ -19,6 +17,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     secret: process.env.PASSPORT_SECRET }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //-------------------------------------
 

@@ -6,15 +6,19 @@
         .module("FormBuilderApp")
         .controller("HeaderController", headerController);
 
-    function headerController($scope, $location, $rootScope) {
+    function headerController($scope, $location, UserService) {
         $scope.$location = $location;
         $scope.logoutUser = logoutUser;
 
         function logoutUser() {
-            if ($rootScope.currentUser) {
+            /*if ($rootScope.currentUser) {
                 delete $rootScope.currentUser;
-            }
-            $location.url("home");
+            }*/
+            UserService.logout()
+                .then(function() {
+                    $location.url("home");
+                    delete $rootScope.currentUser;
+                });
         }
     }
 })();
