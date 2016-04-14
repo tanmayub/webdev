@@ -46,7 +46,7 @@
 
         function findUserByUsername(username) {
             var deferred = $q.defer();
-            var url = "/api/assignment/user?username=:username";
+            var url = "/api/assignment/user/:username";
             url = url.replace(":username", username);
             $http.get(url).success (function (response) {
                 deferred.resolve(response);

@@ -25,6 +25,8 @@ module.exports = function(app, userModel) {
     app.delete("/api/assignment/user/:id", deleteUserById);
     app.delete("/api/assignment/admin/user/:id", auth, deleteUserById);
 
+    app.get("/api/assignment/user/:username", findUserByUsername);
+
     app.post('/api/assignment/login', passport.authenticate('local'), login);
     app.get("/api/assignment/loggedin", loggedIn);
     app.post('/api/assignment/logout',logout);
@@ -51,19 +53,18 @@ module.exports = function(app, userModel) {
                         .then(
                             // login user if promise resolved
                             function ( doc ) {
-                                req.session.currentUser = doc;
-                                res.json(doc);
-                                //console.log(doc);
-                                /*req.login(doc, function(response) {
-                                    if(err) {
-                                        console.log("login fail");
-                                        res.status(400).send(err);
-                                    }
-                                    else {
-                                        console.log("login success");
-                                        res.json(response);
-                                    }
-                                })*/
+                                if(doc) {
+                                    req.session.currentUser = doc;
+                                    //res.json(doc);
+                                    //console.log(doc);
+                                    req.login(doc,function (err) {
+                                        if(err) {
+                                            res.status(400).send(err);
+                                        } else {
+                                            res.json(doc);
+                                        }
+                                    });
+                                }
                             },
                             // send error if promise rejected
                             function ( err ) {
@@ -127,10 +128,12 @@ module.exports = function(app, userModel) {
     }
 
     function findUserByUsername(req, res) {
-        var username = req.query.username;
+        var username = req.params.username;
+        console.log(username);
         //res.json(userModel.findUserByUsername(username));
         userModel.findUserByUsername(username)
             .then(function(doc) {
+                    console.log(doc);
                     res.json(doc);
                 },
                 function(err) {
@@ -222,6 +225,7 @@ module.exports = function(app, userModel) {
     }
 
     function deserializeUser(user, done) {
+        //console.log(user);
         userModel
             .findUserById(user._id)
             .then(

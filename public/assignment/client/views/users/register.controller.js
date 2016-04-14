@@ -14,11 +14,14 @@
             var userSave = {username: user.username, password: user.password, lastName: "",
                 firstName: "", email: user.email }
             UserService.createUser(userSave).then(function(users) {
-
-                UserService.findUserByUsername(userSave.username).then(function (newUser) {
+                //console.log(users);
+                $rootScope.currentUser = users;
+                $location.url("/profile");
+                /*UserService.findUserByUsername(userSave.username).then(function (newUser) {
+                    console.log(newUser);
                     $rootScope.currentUser = newUser;
                     $location.url("/profile");
-                });
+                });*/
             });
         }
     }
