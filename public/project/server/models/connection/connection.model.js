@@ -53,6 +53,6 @@ module.exports = function(db, mongoose) {
 
     function updateConnectionById(connectionId, newConnection) {
 
-        return ConnectionModel.findOneAndUpdate({_id: connectionId}, newConnection);
+        return ConnectionModel.update({_id: connectionId}, newConnection);
     }
 }
