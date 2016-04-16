@@ -31,18 +31,26 @@ module.exports = function(app, connectionModel, uuid) {
         var userId = parseInt(req.params.userId);
 
         connection.userId = userId;
-        connection._id = parseInt(uuid.v4(), 16);
 
-        connectionModel.addConnection(connection);
-
-        res.json(connectionModel.findAllConnectionsByUserId(userId));
+        connectionModel.createConnection(connection)
+            .then(function(doc) {
+                if(doc) {
+                    res.json(doc);
+                }
+            });
     }
 
     function findAllConnectionsForUser(req, res) {
 
         var userId = parseInt(req.params.userId);
 
-        res.json(connectionModel.findAllConnectionsByUserId(userId));
+        /*res.json(connectionModel.findAllConnectionsForUser(userId));*/
+        connectionModel.findAllConnectionsForUser(userId)
+            .then(function(doc) {
+                if(doc) {
+                    res.json(doc);
+                }
+            });
     }
 
     function findAllConnections(req, res) {
@@ -59,21 +67,28 @@ module.exports = function(app, connectionModel, uuid) {
 
     function updateConnectionById(req, res) {
 
-        var connectionId = parseInt(req.params.connectionId);
+        var connectionId = req.params.connectionId;
         var connection = req.body;
 
-        connectionModel.updateConnectionById(connectionId, connection);
-
-        res.send(200);
+        connectionModel.updateConnectionById(connectionId, connection)
+            .then(function(doc) {
+                //console.log(doc);
+                if(doc) {
+                    res.send(200);
+                }
+            });
     }
 
     function deleteConnectionById(req, res) {
 
-        var connectionId = parseInt(req.params.connectionId);
+        var connectionId = req.params.connectionId;
 
-        connectionModel.deleteConnectionById(connectionId);
-
-        res.send(200);
+        connectionModel.deleteConnectionById(connectionId)
+            .then(function(doc) {
+                if(doc) {
+                    res.send(200);
+                }
+            });
     }
     
 }

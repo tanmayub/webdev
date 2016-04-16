@@ -68,7 +68,8 @@
 
                 .then(function (response) {
 
-                        vm.connections = response;
+                        //vm.connections = response;
+                        init();
 
                         vm.connection = {};
                 });
@@ -82,15 +83,9 @@
 
                     if (response === "OK") {
 
-                        return ConnectionsService.findConnectionById(connection._id);
+                        init();
+                        vm.connection = {};
                     }
-                })
-
-                .then(function (response) {
-
-                    vm.connections[toBeUpdatedIndex] = response;
-                    vm.connection = {};
-
                 });
         }
 
@@ -103,14 +98,15 @@
 
                     if(response === "OK")
 
-                        return ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id);
-                })
+                        //return ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id);
+                    init();
+                });
             
-                .then(function (response) {
+                /*.then(function (response) {
 
                     vm.connections = response;
                     
-                });
+                });*/
         }
 
         function selectConnection(connection) {

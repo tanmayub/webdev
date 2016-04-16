@@ -5,36 +5,30 @@
 "use strict"
 
 var mock = require("./connection.mock.json");
+var q = require("q");
 
-module.exports = function() {
+module.exports = function(db, mongoose) {
+
+    var ConnectionSchema = require("./connection.schema.server.js")(mongoose);
+
+    var ConnectionModel = mongoose.model('connection', ConnectionSchema);
 
     var api = {
 
-        addConnection: addConnection,
-        findAllConnectionsByUserId: findAllConnectionsByUserId,
+        createConnection: createConnection,
+        findAllConnectionsForUser: findAllConnectionsForUser,
         findConnectionById: findConnectionById,
         deleteConnectionById: deleteConnectionById,
         updateConnectionById: updateConnectionById
     };
     return api;
 
-    function addConnection(connection) {
-
-        mock.push(connection);
-
+    function createConnection(connection) {
+        return ConnectionModel.create(connection);
     }
 
-    function findAllConnectionsByUserId(userId) {
-
-        var connectionsForUser = [];
-        for(var i in mock) {
-
-            if(mock[i].userId == userId){
-                connectionsForUser.push(mock[i]);
-            }
-        }
-
-        return connectionsForUser;
+    function findAllConnectionsForUser(userId) {
+        return ConnectionModel.find({userId: userId});
 
     }
 
@@ -53,39 +47,12 @@ module.exports = function() {
     }
     function deleteConnectionById(connectionId) {
 
-        for(var i in mock) {
-            if(mock[i]._id == connectionId) {
-
-                mock.splice(i,1);
-                break;
-            }
-        }
-
-        return mock;
+        return ConnectionModel.remove({_id: connectionId});
 
     }
 
     function updateConnectionById(connectionId, newConnection) {
 
-        for(var i in mock) {
-
-            if(mock[i]._id == connectionId) {
-
-                mock[i] = {
-                    
-                    _id: newConnection._id,
-                    name : newConnection.name,
-                    db : newConnection.db,
-                    username: newConnection.username,
-                    host : newConnection.host,
-                    port : newConnection.port,
-                    userId : newConnection.userId,
-                    password: newConnection.password
-
-                }
-
-                return mock[i];
-            }
-        }
+        return ConnectionModel.findOneAndUpdate({_id: connectionId}, newConnection);
     }
 }
