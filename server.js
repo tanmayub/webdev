@@ -38,7 +38,7 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 var db = mongoose.connect(connectionString);
 
 var assignment = require("./public/assignment/server/app.js")(app, db, mongoose);
-var proj = require("./public/project/server/app.js")(app, uuid, db, mongoose);
+var proj = require("./public/project/server/app.js")(app, uuid);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
