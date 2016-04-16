@@ -3,7 +3,7 @@
  */
 "use strict"
 
-module.exports = function(app, connectionModel, uuid) {
+module.exports = function(app, connectionModel) {
 
     //creates a new connection whose properties are the same as the connection object embedded in the HTTP request's body and
     //the connection belongs to a user whose id is equal to the userId path parameter.
@@ -31,6 +31,14 @@ module.exports = function(app, connectionModel, uuid) {
         var userId = parseInt(req.params.userId);
 
         connection.userId = userId;
+
+        if(connection.username && connection.password) {
+            connection.connectionString = connection.username + ":" + connection.password + "@"
+                                            + connection.host + "/" + connection.dbname;
+        } else {
+            connection.connectionString = connection.host + "/" + connection.dbname;
+        }
+
 
         connectionModel.createConnection(connection)
             .then(function(doc) {

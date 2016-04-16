@@ -4,9 +4,6 @@
 
 "use strict"
 
-var mock = require("./connection.mock.json");
-var q = require("q");
-
 module.exports = function(db, mongoose) {
 
     var ConnectionSchema = require("./connection.schema.server.js")(mongoose);
@@ -19,7 +16,8 @@ module.exports = function(db, mongoose) {
         findAllConnectionsForUser: findAllConnectionsForUser,
         findConnectionById: findConnectionById,
         deleteConnectionById: deleteConnectionById,
-        updateConnectionById: updateConnectionById
+        updateConnectionById: updateConnectionById,
+        getMongooseModel: getMongooseModel
     };
     return api;
 
@@ -54,5 +52,10 @@ module.exports = function(db, mongoose) {
     function updateConnectionById(connectionId, newConnection) {
 
         return ConnectionModel.findByIdAndUpdate(connectionId, newConnection);
+    }
+
+    function getMongooseModel() {
+
+        return ConnectionModel;
     }
 }

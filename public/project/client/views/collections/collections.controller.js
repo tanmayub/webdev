@@ -13,12 +13,21 @@
         vm.selectCollection = selectCollection;
         vm.editCollection = editCollection;
 
-        var connectionId = parseInt($routeParams.id);
+        var connectionId = $routeParams.id;
         var toBeUpdatedIndex;
         init();
 
         function init() {
-            findAllCollectionsForConnection();
+            CollectionsService.setConnectionId(connectionId).then(
+
+                function (response) {
+
+                    if(response === "OK") {
+                        findAllCollectionsForConnection();
+                    }
+                }
+            );
+            
             toBeUpdatedIndex = -1;
         }
 

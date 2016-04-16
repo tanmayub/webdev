@@ -15,9 +15,21 @@
             findAllCollectionsForConnection: findAllCollectionsForConnection,
             deleteCollectionById: deleteCollectionById,
             updateCollectionById: updateCollectionById,
-            findCollectionById: findCollectionById
+            findCollectionById: findCollectionById,
+            setConnectionId: setConnectionId
         };
         return api;
+
+        function setConnectionId(connId) {
+
+            var deferred = $q.defer();
+            var url = "/api/project/connection/" + connId + "/set";
+            $http.get(url).success (function (response) {
+
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
 
         function createCollectionForUser(connId, collection) {
 

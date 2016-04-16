@@ -13,6 +13,9 @@ module.exports = function(app, collectionModel, uuid) {
     //returns an array of collections belonging to a user whose id is equal to the userId path parameter
     app.get("/api/project/connection/:connId/collection", findAllCollectionsForConnection);
 
+
+    app.get("/api/project/connection/:connId/set", setConnectionIdInModel);
+
     //returns a collection object whose id is equal to the collectionId path parameter
     app.get("/api/project/collection/:collectionId", findCollectionById);
 
@@ -22,6 +25,14 @@ module.exports = function(app, collectionModel, uuid) {
 
     //removes a collection object whose id is equal to the collectionId path parameter
     app.delete("/api/project/collection/:collectionId", deleteCollectionById);
+    
+    function setConnectionIdInModel(req, res) {
+        var connId = req.params.connId;
+
+        collectionModel.setConnectionId(connId);
+
+        res.send(200);
+    }
 
     function createCollection (req, res) {
 
@@ -40,9 +51,15 @@ module.exports = function(app, collectionModel, uuid) {
 
     function findAllCollectionsForConnection(req, res) {
 
-        var connId = parseInt(req.params.connId);
+       collectionModel.findAllCollectionsForConnection().then(
+           
+           function (collections) {
 
-        res.json(collectionModel.findAllCollectionsForConnection(connId));
+               if(collections) {
+                   res.json(collections);
+               }
+           }
+       )
     }
 
     function findCollectionById(req, res) {

@@ -2,10 +2,14 @@
  * Created by TanmayPC on 3/24/2016.
  */
 
-var collections = require("./collection.mock.json");
-module.exports = function(colModel, uuid) {
+var q = require('q');
+
+module.exports = function(mongojs, ConnectionModel) {
+
+    var connectionModel = ConnectionModel.getMongooseModel();
 
     var api = {
+        setConnectionId: setConnectionId,
         createCollection: createCollection,
         findAllCollectionsForConnection: findAllCollectionsForConnection,
         deleteCollectionById: deleteCollectionById,
@@ -14,56 +18,61 @@ module.exports = function(colModel, uuid) {
     };
     return api;
 
-    function createCollection(collection) {
-        //console.log(collection);
-        collections.push(collection);
-        return collection;
+    var connId;
+
+    var connectionString;
+
+    var db;
+
+    function setConnectionId(connId) {
+
+        if(db)
+            db.close();
+
+        connId = connId;
+
+        connectionModel = ConnectionModel.getMongooseModel();
+
+        connectionModel.findById(connId).then(
+
+            function (conn) {
+                connectionString = conn.connectionString;
+
+                db = mongojs(connectionString);
+            }
+        );
     }
 
-    function findAllCollectionsForConnection(connId) {
+    function createCollection(collection) {
 
-        var collectionsForConnection = [];
-        for(var col in collections) {
-            if(collections[col].connId === connId){
-                collectionsForConnection.push(collections[col]);
+    }
+
+    function findAllCollectionsForConnection() {
+
+        var deferred = q.defer();
+
+        db.getCollectionNames(function (err, collections) {
+            if(err) {
+                deferred.reject();
+                console.log(err);
+            } else {
+                deferred.resolve(collections);
+                console.log(collections);
             }
-        }
+        });
 
-        return collectionsForConnection;
+        return deferred.promise;
     }
 
     function findCollectionById(colId) {
-        for(var col in collections) {
-            if(collections[col]._id === colId) {
-                return collections[col];
-            }
-        }
+
     }
 
     function deleteCollectionById(collectionId) {
-        var indexToRemove = -1;
-        for(var i = 0 ; i < collections.length; i++) {
-            if(collections[i]._id === collectionId) {
-                indexToRemove = i;
-            }
-        }
 
-        if(indexToRemove > -1) {
-            collections.splice(indexToRemove, 1);
-        }
-
-        return collections;
     }
 
     function updateCollectionById(collectionId, newCollection) {
-        //console.log(collectionId, newCollection);
-        for(var col in collections) {
-            if(collections[col]._id === collectionId) {
-                collections[col].name = newCollection.name;
-                collections[col].connId = newCollection.connId;
-                //console.log(collections[col]);
-                return collections[col];
-            }
-        }
+
     }
 };
