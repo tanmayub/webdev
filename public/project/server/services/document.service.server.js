@@ -70,8 +70,11 @@ module.exports = function(app, documentModel, uuid) {
     }
 
     function deleteDocumentById(req, res) {
-        var documentId = parseInt(req.params.documentId);
-        documentModel.deleteDocumentById(documentId);
-        res.send(200);
+        var documentId = req.params.documentId;
+        documentModel.deleteDocumentById(documentId)
+            .then(function(doc) {
+                res.send(200);
+            });
+        //res.send(200);
     }
 }

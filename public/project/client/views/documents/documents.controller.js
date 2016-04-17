@@ -5,7 +5,8 @@
 (function () {
     angular
         .module("FormBuilderApp")
-        .controller("DocumentsController", documentsController);
+        .controller("DocumentsController", documentsController)
+        .animation('.slide', slide);
 
     function documentsController($scope, $routeParams, DocumentsService, $location, $rootScope) {
 
@@ -26,7 +27,9 @@
             if($rootScope.loggedUser) {
                 //findAllDocumentsForCollection();
                 DocumentsService.configCollection(connectionId, collectionId).then(function(response) {
+
                     if(response === "OK") {
+
                         findAllDocumentsForCollection();
                     }
                 });
@@ -44,6 +47,7 @@
                 vm.documents = response;
             });
         }
+
 
         function editDocument($index) {
 
@@ -68,11 +72,13 @@
             var doc = {name: document.name, collectionId: collectionId};
 
             DocumentsService.updateDocumentById(parseInt(document._id), doc).then(function (response) {
+
                 if (response === "OK") {
+
                     return DocumentsService.findDocumentById(parseInt(document._id));
                 }
             }).then(function (response) {
-                //console.log(response);
+
                 vm.documents[toBeUpdatedIndex] = response;
                 vm.document = {};
             });
@@ -95,5 +101,30 @@
             selectDocumentIndex = $scope.documents.indexOf(document);
             $scope.selectedDocument = document._id;
         }
+    }
+    
+    function slide() {
+
+        var NG_HIDE_CLASS = 'ng-hide';
+
+        return {
+
+            beforeAddClass: function(element, className, done) {
+
+                if(className === NG_HIDE_CLASS) {
+
+                    element.slideUp(done);
+                }
+            },
+
+            removeClass: function(element, className, done) {
+
+                if(className === NG_HIDE_CLASS) {
+
+                    element.hide().slideDown(done);
+                }
+            }
+        }
+        
     }
 })();

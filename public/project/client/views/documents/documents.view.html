@@ -10,7 +10,7 @@
              <div id="documents" class="tab-pane fade in active">
 
                  <div class="table-responsive">
-                     <table class="table table-striped tableBorder sortable formsTableWidth">
+                     <table class="table table-striped tableBorder sortable" style="width: 85%;">
                          <thead>
                          <tr>
                              <th class="tableBorder">
@@ -23,8 +23,8 @@
                          </thead>
                          <tbody>
                          <tr>
-                             <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name"
-                                                            ng-model="model.document.name"></td>
+                             <td class="tableBorder">
+                                 <input class="adminTextWidth" type="text" placeholder="name" ng-model="model.document.name"></td>
                              <td class="tableBorder">
                                  <div class="floatRight">
                                      &nbsp;<span class="glyphicon glyphicon-plus cursor"
@@ -33,16 +33,28 @@
                                  </div>
                              </td>
                          </tr>
-                         <tr ng-repeat="doc in model.documents" >
+                         <tr ng-repeat="doc in model.documents track by $index" >
                              <td class="tableBorder cursor">
-                                 <a href="#/data/{{doc._id}}" class="linkColor">{{doc._id}}</a>
+                                 <a href="#/data/{{doc._id}}" class="linkColor" ng-hide="edit">{{doc._id}}</a>
+                                 <div ng-jsoneditor
+                                      ng-model="doc"
+                                      options="{mode: 'tree'}"
+                                      style="height: 400px"
+                                      ng-show="edit">
+
+                                 </div>
                              </td>
                              <td class="tableBorder">
                                  <div class="floatRight">
-                                <span class="glyphicon glyphicon-pencil cursor"
-                                      aria-hidden="true" ng-click="model.editDocument($index)"></span>&nbsp;&nbsp;
-                                <span class="glyphicon glyphicon-remove cursor"
-                                      aria-hidden="true" ng-click="model.deleteDocument($index)"></span>
+                                    <span class="glyphicon glyphicon-pencil cursor"
+                                          aria-hidden="true" ng-click="edit = !edit" ng-show="!edit"></span>
+                                     <span ng-show="!edit"> &nbsp;&nbsp;</span>
+                                     <span class="glyphicon glyphicon-ok cursor" aria-hidden="true"
+                                           ng-click="edit = !edit && model.updateDocument(model.document)"
+                                           ng-show="edit"></span>
+                                     <span ng-show="edit">&nbsp;&nbsp;</span>
+                                    <span class="glyphicon glyphicon-remove cursor"
+                                          aria-hidden="true" ng-click="model.deleteDocument($index)"></span>
                                  </div>
                              </td>
                          </tr>

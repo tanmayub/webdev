@@ -86,13 +86,18 @@ module.exports = function(mongojs, ConnectionModel) {
     }
 
     function deleteDocumentById(documentId) {
-        for(var i = 0 ; i < documents.length; i++) {
-            if(documents[i]._id === documentId) {
-                documents.splice(i, 1);
-                break;
+
+        var deferred = q.defer();
+
+        collection.remove({_id: db.ObjectId(documentId)}, {}, function(err, doc) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
             }
-        }
-        return documents;
+        });
+
+        return deferred.promise;
     }
 
     function updateDocumentById(documentId, newDocument) {
