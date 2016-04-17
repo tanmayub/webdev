@@ -61,9 +61,9 @@
             return deferred.promise;
         }
 
-        function updateCollectionById(collectionId, newCollection) {
+        function updateCollectionById(collectionName, newCollection) {
             var deferred = $q.defer();
-            var url = "/api/project/collection/" + collectionId;
+            var url = "/api/project/collection/" + collectionName;
             $http.put(url, newCollection).success (function (response) {
                 deferred.resolve(response);
             });

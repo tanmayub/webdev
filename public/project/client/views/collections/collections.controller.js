@@ -15,6 +15,7 @@
 
         var connectionId = $routeParams.id;
         var toBeUpdatedIndex;
+        var oldCollectionName;
         init();
 
         function init() {
@@ -27,8 +28,9 @@
                     }
                 }
             );
-            
+
             toBeUpdatedIndex = -1;
+            oldCollectionName = "";
         }
 
         function findAllCollectionsForConnection() {
@@ -39,38 +41,47 @@
         }
 
         function editCollection($index) {
-            var name = vm.collections[$index].name;
-            var _id = vm.collections[$index]._id;
-            vm.collection = {_id: _id, name: name};
+            var name = vm.collections[$index];
+            //var _id = vm.collections[$index]._id;
+            vm.collection = name;
+            oldCollectionName = name;
 
             toBeUpdatedIndex = $index;
         }
 
         function addCollection(collection) {
-            var col = {name: collection.name};
-            CollectionsService.createCollectionForUser(connectionId, col).then(function (response) {
-                vm.collections.push(response);
-                vm.collection = {};
-            });
+
+            CollectionsService.createCollectionForUser(connectionId, {collection: collection})
+
+                .then(function (response) {
+
+                    return  CollectionsService.findAllCollectionsForConnection(connectionId);
+                })
+
+                .then(function(response) {
+
+                    vm.collections = response;
+                });
+            vm.collection = "";
         }
 
         function updateCollection(collection) {
-            var col = {name: collection.name, connId: connectionId};
-            CollectionsService.updateCollectionById(collection._id, col).then(function (response) {
+            var col = {collection: collection};
+            CollectionsService.updateCollectionById(oldCollectionName, col).then(function (response) {
                     if (response === "OK") {
-                        return CollectionsService.findCollectionById(collection._id);
+                        return CollectionsService.findAllCollectionsForConnection(connectionId);
                     }
                 })
                 .then(function (response) {
-                    //console.log(response);
-                    vm.collections[toBeUpdatedIndex] = response;
-                    vm.collection = {};
+                    vm.collections = response;
+                    vm.collection = "";
+                    oldCollectionName = "";
                 });
         }
 
         function deleteCollection($index) {
-            var collectionId = vm.collections[$index]._id;
-            CollectionsService.deleteCollectionById(collectionId).then(function (response) {
+            var collName = vm.collections[$index];
+            CollectionsService.deleteCollectionById(collName).then(function (response) {
                     if(response === "OK")
                         return CollectionsService.findAllCollectionsForConnection(connectionId);
                 })

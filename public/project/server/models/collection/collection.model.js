@@ -45,6 +45,19 @@ module.exports = function(mongojs, ConnectionModel) {
 
     function createCollection(collection) {
 
+        var deferred = q.defer();
+
+        db.createCollection(collection, function (err, coll) {
+
+            if(err) {
+                deferred.reject(err);
+                console.log(err);
+            } else {
+                deferred.resolve(coll);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findAllCollectionsForConnection() {
@@ -52,12 +65,14 @@ module.exports = function(mongojs, ConnectionModel) {
         var deferred = q.defer();
 
         db.getCollectionNames(function (err, collections) {
+
             if(err) {
-                deferred.reject();
-                console.log(err);
+
+                deferred.reject(err);
+
             } else {
+
                 deferred.resolve(collections);
-                console.log(collections);
             }
         });
 
@@ -68,11 +83,42 @@ module.exports = function(mongojs, ConnectionModel) {
 
     }
 
-    function deleteCollectionById(collectionId) {
+    function deleteCollectionById(collName) {
 
+        var deferred = q.defer();
+
+        var collection = db.collection(collName);
+
+        collection.drop(function (err, doc) {
+
+            if(err) {
+
+                deferred.reject(err);
+
+            } else {
+
+                deferred.resolve(doc);
+            }
+
+        });
+
+        return deferred.promise;
     }
 
-    function updateCollectionById(collectionId, newCollection) {
+    function updateCollectionById(colName, newCollection) {
 
+        var deferred = q.defer();
+
+        var collection = db.collection(colName);
+
+        collection.rename(newCollection.collection, {}, function(err, doc) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
     }
 };
