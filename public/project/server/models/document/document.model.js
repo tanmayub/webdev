@@ -1,9 +1,14 @@
 /**
  * Created by TanmayPC on 3/25/2016.
  */
+
+var q = require('q');
+
 var documents = require("./document.mock.json");
 
-module.exports = function() {
+module.exports = function(mongojs, ConnectionModel) {
+
+    var connectionModel = ConnectionModel.getMongooseModel();
 
     var api = {
         createDocumentForCollection: createDocumentForCollection,
@@ -16,23 +21,58 @@ module.exports = function() {
         getDocumentById: getDocumentById,
         createDocumentProp: createDocumentProp,
         deleteProperty: deleteProperty,
-        updateProperty: updateProperty
+        updateProperty: updateProperty,
+        setConfig: setConfig
     };
     return api;
+
+    var db;
+
+    var connId;
+
+    var connectionString;
+
+    var collection;
 
     function createDocumentForCollection(document) {
         documents.push(document);
         return document;
     }
 
-    function findAllDocumentsForCollection(collectionId) {
-        var documentsForCollection = [];
-        for(var d in documents) {
-            if(documents[d].collectionId === collectionId){
-                documentsForCollection.push(documents[d]);
+    function setConfig(connId, colName) {
+
+        if(db)
+            db.close();
+
+        connId = connId;
+
+        connectionModel = ConnectionModel.getMongooseModel();
+
+        connectionModel.findById(connId).then(
+
+            function (conn) {
+                connectionString = conn.connectionString;
+
+                db = mongojs(connectionString);
+
+                collection = db.collection(colName);
             }
-        }
-        return documentsForCollection;
+        );
+    }
+
+    function findAllDocumentsForCollection(collectionId) {
+        //console.log(collection);
+        var deferred = q.defer();
+
+        collection.find(function(err, docs) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(docs);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findDocumentById(documentId) {

@@ -17,6 +17,9 @@ module.exports = function(app, documentModel, uuid) {
     //returns a connection object whose id is equal to the connectionId path parameter
     app.get("/api/project/collection/document/:documentId", findDocumentById);
 
+    //returns a connection object whose id is equal to the connectionId path parameter
+    app.get("/api/project/connection/:connectionId/collection/:collectionId/config", configCollection);
+
     //updates a connection object whose id is equal to the connectionId path parameter so that its properties are the same as
     //the property values of the connection object embedded in the request's body
     app.put("/api/project/collection/document/:documentId", updateDocumentById);
@@ -34,9 +37,24 @@ module.exports = function(app, documentModel, uuid) {
         res.json(documentIns);
     }
 
+    function configCollection(req, res) {
+        var collectionName = req.params.collectionId;
+        var connectionId = req.params.connectionId;
+
+        documentModel.setConfig(connectionId, collectionName);
+
+        res.send(200);
+    }
+
     function findAllDocumentsForCollection(req, res) {
         var collectionId = parseInt(req.params.collectionId);
-        res.json(documentModel.findAllDocumentsForCollection(collectionId));
+        //res.json(documentModel.findAllDocumentsForCollection(collectionId));
+        documentModel.findAllDocumentsForCollection(collectionId)
+            .then(function(documents) {
+                if(documents) {
+                    res.json(documents);
+                }
+            });
     }
 
     function findDocumentById(req, res) {

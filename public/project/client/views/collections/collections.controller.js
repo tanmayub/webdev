@@ -14,6 +14,7 @@
         vm.editCollection = editCollection;
 
         var connectionId = $routeParams.id;
+        vm.connectionId = connectionId;
         var toBeUpdatedIndex;
         var oldCollectionName;
         init();

@@ -20,9 +20,21 @@
             getProperties: getAllProperties,
             createDocumentProp: createDocumentProp,
             deleteProperty: deleteProperty,
-            updateProperty: updateProperty
+            updateProperty: updateProperty,
+
+            configCollection: configCollection
         };
         return api;
+
+        function configCollection(connId, collectionName) {
+            var deferred = $q.defer();
+            var url = "/api/project/connection/" + connId + "/collection/" + collectionName + "/config";
+            $http.get(url).success (function (response) {
+
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
 
         function createDocumentForCollection(collectionId, document) {
 

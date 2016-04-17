@@ -18,12 +18,18 @@
         vm.selectDocument = selectDocument;
         vm.editDocument = editDocument;
 
-        var collectionId = parseInt($routeParams.id);
+        var collectionId = $routeParams.id;
+        var connectionId = $routeParams.connectionId;
         var toBeUpdatedIndex;
 
         function init() {
             if($rootScope.loggedUser) {
-                findAllDocumentsForCollection();
+                //findAllDocumentsForCollection();
+                DocumentsService.configCollection(connectionId, collectionId).then(function(response) {
+                    if(response === "OK") {
+                        findAllDocumentsForCollection();
+                    }
+                });
             }
             else {
                 $location.url("home");

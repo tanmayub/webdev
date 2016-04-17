@@ -30,7 +30,7 @@
                 controller: "CollectionsController",
                 controllerAs: "model"
             })
-            .when("/documents/:id", {
+            .when("/connection/:connectionId/collection/:id/document", {
                 templateUrl: "client/views/documents/documents.view.html",
                 controller: "DocumentsController",
                 controllerAs: "model"

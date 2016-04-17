@@ -12,7 +12,7 @@ module.exports = function(app, uuid, db, mongoose, mongojs) {
 
     var collectionService = require("./services/collection.service.server.js")(app, collectionModel, uuid);
 
-    var documentModel = require("./models/document/document.model.js")(db, mongoose);
+    var documentModel = require("./models/document/document.model.js")(mongojs, connectionModel);
 
     var documentService = require("./services/document.service.server.js")(app, documentModel, uuid);
 
