@@ -2,7 +2,7 @@
  * Created by TanmayPC on 3/24/2016.
  */
 
-module.exports = function(app, collectionModel, uuid) {
+module.exports = function(app, collectionModel) {
     //creates a new collection whose properties are the same as the connection object embedded in the HTTP request's body and
     //the collection belongs to a user whose id is equal to the userId path parameter.
     //The collection object's id is initially null since it is a new record.

@@ -3,7 +3,7 @@
  */
 
 
-module.exports = function(app, documentModel, uuid) {
+module.exports = function(app, documentModel) {
     //creates a new connection whose properties are the same as the connection object embedded in the HTTP request's body and
     //the connection belongs to a user whose id is equal to the userId path parameter.
     //The connection object's id is initially null since it is a new record.
@@ -38,6 +38,7 @@ module.exports = function(app, documentModel, uuid) {
     }
 
     function configCollection(req, res) {
+
         var collectionName = req.params.collectionId;
         var connectionId = req.params.connectionId;
 
@@ -48,7 +49,7 @@ module.exports = function(app, documentModel, uuid) {
 
     function findAllDocumentsForCollection(req, res) {
         var collectionId = parseInt(req.params.collectionId);
-        //res.json(documentModel.findAllDocumentsForCollection(collectionId));
+
         documentModel.findAllDocumentsForCollection(collectionId)
             .then(function(documents) {
                 if(documents) {
@@ -65,8 +66,7 @@ module.exports = function(app, documentModel, uuid) {
     function updateDocumentById(req, res) {
         var documentId = req.params.documentId;
         var document = req.body;
-        /*documentModel.updateDocumentById(documentId, document);
-        res.send(200);*/
+
         documentModel.updateDocumentById(documentId, document)
             .then(function(doc) {
                 res.send(200);
@@ -79,6 +79,5 @@ module.exports = function(app, documentModel, uuid) {
             .then(function(doc) {
                 res.send(200);
             });
-        //res.send(200);
     }
 }

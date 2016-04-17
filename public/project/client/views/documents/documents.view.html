@@ -1,11 +1,12 @@
  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="sub-header" id="formsHeader">Documents</h2>
      <div class="container">
-         <!--<ul class="nav nav-pills">
-             <li class="active"><a href="#/documents">Documents</a></li>
-             <li><a href="#/documents">Documents</a></li>
-         </ul>-->
-
+         <ol class="breadcrumb" style="width: 85%">
+             <li><a href="#/home">Home</a></li>
+             <li><a href="#/connection">Connections</a></li>
+             <li><a href="#/collections/{{model.connectionId}}">Collections</a></li>
+             <li class="active">Documents</li>
+         </ol>
          <div class="tab-content">
              <div id="documents" class="tab-pane fade in active">
 
@@ -35,7 +36,7 @@
                          </tr>
                          <tr ng-repeat="doc in model.documents track by $index" >
                              <td class="tableBorder cursor">
-                                 <a href="#/data/{{doc._id}}" class="linkColor" ng-hide="edit">{{doc._id}}</a>
+                                 {{doc._id}}
                                  <div ng-jsoneditor
                                       ng-model="doc"
                                       options="{mode: 'tree'}"

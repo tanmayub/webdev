@@ -4,8 +4,6 @@
 
 var q = require('q');
 
-var documents = require("./document.mock.json");
-
 module.exports = function(mongojs, ConnectionModel) {
 
     var connectionModel = ConnectionModel.getMongooseModel();
