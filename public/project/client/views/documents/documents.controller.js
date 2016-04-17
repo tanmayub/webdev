@@ -19,6 +19,8 @@
         vm.selectDocument = selectDocument;
         vm.editDocument = editDocument;
 
+        vm.edit = false;
+
         var collectionId = $routeParams.id;
         var connectionId = $routeParams.connectionId;
         var toBeUpdatedIndex;
@@ -75,12 +77,13 @@
 
                 if (response === "OK") {
 
-                    return DocumentsService.findDocumentById(parseInt(document._id));
+                    //return DocumentsService.findDocumentById(parseInt(document._id));
+                    return DocumentsService.findAllDocumentsForCollection(collectionId);
                 }
             }).then(function (response) {
 
-                vm.documents[toBeUpdatedIndex] = response;
-                vm.document = {};
+                vm.documents = response;
+                return true;
             });
         }
 
