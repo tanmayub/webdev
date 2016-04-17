@@ -76,10 +76,10 @@
             return deferred.promise;
         }
 
-        function updateDocumentById(documentId, newDocument) {
+        function updateDocumentById(newDocument) {
 
             var deferred = $q.defer();
-            var url = "/api/project/collection/document/" + documentId;
+            var url = "/api/project/collection/document/" + newDocument._id;
             $http.put(url, newDocument).success (function (response) {
                 deferred.resolve(response);
             });

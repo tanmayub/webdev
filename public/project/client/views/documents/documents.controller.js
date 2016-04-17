@@ -69,9 +69,9 @@
 
         function updateDocument(document) {
 
-            var doc = {name: document.name, collectionId: collectionId};
+            //var doc = {name: document.name, collectionId: collectionId};
 
-            DocumentsService.updateDocumentById(parseInt(document._id), doc).then(function (response) {
+            DocumentsService.updateDocumentById(document).then(function (response) {
 
                 if (response === "OK") {
 

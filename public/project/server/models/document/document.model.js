@@ -101,12 +101,19 @@ module.exports = function(mongojs, ConnectionModel) {
     }
 
     function updateDocumentById(documentId, newDocument) {
-        for(var i = 0; i < documents.length; i++) {
-            if(documents[i]._id ===  documentId) {
-                documents[i].name = newDocument.name;
-                return newDocument;
+        var deferred = q.defer();
+
+        delete newDocument._id;
+
+        collection.update({_id: db.ObjectId(documentId)}, newDocument, function(err, doc) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
             }
-        }
+        });
+
+        return deferred.promise;
     }
 
     function getAllProperties() {
