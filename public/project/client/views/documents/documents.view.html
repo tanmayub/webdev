@@ -50,7 +50,7 @@
                                           aria-hidden="true" ng-click="edit = !edit" ng-show="!edit"></span>
                                      <span ng-show="!edit"> &nbsp;&nbsp;</span>
                                      <span class="glyphicon glyphicon-ok cursor" aria-hidden="true"
-                                           ng-click="model.updateDocument(doc)"
+                                           ng-click="model.updateDocument(doc); edit = !edit"
                                            ng-show="edit"></span>
                                      <span ng-show="edit">&nbsp;&nbsp;</span>
                                     <span class="glyphicon glyphicon-remove cursor"
