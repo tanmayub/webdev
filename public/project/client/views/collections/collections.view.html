@@ -40,7 +40,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr ng-repeat="coll in model.collections" ng-class="{'selectTableRow': model.selectedCollection == coll._id}" >
+                            <tr ng-repeat="coll in model.collections">
                                 <td class="tableBorder cursor">
                                     <a href="#/connection/{{model.connectionId}}/collection/{{coll}}/document" class="linkColor">{{coll}}</a>
                                 </td>
