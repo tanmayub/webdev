@@ -14,12 +14,6 @@ module.exports = function(mongojs, ConnectionModel) {
         findDocumentById: findDocumentById,
         deleteDocumentById: deleteDocumentById,
         updateDocumentById: updateDocumentById,
-
-        getProperties: getAllProperties,
-        getDocumentById: getDocumentById,
-        createDocumentProp: createDocumentProp,
-        deleteProperty: deleteProperty,
-        updateProperty: updateProperty,
         setConfig: setConfig
     };
     return api;
@@ -34,7 +28,7 @@ module.exports = function(mongojs, ConnectionModel) {
 
     function createDocumentForCollection(document) {
         /*documents.push(document);
-        return document;*/
+         return document;*/
         var deferred = q.defer();
 
         collection.insert(document, function(err, doc) {
@@ -123,25 +117,5 @@ module.exports = function(mongojs, ConnectionModel) {
         });
 
         return deferred.promise;
-    }
-
-    function getAllProperties() {
-
-    }
-
-    function getDocumentById () {
-
-    }
-
-    function createDocumentProp() {
-
-    }
-
-    function deleteProperty() {
-
-    }
-
-    function updateProperty() {
-
     }
 }

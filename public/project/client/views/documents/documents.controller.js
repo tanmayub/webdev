@@ -42,7 +42,7 @@
         init();
 
         function findAllDocumentsForCollection() {
-            
+
             DocumentsService.findAllDocumentsForCollection(vm.collectionId).then(function(response) {
                 vm.documents = response;
 
@@ -112,7 +112,7 @@
             $scope.selectedDocument = document._id;
         }
     }
-    
+
     function slide() {
 
         var NG_HIDE_CLASS = 'ng-hide';
@@ -135,6 +135,6 @@
                 }
             }
         }
-        
+
     }
 })();

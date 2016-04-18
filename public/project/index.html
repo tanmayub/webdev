@@ -1,60 +1,243 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="FormBuilderApp">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!--<link rel="icon" href="../../favicon.ico">-->
+    <meta name="description" content="Mongo Maker">
+    <meta name="author" content="Sudeep">
 
-    <title>Index</title>
+    <title>Welcome to Mongo Maker!</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <!-- Custom styles for this template -->
-    <link href="client/css/dashboard.css" rel="stylesheet">
-    <link href="client/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="client/css/jsoneditor.min.css">
+    <link href="client/css/landing-style.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
-
-    <script src="client/js/jsoneditor.min.js"></script>
-    <script src="client/js/ng-jsoneditor.min.js"></script>
-    <script src="client/js/app.js"></script>
-    <script src="client/js/config.js"></script>
-
-    <!--Controllers-->
-    <script src="client/views/main/main.controller.js"></script>
-    <script src="client/views/header/header.controller.js"></script>
-    <script src="client/views/sidebar/sidebar.controller.js"></script>
-    <script src="client/views/connections/connections.controller.js"></script>
-    <script src="client/views/collections/collections.controller.js"></script>
-    <script src="client/views/documents/documents.controller.js"></script>
-    <script src="client/views/home/home.controller.js"></script>
-    <script src="client/views/users/register.controller.js"></script>
-    <script src="client/views/users/login.controller.js"></script>
-
-    <!--Services-->
-    <script src="client/services/user.service.client.js"></script>
-    <script src="client/services/connections.service.client.js"></script>
-    <script src="client/services/collections.service.client.js"></script>
-    <script src="client/services/documents.service.client.js"></script>
+    <script src="client/js/smoothscroll.js"></script>
 
 </head>
-<body ng-controller="MainController">
-    <div ng-controller="HeaderController" ng-include="'client/views/header/header.view.html'"></div>
 
-    <div ng-view></div>
+<body data-spy="scroll" data-offset="0" data-target="#navigation" ng-controller="MainController">
 
-    <div ng-controller="SidebarController" ng-include="'client/views/sidebar/sidebar.view.html'"></div>
+<!-- Fixed navbar -->
+<div id="navigation" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><b>Mongo Maker</b></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#home" class="smothscroll">Home</a></li>
+                <li><a href="#desc" class="smothscroll">Description</a></li>
+                <li><a href="#showcase" class="smothScroll">Showcase</a></li>
+                <li>
+                    <a href="application.html" class="smothScroll" target="_blank">
+                        Main Application
+                        &nbsp;
+                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                    </a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
 
+<section id="home" name="home"></section>
+<div id="headerwrap">
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-12">
+                <h1>Welcome To <b>Mongo Maker</b></h1>
+                <h3>An easy-to-use web-based editor for MongoDB</h3>
+                <br>
+            </div>
+
+            <div class="col-lg-2">
+                <h5>WYSIWYG Editor</h5>
+                <p>Incorporates an intuitive WYSIWYG editor for editing documents</p>
+                <img class="hidden-xs hidden-sm hidden-md" src="client/img/arrow1.png">
+            </div>
+            <div class="col-lg-8">
+                <img class="img-responsive" src="client/img/app-bg.png" alt="">
+            </div>
+            <div class="col-lg-2">
+                <br>
+                <img class="hidden-xs hidden-sm hidden-md" src="client/img/arrow2.png">
+                <h5>Clean Design</h5>
+                <p>A clean, non-intrusive, minimalistic design that gets the job done</p>
+            </div>
+        </div>
+    </div> <!--/ .container -->
+</div><!--/ #headerwrap -->
+
+
+<section id="desc" name="desc"></section>
+<!-- INTRO WRAP -->
+<div id="intro">
+    <div class="container">
+        <div class="row centered">
+            <h1>Designed To Excel</h1>
+            <br>
+            <br>
+            <div class="col-lg-6">
+                <img src="client/img/intro01.png" alt="">
+                <h3>Entirely web-based</h3>
+                <p>There is no hassle of installing and configuring. Just log in to get started</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="client/img/intro02.png" alt="">
+                <h3>Works well with NoSQL Data</h3>
+                <p>Connect and perform CRUD operations on any type of unstructured NoSQL Data.</p>
+            </div>
+        </div>
+        <br>
+        <hr>
+    </div> <!--/ .container -->
+</div><!--/ #introwrap -->
+
+<!-- FEATURES WRAP -->
+<div id="features">
+    <div class="container">
+        <div class="row">
+            <h1 class="centered">What's New?</h1>
+            <br>
+            <br>
+            <div class="col-lg-6 centered">
+                <img class="centered" src="client/img/mobile.png" alt="">
+            </div>
+
+            <div class="col-lg-6">
+                <h3>Some Features</h3>
+                <br>
+                <!-- ACCORDION -->
+                <div class="accordion ac" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                              How to use? Simple!
+                            </a>
+                        </div><!-- /accordion-heading -->
+                        <div id="collapseOne" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                <ol style="padding-left: 17px;padding-top: 7px;">
+                                    <li>Log in</li>
+                                    <li>Add a new connection or select an already added connection</li>
+                                    <li>Start editing!</li>
+                                </ol>
+                                <p>
+                                    This is as easy as it gets - no hassle of a lengthy and complex setup process. Just fire up your favorite browser and navigate to the website!
+                                </p>
+                            </div><!-- /accordion-inner -->
+                        </div><!-- /collapse -->
+                    </div><!-- /accordion-group -->
+                    <br>
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                Awesome Support
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            </div><!-- /accordion-inner -->
+                        </div><!-- /collapse -->
+                    </div><!-- /accordion-group -->
+                    <br>
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                                Responsive Design
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <p>
+                                    We make use of latest, industry-standard technologies and design philosophy to make sure that
+                                    you can run this application on your choice of device - be it a desktop, laptop, tablet or a cell phone.
+                                    The application is designed using a mobile-first approach, to ensure smooth rendering on small screen devices.
+                                </p>
+                            </div><!-- /accordion-inner -->
+                        </div><!-- /collapse -->
+                    </div><!-- /accordion-group -->
+                    <br>
+                </div><!-- Accordion -->
+            </div>
+        </div>
+    </div><!--/ .container -->
+</div><!--/ #features -->
+
+
+<section id="showcase" name="showcase"></section>
+<div id="showcase">
+    <div class="container">
+        <div class="row">
+            <h1 class="centered">Some Screenshots</h1>
+            <br>
+            <div class="col-lg-8 col-lg-offset-2">
+                <div id="carousel-example-generic" class="carousel slide">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="client/img/item-01.png" alt="">
+                        </div>
+                        <div class="item">
+                            <img src="client/img/item-02.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div><!-- /container -->
+</div>
+
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script>
+    $('.carousel').carousel({
+        interval: 3500
+    })
+
+    $('#nav.smoothscroll ul li a[href^="#"]').on('click', function(e) {
+
+        // prevent default anchor click behavior
+        e.preventDefault();
+
+        // store hash
+        var hash = this.hash;
+
+        // animate
+        $('html, body').animate({
+            scrollTop: $('a[name="' + this.hash.replace('#', '') + '"]').offset().top
+        }, 300, function(){
+
+            // when done, add hash to url
+            // (default click behaviour)
+            window.location.hash = hash;
+
+        });
+    });
+</script>
 </body>
 </html>

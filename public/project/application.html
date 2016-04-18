@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FormBuilderApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Welcome to Mongo Maker!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template -->
+    <link href="client/css/dashboard.css" rel="stylesheet">
+    <link href="client/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="client/css/jsoneditor.min.css">
+
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+
+    <script src="client/js/jsoneditor.min.js"></script>
+    <script src="client/js/ng-jsoneditor.min.js"></script>
+    <script src="client/js/app.js"></script>
+    <script src="client/js/config.js"></script>
+
+    <!--Controllers-->
+    <script src="client/views/main/main.controller.js"></script>
+    <script src="client/views/header/header.controller.js"></script>
+    <script src="client/views/sidebar/sidebar.controller.js"></script>
+    <script src="client/views/connections/connections.controller.js"></script>
+    <script src="client/views/collections/collections.controller.js"></script>
+    <script src="client/views/documents/documents.controller.js"></script>
+    <script src="client/views/home/home.controller.js"></script>
+    <script src="client/views/users/register.controller.js"></script>
+    <script src="client/views/users/login.controller.js"></script>
+
+    <!--Services-->
+    <script src="client/services/user.service.client.js"></script>
+    <script src="client/services/connections.service.client.js"></script>
+    <script src="client/services/collections.service.client.js"></script>
+    <script src="client/services/documents.service.client.js"></script>
+
+</head>
+<body ng-controller="MainController">
+    <div ng-controller="HeaderController" ng-include="'client/views/header/header.view.html'"></div>
+
+    <div ng-view></div>
+
+    <div ng-controller="SidebarController" ng-include="'client/views/sidebar/sidebar.view.html'"></div>
+
+</body>
+</html>

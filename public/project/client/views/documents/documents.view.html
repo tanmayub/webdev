@@ -1,78 +1,78 @@
- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="sub-header" id="formsHeader">Documents</h2>
-     <div class="container">
-         <ol class="breadcrumb" style="width: 85%">
-             <li><a href="#/home">Home</a></li>
-             <li><a href="#/connection">Connections</a></li>
-             <li><a href="#/collections/{{model.connectionId}}">Collections</a></li>
-             <li class="active">Documents</li>
-         </ol>
-         <div class="tab-content">
-             <div id="documents" class="tab-pane fade in active">
+    <div class="container">
+        <ol class="breadcrumb" style="width: 85%">
+            <li><a href="#/home">Home</a></li>
+            <li><a href="#/connection">Connections</a></li>
+            <li><a href="#/collections/{{model.connectionId}}">Collections</a></li>
+            <li class="active">Documents</li>
+        </ol>
+        <div class="tab-content">
+            <div id="documents" class="tab-pane fade in active">
 
-                 <div class="table-responsive">
-                     <table class="table table-striped tableBorder sortable" style="width: 85%;">
-                         <thead>
-                         <tr>
-                             <th class="tableBorder">
-                                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> ID
-                             </th>
-                             <th class="tableBorder tHeaderWidth">
-                                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action
-                             </th>
-                         </tr>
-                         </thead>
-                         <tbody>
-                         <tr>
-                             <td class="tableBorder">
-                                 <!--<input class="adminTextWidth" type="text" placeholder="name" ng-model="model.document.name"></td>-->
-                                 <div ng-jsoneditor
-                                      ng-model="model.keys"
-                                      options="{mode: 'tree'}"
-                                      style="height: 400px"
-                                      ng-show="edit">
+                <div class="table-responsive">
+                    <table class="table table-striped tableBorder sortable" style="width: 85%;">
+                        <thead>
+                        <tr>
+                            <th class="tableBorder">
+                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> ID
+                            </th>
+                            <th class="tableBorder tHeaderWidth">
+                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="tableBorder">
+                                <!--<input class="adminTextWidth" type="text" placeholder="name" ng-model="model.document.name"></td>-->
+                                <div ng-jsoneditor
+                                     ng-model="model.keys"
+                                     options="{mode: 'tree'}"
+                                     style="height: 400px"
+                                     ng-show="edit">
 
-                                 </div>
-                             <td class="tableBorder">
-                                 <div class="floatRight">
-                                     &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                                 aria-hidden="true" ng-click="edit = !edit"></span>&nbsp;&nbsp;
-                                     &nbsp;<span class="glyphicon glyphicon-arrow-down"
-                                                 aria-hidden="true"
-                                                 ng-click="model.addDocument(model.keys); edit = !edit"></span>&nbsp;&nbsp;
-                                     <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="model.updateDocument(model.document)"></span>
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr ng-repeat="doc in model.documents track by $index" >
-                             <td class="tableBorder cursor">
-                                 {{doc._id}}
-                                 <div ng-jsoneditor
-                                      ng-model="doc"
-                                      options="{mode: 'tree'}"
-                                      style="height: 400px"
-                                      ng-show="edit">
+                                </div>
+                            <td class="tableBorder">
+                                <div class="floatRight">
+                                    &nbsp;<span class="glyphicon glyphicon-plus cursor"
+                                                aria-hidden="true" ng-click="edit = !edit"></span>&nbsp;&nbsp;
+                                    &nbsp;<span class="glyphicon glyphicon-arrow-down"
+                                                aria-hidden="true"
+                                                ng-click="model.addDocument(model.keys); edit = !edit"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="model.updateDocument(model.document)"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="doc in model.documents track by $index" >
+                            <td class="tableBorder cursor">
+                                {{doc._id}}
+                                <div ng-jsoneditor
+                                     ng-model="doc"
+                                     options="{mode: 'tree'}"
+                                     style="height: 400px"
+                                     ng-show="edit">
 
-                                 </div>
-                             </td>
-                             <td class="tableBorder">
-                                 <div class="floatRight">
+                                </div>
+                            </td>
+                            <td class="tableBorder">
+                                <div class="floatRight">
                                     <span class="glyphicon glyphicon-pencil cursor"
                                           aria-hidden="true" ng-click="edit = !edit" ng-show="!edit"></span>
-                                     <span ng-show="!edit"> &nbsp;&nbsp;</span>
+                                    <span ng-show="!edit"> &nbsp;&nbsp;</span>
                                      <span class="glyphicon glyphicon-ok cursor" aria-hidden="true"
                                            ng-click="model.updateDocument(doc); edit = !edit"
                                            ng-show="edit"></span>
-                                     <span ng-show="edit">&nbsp;&nbsp;</span>
+                                    <span ng-show="edit">&nbsp;&nbsp;</span>
                                     <span class="glyphicon glyphicon-remove cursor"
                                           aria-hidden="true" ng-click="model.deleteDocument($index)"></span>
-                                 </div>
-                             </td>
-                         </tr>
-                         </tbody>
-                     </table>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

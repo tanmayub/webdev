@@ -33,7 +33,7 @@ module.exports = function(app, documentModel) {
         var collectionId = req.params.collectionId;
         document.collectionId = collectionId;
         /*var documentIns = documentModel.createDocumentForCollection(document);
-        res.json(documentIns);*/
+         res.json(documentIns);*/
         documentModel.createDocumentForCollection(document)
             .then(function(doc) {
                 res.json(doc);
