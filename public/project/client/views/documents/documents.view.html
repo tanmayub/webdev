@@ -25,11 +25,21 @@
                          <tbody>
                          <tr>
                              <td class="tableBorder">
-                                 <input class="adminTextWidth" type="text" placeholder="name" ng-model="model.document.name"></td>
+                                 <!--<input class="adminTextWidth" type="text" placeholder="name" ng-model="model.document.name"></td>-->
+                                 <div ng-jsoneditor
+                                      ng-model="model.keys"
+                                      options="{mode: 'tree'}"
+                                      style="height: 400px"
+                                      ng-show="edit">
+
+                                 </div>
                              <td class="tableBorder">
                                  <div class="floatRight">
                                      &nbsp;<span class="glyphicon glyphicon-plus cursor"
-                                                 aria-hidden="true" ng-click="model.addDocument(model.document)"></span>&nbsp;&nbsp;
+                                                 aria-hidden="true" ng-click="edit = !edit"></span>&nbsp;&nbsp;
+                                     &nbsp;<span class="glyphicon glyphicon-arrow-down"
+                                                 aria-hidden="true"
+                                                 ng-click="model.addDocument(model.keys); edit = !edit"></span>&nbsp;&nbsp;
                                      <span class="glyphicon glyphicon-ok cursor" aria-hidden="true" ng-click="model.updateDocument(model.document)"></span>
                                  </div>
                              </td>

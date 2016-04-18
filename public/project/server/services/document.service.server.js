@@ -30,11 +30,14 @@ module.exports = function(app, documentModel) {
     function createDocument (req, res) {
 
         var document = req.body;
-        var collectionId = parseInt(req.params.collectionId);
+        var collectionId = req.params.collectionId;
         document.collectionId = collectionId;
-        document._id = parseInt(uuid.v4(), 16);
-        var documentIns = documentModel.createDocumentForCollection(document);
-        res.json(documentIns);
+        /*var documentIns = documentModel.createDocumentForCollection(document);
+        res.json(documentIns);*/
+        documentModel.createDocumentForCollection(document)
+            .then(function(doc) {
+                res.json(doc);
+            });
     }
 
     function configCollection(req, res) {

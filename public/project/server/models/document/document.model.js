@@ -33,8 +33,19 @@ module.exports = function(mongojs, ConnectionModel) {
     var collection;
 
     function createDocumentForCollection(document) {
-        documents.push(document);
-        return document;
+        /*documents.push(document);
+        return document;*/
+        var deferred = q.defer();
+
+        collection.insert(document, function(err, doc) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function setConfig(connId, colName) {
