@@ -168,3 +168,7 @@ table a, table td {
 .panel-default-big {
     width: 100%;
 }
+
+.panel-default-mid {
+    width: 85%;
+}
