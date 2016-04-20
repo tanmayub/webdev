@@ -8,7 +8,8 @@
         </ol>
 
         <div class="table-responsive bigTable">
-            <table class="table table-striped table-bordered sortable">
+            <div class="panel panel-default-big">
+                <table class="table table-bordered sortable">
                 <thead>
                 <tr>
                     <th class="tableBorder"><span class="glyphicon glyphicon-triangle-bottom"
@@ -29,12 +30,12 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.name"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.dbname"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.host"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.port"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="text" placeholder="name" ng-model="model.connection.username"></td>
-                    <td class="tableBorder"><input class="adminTextWidth" type="password" placeholder="name" ng-model="model.connection.password"></td>
+                    <td class="tableBorder"><input class="adminTextWidth form-control" type="text" placeholder="name" ng-model="model.connection.name"></td>
+                    <td class="tableBorder"><input class="adminTextWidth form-control" type="text" placeholder="name" ng-model="model.connection.dbname"></td>
+                    <td class="tableBorder"><input class="adminTextWidth form-control" type="text" placeholder="name" ng-model="model.connection.host"></td>
+                    <td class="tableBorder"><input class="adminTextWidth form-control" type="text" placeholder="name" ng-model="model.connection.port"></td>
+                    <td class="tableBorder"><input class="adminTextWidth form-control" type="text" placeholder="name" ng-model="model.connection.username"></td>
+                    <td class="tableBorder"><input class="adminTextWidth form-control" type="password" placeholder="name" ng-model="model.connection.password"></td>
                     <td class="tableBorder">
                         <div class="floatRight">
                             &nbsp;<span class="glyphicon glyphicon-plus cursor"
@@ -45,7 +46,7 @@
                 </tr>
                <tr ng-repeat="conn in model.connections" ng-class="{'selectTableRow': model.selectedConnection == conn._id}" >
                     <td class="tableBorder cursor">
-                        <a href="#/collections/{{conn._id}}" class="linkColor">{{conn.name}}</a>
+                        <a href="#/collections/{{conn._id}}">{{conn.name}}</a>
                     </td>
                    <td class="tableBorder cursor">{{conn.dbname}} </td>
                    <td class="tableBorder cursor">{{conn.host}} </td>
@@ -63,6 +64,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

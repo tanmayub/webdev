@@ -22,11 +22,6 @@
     width: 80%;
 }
 
-table.tableBorder, td.tableBorder, th.tableBorder{
-    border: 1px solid lightgrey;
-    border-collapse: collapse;
-}
-
 .floatLeft{
     float: left;
 }
@@ -120,5 +115,56 @@ hr{
 }
 
 body {
-    background-image: url("../../client/img/splash.jpg");
+    background-image: url("../../client/img/Mongo Maker.jpg");
+    color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #e3be5a;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #e3be5a;
+}
+
+.sidebar {
+    background-color: #BFBFBF;
+}
+
+.nav-sidebar > .active > a, 
+.nav-sidebar > .active > a:hover, 
+.nav-sidebar > .active > a:focus {
+    background-color: royalblue;
+}
+
+.nav>li>a {
+    color: #000;
+}
+
+.breadcrumb {
+    color: #DCDCDC;
+}
+
+table {
+    background-color: snow;
+}
+
+thead {
+    background-color: dimgrey;
+}
+
+table a, table td {
+    color: black;
+}
+
+.table-bordered tbody tr:hover {
+    background-color: lavender;
+}
+
+.panel-default {
+    width: 45%;
+}
+
+.panel-default-big {
+    width: 100%;
 }
