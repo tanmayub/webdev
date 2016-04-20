@@ -115,6 +115,10 @@ hr{
     background: snow;
 }
 
+.backColorWhite {
+    background-color: white;
+}
+
 body {
     background-image: url("../../client/img/Mongodb-logo.jpeg");
 }
