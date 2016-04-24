@@ -10,8 +10,8 @@
         $scope.navAdmin = navAdmin;
 
         function navAdmin() {
-            if($rootScope.loggedUser) {
-                if($rootScope.loggedUser.roles.indexOf('admin') > -1) {
+            if($rootScope.currentUser) {
+                if($rootScope.currentUser.roles.indexOf('admin') > -1) {
                     return false;
                 }
             }

@@ -58,6 +58,14 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
+            .when("/share", {
+                templateUrl: "client/views/users/shareconnection.view.html",
+                controller: "ShareController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
             .otherwise({
                 redirectTo: "/home",
                 controller: "MainController"
