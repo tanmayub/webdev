@@ -17,7 +17,8 @@ module.exports = function(db, mongoose) {
         findConnectionById: findConnectionById,
         deleteConnectionById: deleteConnectionById,
         updateConnectionById: updateConnectionById,
-        getMongooseModel: getMongooseModel
+        getMongooseModel: getMongooseModel,
+
     };
     return api;
 
