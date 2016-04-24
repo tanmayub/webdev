@@ -24,7 +24,7 @@
         var toBeUpdatedIndex;
 
         function init() {
-            if($rootScope.loggedUser) {
+            if($rootScope.currentUser) {
                 //findAllDocumentsForCollection();
                 DocumentsService.configCollection(vm.connectionId, vm.collectionId).then(function(response) {
 

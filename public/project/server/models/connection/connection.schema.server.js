@@ -10,7 +10,7 @@ module.exports = function(mongoose) {
         port: Number,
         username: String,
         password: String,
-        userId: Number,
+        userId: String,
         connectionString: String
     }, {collection: 'project.connection'});
 

@@ -14,7 +14,7 @@
 
         function init() {
 
-            ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id).then(function(response) {
+            ConnectionsService.findAllConnectionsForUser($rootScope.currentUser._id).then(function(response) {
 
                 vm.connections = response;
 
@@ -64,7 +64,7 @@
 
         function addConnection(connection) {
 
-            ConnectionsService.createConnectionForUser($rootScope.loggedUser._id, connection)
+            ConnectionsService.createConnectionForUser($rootScope.currentUser._id, connection)
 
                 .then(function (response) {
 
@@ -97,16 +97,8 @@
                 .then(function (response) {
 
                     if(response === "OK")
-
-                        //return ConnectionsService.findAllConnectionsForUser($rootScope.loggedUser._id);
                     init();
                 });
-            
-                /*.then(function (response) {
-
-                    vm.connections = response;
-                    
-                });*/
         }
 
         function selectConnection(connection) {

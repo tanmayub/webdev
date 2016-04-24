@@ -1,81 +1,156 @@
 /**
- * Created by TanmayPC on 2/20/2016.
+ * Created by sudeep on 2/19/16.
  */
-(function() {
+
+"use strict";
+
+(function () {
     angular
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService() {
-        var users = [
-            {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                "username":"alice",  "password":"alice",   "roles": ["student"],
-                "email": "alice@abc.com"},
-            {	"_id":234, "firstName":"Bob",              "lastName":"Hope",
-                "username":"bob",    "password":"bob",     "roles": ["admin"],
-                "email": "bob@abc.com"},
-            {	"_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                "username":"charlie","password":"charlie", "roles": ["faculty"],
-                "email": "charlie@abc.com"},
-            {	"_id":456, "firstName":"Dan",              "lastName":"Craig",
-                "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"],
-                "email": "dan@abc.com"},
-            {	"_id":567, "firstName":"Edward",           "lastName":"Norton",
-                "username":"ed",     "password":"ed",      "roles": ["student"],
-                "email": "ed@abc.com"}
-        ]
+    function UserService($http, $q, $rootScope) {
 
-        var api = {
-            findUserByCredentials: findUserByCredentials,
+        var service = {
+
+            login: login,
+
+            findUserByUsername: findUserByUsername,
+
             findAllUsers: findAllUsers,
+
+            register: register,
+
             createUser: createUser,
+
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+
+            updateUser: updateUser,
+
+            findUserById: findUserById,
+
+            getCurrentUser: getCurrentUser,
+
+            setCurrentUser: setCurrentUser,
+
+            logout: logout
         };
-        return api;
+        return service;
 
-        function findUserByCredentials(username, password, callback) {
-            for(var i = 0; i < users.length; i++) {
-                if(users[i].username == username && users[i].password == password) {
-                    callback(users[i]);
-                }
-            }
-        }
-        function findAllUsers(callback) {
-            callback(users);
+        function login(user) {
+
+            return $http.post("/api/project/login", user);
 
         }
-        function createUser(user, callback) {
-            user._id = Math.floor(Math.random() * 900) + 100;
-            users.push(user);
-            callback(user);
+
+        function findUserByUsername(username) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/admin/user?username=:username";
+            url = url.replace(":username", username);
+
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
         }
-        function deleteUserById(userId, callback) {
-            var indexToRemove = -1;
-            for(var i = 0 ; i < users.length; i++) {
-                if(users[i]._id == userId) {
-                    indexToRemove = i;
-                }
-            }
 
-            if(indexToRemove > -1) {
-                users.splice(indexToRemove, 1);
-            }
+        function findAllUsers() {
 
-            callback(users);
+            var deferred = $q.defer();
+
+            var url = "/api/project/admin/user";
+
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
         }
-        function updateUser(userId, user, callback) {
-            for(var i = 0; i < users.length; i++) {
-                if(users[i]._id == userId) {
-                    users[i].username = user.username;
-                    users[i].password = user.password;
-                    users[i].firstName = user.firstName;
-                    users[i].lastName = user.lastName;
-                    users[i].email = user.email;
 
-                    callback(users[i]);
-                }
-            }
+        function register(user) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/register";
+
+            $http.post(url, user).success (function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function createUser(user) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/admin/user";
+
+            $http.post(url, user).success (function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function deleteUserById(userID) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/admin/user/:id";
+            url = url.replace(":id", userID);
+
+            $http.delete(url).success (function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function updateUser(userID, user) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/admin/user/:id";
+            url = url.replace(":id", userID);
+
+            $http.put(url, user).success (function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function findUserById(userID) {
+
+            var deferred = $q.defer();
+
+            var url = "/api/project/admin/user/:id";
+            url = url.replace(":id", userID);
+
+            $http.get(url).success (function (response) {
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        }
+
+        function getCurrentUser() {
+
+            return $http.get("/api/project/user/loggedin");
+        }
+
+        function setCurrentUser(user) {
+
+            $rootScope.currentUser = user;
+        }
+
+        function logout() {
+
+            return $http.post("/api/project/user/logout")
         }
     }
 })();

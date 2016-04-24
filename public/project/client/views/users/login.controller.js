@@ -1,21 +1,32 @@
 /**
- * Created by TanmayPC on 2/19/2016.
+ * Created by sudeep on 2/19/16.
  */
-(function(){
+"use strict";
+
+(function() {
     angular
         .module("FormBuilderApp")
-        .controller("LoginController", loginController);
+        .controller("LoginController", LoginController);
 
-    function loginController ($scope, $routeParams, UserService, $rootScope, $location){
-        $scope.findUserByCredentials = findUserByCredentials;
+    function LoginController(UserService, $location) {
 
-        function findUserByCredentials(username, pwd) {
-            console.log(username, pwd);
-            UserService.findUserByCredentials(username, pwd, function(response){
-                console.log(response);
-                $rootScope.loggedUser = response;
+        var vm = this;
+
+        vm.login = login;
+
+        function login(user) {
+
+            UserService.login(user).then(isUserPresent);
+        }
+
+        function isUserPresent(response) {
+
+            if(response) {
+
+                UserService.setCurrentUser(response);
+
                 $location.url("/connection");
-            });
+            }
         }
     }
 })();

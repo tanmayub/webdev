@@ -3,7 +3,7 @@
         .module("FormBuilderApp")
         .controller("CollectionsController", collectionsController);
 
-    function collectionsController($rootScope, CollectionsService, $routeParams) {
+    function collectionsController(CollectionsService, $routeParams) {
         var vm = this;
 
         vm.findAllCollectionsForConnection = findAllCollectionsForConnection;

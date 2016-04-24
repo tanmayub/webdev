@@ -28,7 +28,7 @@ module.exports = function(app, connectionModel) {
     function createConnection (req, res) {
 
         var connection = req.body;
-        var userId = parseInt(req.params.userId);
+        var userId = req.params.userId;
 
         connection.userId = userId;
 
@@ -50,7 +50,7 @@ module.exports = function(app, connectionModel) {
 
     function findAllConnectionsForUser(req, res) {
 
-        var userId = parseInt(req.params.userId);
+        var userId = req.params.userId;
 
         /*res.json(connectionModel.findAllConnectionsForUser(userId));*/
         connectionModel.findAllConnectionsForUser(userId)
@@ -68,7 +68,7 @@ module.exports = function(app, connectionModel) {
 
     function findConnectionById(req, res) {
 
-        var connectionId = parseInt(req.params.connectionId);
+        var connectionId = req.params.connectionId;
 
         res.json(connectionModel.findConnectionById(connectionId));
     }

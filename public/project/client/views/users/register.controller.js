@@ -1,29 +1,32 @@
 /**
- * Created by TanmayPC on 2/19/2016.
+ * Created by sudeep on 2/19/16.
  */
+//"use strict";
+
 (function() {
     angular
         .module("FormBuilderApp")
-        .controller("RegController", regController);
+        .controller("RegisterController", RegisterController);
 
-    function regController($scope, $routeParams, UserService, $rootScope, $location) {
-        $scope.createUser = createUser;
+    function RegisterController(UserService, $rootScope, $location) {
 
-        if($scope.username == "") {
-            createUser($scope.username, $scope.pwd, $scope.vpwd, $scope.email);
-        }
+        var vm = this;
 
-        function createUser(username, pwd, vpwd, email) {
-            console.log(username, pwd, vpwd, email);
-            if(pwd == vpwd) {
-                var user = {"username": username, "password": pwd, "roles": ["student"],
-                            "email": email};
-                UserService.createUser(user, function(response){
-                    console.log(response);
-                    $rootScope.loggedUser = response;
-                    $location.url("profile");
+        vm.register = register;
+
+        function register(user) {
+
+            user.emails = user.emails.trim().split(",");
+
+            UserService.register(user).then(function(users) {
+
+                UserService.findUserByUsername(user.username).then(function (newUser) {
+
+                    UserService.setCurrentUser(newUser);
+
+                    $location.url("/connection");
                 });
-            }
+            });
         }
     }
 })();
