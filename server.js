@@ -20,7 +20,8 @@ app.use(session({
     secret: process.env.PASSPORT_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(express.static(__dirname + '/public/website'));
+app.use(express.static(__dirname + '/public'));
 //-------------------------------------
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev';
@@ -43,7 +44,6 @@ var proj = require("./public/project/server/app.js")(app, db, mongoose, mongojs)
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-app.use(express.static(__dirname + '/public'));
 app.get('/hello', function(req, res){
     res.send('hello world');
 });
