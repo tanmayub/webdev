@@ -44,17 +44,25 @@
         init();
 
         function deleteUser(userId, connection) {
-            ConnectionsService.removeSharedConnection(userId, connection)
-                .then(function(response) {
-                    if(response) {
-                        init();
-                    }
-                });
-            //console.log(userId, connection)
+            if(userId) {
+                delete connection.addUser;
+                delete connection.users;
+
+                ConnectionsService.removeSharedConnection(userId, connection)
+                    .then(function (response) {
+                        if (response) {
+                            init();
+                        }
+                    });
+                //console.log(userId, connection)
+            }
         }
 
         function addUser(userId, connection) {
             if(userId) {
+                delete connection.addUser;
+                delete connection.users;
+
                 ConnectionsService.shareConnection(connection, userId)
                     .then(function (response) {
                         if (response) {
