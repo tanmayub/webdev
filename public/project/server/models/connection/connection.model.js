@@ -51,7 +51,7 @@ module.exports = function(db, mongoose) {
 
     function updateConnectionById(connectionId, newConnection) {
 
-        return ConnectionModel.findByIdAndUpdate(connectionId, newConnection);
+        return ConnectionModel.update({_id: connectionId}, newConnection);
     }
 
     function getMongooseModel() {
