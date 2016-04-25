@@ -6,7 +6,7 @@
         <li ng-class="{'active': $location.url() == '/connection'}" ng-show="currentUser">
             <a href="#/connection">Connections</a>
         </li>
-        <li ng-class="{'active': $location.url() == '/share'}" ng-show="currentUser">
+        <li ng-class="{'active': $location.url() == '/share'}" ng-show="currentUser.roles.indexOf('admin') > -1">
             <a href="#/share">Share Connections</a>
         </li>
     </ul>

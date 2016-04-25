@@ -37,32 +37,29 @@
                         }
                         vm.connections = response;
                         vm.$location = $location;
-                    })
+                    });
+
             });
 
         }
         init();
 
         function deleteUser(userId, connection) {
-            if(userId) {
-                delete connection.addUser;
-                delete connection.users;
-
-                ConnectionsService.removeSharedConnection(userId, connection)
-                    .then(function (response) {
-                        if (response) {
-                            init();
-                        }
-                    });
-                //console.log(userId, connection)
-            }
+            ConnectionsService.removeSharedConnection(userId, connection)
+                .then(function(response) {
+                    if(response) {
+                        init();
+                    }
+                });
+            //console.log(userId, connection)
         }
 
-        function addUser(userId, connection) {
-            if(userId) {
-                delete connection.addUser;
-                delete connection.users;
+        function addUser($index, connection) {
 
+            var connIndex = vm.connections.indexOf(connection);
+            var userId = vm.connections[connIndex].addUser[$index]._id;
+
+            if(userId) {
                 ConnectionsService.shareConnection(connection, userId)
                     .then(function (response) {
                         if (response) {

@@ -1,6 +1,6 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="sub-header">Share</h2>
-    <form class="form-horizontal">
+    <form>
         <div class="panel-group tableWidth" id="accordion">
             <div class="panel panel-primary" ng-repeat="connection in model.connections">
 
@@ -18,22 +18,36 @@
 
                     <div class="panel-body">
                         <ul class="list-group " ng-repeat="userId in connection.users">
-                            <li class="list-group-item">{{userId.username}}
+
+                            <li class="list-group-item">
+                                {{userId.username}}
+
                                 <div class="floatRight">
                                     <span class="glyphicon glyphicon-remove cursor glyphicon-color"
                                           aria-hidden="true" ng-click="model.deleteUser(userId._id, connection)"></span>
                                 </div>
+
                             </li>
                         </ul>
-                        <div class="padding-right" ng-show="connection.addUser.length >= 1">
-                            <select class="glyphicon-color" ng-model="addUserId"
-                                    ng-options="addUser._id as addUser.username for addUser in connection.addUser"></select>
-                            <div class="floatRight">
-                                        <span class="glyphicon glyphicon-plus cursor glyphicon-color"
-                                              aria-hidden="true" ng-click="model.addUser(addUserId, connection)"></span>
+
+                        <div ng-show="connection.addUser.length >= 1" class="row">
+
+                            <div class="col-md-11">
+                                <select class="glyphicon-color col-md-11 form-control" ng-model="addUserId"
+                                        ng-options="addUser._id as addUser.username
+                                                    for addUser in connection.addUser
+                                                    track by $index">
+
+                                </select>
+                            </div>
+
+                            <div class="col-md-1 pad-top">
+                                <span class="glyphicon glyphicon-plus cursor glyphicon-color text-right"
+                                      aria-hidden="true" ng-click="model.addUser($index, connection)"></span>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
