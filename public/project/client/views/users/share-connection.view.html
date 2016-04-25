@@ -1,0 +1,33 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="sub-header">Share</h2>
+    <form class="form-horizontal">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary" ng-repeat="connection in model.connections">
+
+                <div class="panel-heading">
+
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#{{connection._id}}" target="_self">
+                            {{connection.name}}
+                        </a>
+                    </h4>
+
+                </div>
+
+                <div id="{{connection._id}}" class="panel-collapse collapse in">
+
+                    <div class="panel-body">
+                        <ul class="list-group " ng-repeat="userId in connection.users">
+                            <li class="list-group-item">{{userId.username}}
+                                <div class="floatRight">
+                                    <span class="glyphicon glyphicon-remove cursor glyphicon-color"
+                                          aria-hidden="true" ng-click="model.deleteUser(userId._id, connection)"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+    </form>
+</div>

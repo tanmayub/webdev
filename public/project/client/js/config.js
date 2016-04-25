@@ -34,6 +34,14 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
+            .when("/share", {
+                templateUrl: "client/views/users/share-connection.view.html",
+                controller: "ShareController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
             .when("/collections/:id", {
                 templateUrl: "client/views/collections/collections.view.html",
                 controller: "CollectionsController",
@@ -53,14 +61,6 @@
             .when("/data/:id", {
                 templateUrl: "client/views/data/data.view.html",
                 controller: "DataController",
-                controllerAs: "model",
-                resolve: {
-                    checkLoggedIn: checkLoggedIn
-                }
-            })
-            .when("/share", {
-                templateUrl: "client/views/users/shareconnection.view.html",
-                controller: "ShareController",
                 controllerAs: "model",
                 resolve: {
                     checkLoggedIn: checkLoggedIn

@@ -180,15 +180,15 @@ module.exports = function(app, userModel) {
                         
                         function (users) {
 
-                            var normalUsers = [];
+                            /*var normalUsers = [];
 
                             for(var i in users) {
                                 if(users[i].roles.indexOf('admin') === -1) {
                                     normalUsers.push(users[i]);
                                 }
-                            }
+                            }*/
 
-                            res.json(normalUsers);
+                            res.json(users);
                             
                         },
 

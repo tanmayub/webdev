@@ -25,11 +25,9 @@ module.exports = function(app, connectionModel) {
     //removes a connection object whose id is equal to the connectionId path parameter
     app.delete("/api/project/connection/:connectionId", deleteConnectionById);
 
-    //
     app.post("/api/project/share/connection/user/:userId", shareConnection);
 
-    //
-    app.post("/api/project/share/connection/user/:userId", removeSharedConnection);
+    app.post("/api/project/remove/connection/user/:userId", removeSharedConnection);
 
     function createConnection (req, res) {
 
@@ -58,7 +56,6 @@ module.exports = function(app, connectionModel) {
 
         var userId = req.params.userId;
 
-        /*res.json(connectionModel.findAllConnectionsForUser(userId));*/
         connectionModel.findAllConnectionsForUser(userId)
             .then(function(doc) {
                 if(doc) {
@@ -104,29 +101,41 @@ module.exports = function(app, connectionModel) {
                 }
             });
     }
-
+    
     function shareConnection(req, res) {
-        var userId = req.params.userId;
-        var connection = req.body;
-        connection.userId = connection.userId.push(userId);
-        connectionModel.updateConnectionById(connection._id, connection)
-            .then(function(doc) {
-                if(doc) {
-                res.send(200);
-                }
-            });
-    }
 
-    function removeSharedConnection(req, res) {
         var userId = req.params.userId;
-        var connection = req.body;
-        connection.userId.splice(connection.userId.indexOf(userId), 1);
+        var conn = req.body;
 
-        connectionModel.updateConnectionById(connection._id, connection)
+        conn.userId.push(userId);
+
+        connectionModel.updateConnectionById(conn._id, conn)
             .then(function(doc) {
                 if(doc) {
                     res.send(200);
                 }
             });
+        
     }
+
+    function removeSharedConnection(req, res) {
+        var userId = req.params.userId;
+        var connection = req.body;
+
+        if(connection.userId.length > 1 && !(userId == req.user._id)) {
+
+            connection.userId.splice(connection.userId.indexOf(userId), 1);
+
+            connectionModel.updateConnectionById(connection._id, connection)
+                .then(function (doc) {
+                    if (doc) {
+                        res.send(200);
+                    }
+                });
+        }
+        else {
+            res.send(400);
+        }
+    }
+    
 }

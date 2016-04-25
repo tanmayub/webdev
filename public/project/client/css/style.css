@@ -172,3 +172,11 @@ table a, table td {
 .panel-default-mid {
     width: 85%;
 }
+
+.list-group-item {
+    color: #000;
+}
+
+.glyphicon-color {
+    color: black;
+}
