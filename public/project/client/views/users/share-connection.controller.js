@@ -14,6 +14,7 @@
         var vm = this;
 
         vm.deleteUser = deleteUser;
+        vm.addUser = addUser;
 
         function init() {
 
@@ -24,9 +25,13 @@
                         //response.users = users;
                         for(var r in response) {
                             response[r].users = [];
+                            response[r].addUser = [];
                             for (var u in users) {
                                 if (response[r].userId.indexOf(users[u]._id) > -1) {
                                     response[r].users.push(users[u]);
+                                }
+                                else {
+                                    response[r].addUser.push(users[u]);
                                 }
                             }
                         }
@@ -45,6 +50,18 @@
                         init();
                     }
                 });
+            //console.log(userId, connection)
+        }
+
+        function addUser(userId, connection) {
+            if(userId) {
+                ConnectionsService.shareConnection(connection, userId)
+                    .then(function (response) {
+                        if (response) {
+                            init();
+                        }
+                    });
+            }
             //console.log(userId, connection)
         }
     }

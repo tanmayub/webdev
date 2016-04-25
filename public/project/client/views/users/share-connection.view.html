@@ -1,7 +1,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="sub-header">Share</h2>
     <form class="form-horizontal">
-        <div class="panel-group" id="accordion">
+        <div class="panel-group tableWidth" id="accordion">
             <div class="panel panel-primary" ng-repeat="connection in model.connections">
 
                 <div class="panel-heading">
@@ -25,6 +25,14 @@
                                 </div>
                             </li>
                         </ul>
+                        <div class="padding-right" ng-show="connection.addUser.length >= 1">
+                            <select class="glyphicon-color" ng-model="addUserId"
+                                    ng-options="addUser._id as addUser.username for addUser in connection.addUser"></select>
+                            <div class="floatRight">
+                                        <span class="glyphicon glyphicon-plus cursor glyphicon-color"
+                                              aria-hidden="true" ng-click="model.addUser(addUserId, connection)"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

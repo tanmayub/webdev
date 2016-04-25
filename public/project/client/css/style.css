@@ -180,3 +180,7 @@ table a, table td {
 .glyphicon-color {
     color: black;
 }
+
+.padding-right {
+    padding-right: 15px;
+}
