@@ -20,12 +20,12 @@
 
             UserService.register(user).then(function(users) {
 
-                UserService.findUserByUsername(user.username).then(function (newUser) {
+                //UserService.findUserByUsername(user.username).then(function (newUser) {
 
-                    UserService.setCurrentUser(newUser);
+                    UserService.setCurrentUser(users);
 
                     $location.url("/connection");
-                });
+                //});
             });
         }
     }

@@ -76,6 +76,8 @@
 
             var url = "/api/project/register";
 
+            user.type = "project";
+
             $http.post(url, user).success (function (response) {
                 deferred.resolve(response);
             });
@@ -88,6 +90,8 @@
             var deferred = $q.defer();
 
             var url = "/api/project/admin/user";
+
+            user.type = "project";
 
             $http.post(url, user).success (function (response) {
                 deferred.resolve(response);
