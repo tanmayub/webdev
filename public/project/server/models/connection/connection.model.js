@@ -51,6 +51,10 @@ module.exports = function(db, mongoose) {
 
     function updateConnectionById(connectionId, newConnection) {
 
+        if(newConnection._id) {
+            delete newConnection._id;
+        }
+
         return ConnectionModel.update({_id: connectionId}, newConnection);
     }
 
