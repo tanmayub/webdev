@@ -57,6 +57,9 @@
         function addUser($index, connection) {
 
             var connIndex = vm.connections.indexOf(connection);
+            if(vm.connections[connIndex].addUser.length == 1) {
+                $index = 0;
+            }
             var userId = vm.connections[connIndex].addUser[$index]._id;
 
             if(userId) {
