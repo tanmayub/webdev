@@ -46,7 +46,7 @@
 
                 name: vm.connections[$index].name,
 
-                db: vm.connections[$index].db,
+                dbname: vm.connections[$index].dbname,
 
                 host: vm.connections[$index].host,
 

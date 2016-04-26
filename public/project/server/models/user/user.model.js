@@ -36,7 +36,7 @@ module.exports = function(db, mongoose) {
 
     function updateUserById(userId, user) {
 
-        return userModel.findByIdAndUpdate(userId, user);
+        return userModel.update({_id: userId}, user);
     }
 
     function deleteUserById(userId) {

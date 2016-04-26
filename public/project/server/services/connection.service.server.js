@@ -38,9 +38,9 @@ module.exports = function(app, connectionModel) {
 
         if(connection.username && connection.password) {
             connection.connectionString = connection.username + ":" + connection.password + "@"
-                                            + connection.host + "/" + connection.dbname;
+                + connection.host + ":" + connection.port + "/" + connection.dbname;
         } else {
-            connection.connectionString = connection.host + "/" + connection.dbname;
+            connection.connectionString = connection.host + ":" + connection.port + "/" + connection.dbname;
         }
 
 
@@ -80,6 +80,13 @@ module.exports = function(app, connectionModel) {
 
         var connectionId = req.params.connectionId;
         var connection = req.body;
+
+        if(connection.username && connection.password) {
+            connection.connectionString = connection.username + ":" + connection.password + "@"
+                + connection.host + ":" + connection.port + "/" + connection.dbname;
+        } else {
+            connection.connectionString = connection.host + ":" + connection.port + "/" + connection.dbname;
+        }
 
         connectionModel.updateConnectionById(connectionId, connection)
             .then(function(doc) {
