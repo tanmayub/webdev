@@ -99,17 +99,22 @@ module.exports = function(app, assignmentUserModel, projectUserModel) {
                             .then(
                                 // login user if promise resolved
                                 function (doc) {
-                                    if (doc) {
-                                        req.session.currentUser = doc;
-                                        //res.json(doc);
-                                        //console.log(doc);
-                                        req.login(doc, function (err) {
-                                            if (err) {
-                                                res.status(400).send(err);
-                                            } else {
-                                                res.json(doc);
-                                            }
-                                        });
+                                        if (doc) {
+                                            if(!req.user) {
+                                            req.session.currentUser = doc;
+                                            //res.json(doc);
+                                            //console.log(doc);
+                                            req.login(doc, function (err) {
+                                                if (err) {
+                                                    res.status(400).send(err);
+                                                } else {
+                                                    res.json(doc);
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            res.json(doc);
+                                        }
                                     }
                                 },
                                 // send error if promise rejected
