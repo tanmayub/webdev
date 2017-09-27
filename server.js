@@ -36,6 +36,10 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
         process.env.OPENSHIFT_APP_NAME;
 }
+//heroku deploy
+if(process.env.MONGODB_URI) {
+    connectionString = process.env.MONGODB_URI;
+}
 
 var db = mongoose.connect(connectionString);
 
@@ -48,9 +52,9 @@ var assignmentApp = require("./public/assignment/server/app.js")(app, db, mongoo
 var projectApp = require("./public/project/server/app.js")(app, db, mongoose, mongojs, projectUserModel);
 var securityApp = require("./public/security/security.js")(app, assignmentUserModel, projectUserModel);
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+//var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var port = process.env.HEROKU_PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
 app.get('/hello', function(req, res){
     res.send('hello world');
 });
-app.listen(port, ipaddress);
+app.listen(port);
