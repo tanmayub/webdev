@@ -53,7 +53,7 @@ var projectApp = require("./public/project/server/app.js")(app, db, mongoose, mo
 var securityApp = require("./public/security/security.js")(app, assignmentUserModel, projectUserModel);
 
 //var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.HEROKU_PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
 app.get('/hello', function(req, res){
     res.send('hello world');
 });
